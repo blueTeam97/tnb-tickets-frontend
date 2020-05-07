@@ -1,0 +1,47 @@
+
+body {
+    padding-top:3.2rem;
+    padding-bottom:2.8rem;
+    background-color:#6D9C99;
+}
+h1 {
+    font: 40px 'Kaushan Script', cursive;
+}
+label {
+    font: 25px 'Dancing Script', cursive;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    width: 100;
+}
+.myform {
+    position: relative;
+    display: flex;
+    padding: 2rem;
+    flex-direction: column;
+    width: 100%;
+    background-color: #FEB933 ;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    outline: 0;
+    max-width: 500px;
+}
+.tx-login {
+    text-transform: uppercase;
+}
+.login-btn {
+    position: relative;
+    background-color:  #2B656A;
+    color: #fff;
+    border-radius:50px;
+    margin-top: 30px;
+    padding: 10px 0;
+}
+.login-btn:hover {
+    background-color: #6D9C99;
+    cursor: pointer;
+}  
+form .error {
+    color: #ff0000;
+}

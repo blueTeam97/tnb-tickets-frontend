@@ -1,3 +1,4 @@
+
 <div class="login d-flex flex-row justify-content-center">
   <div class="d-flex">
     <img src="assets/img/kid.jpg" class="fluid" alt="kid">
@@ -8,16 +9,31 @@
         <h1>Login</h1>
       </div>
     </div>
-    <form method="post" name="login">
+    <form method="post" name="login" class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label>Email address</label>
         <input type="email" name="email" id="email" class="form-control" aria-describedby="emailHelp"
-          placeholder="Enter email" required>
+          placeholder="Enter email" formControlName="email">
+        <span class="text-danger"
+          *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
+          Email is required
+        </span>
+        <span class="text-danger" *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.email">
+          Enter a valid email address
+        </span>
       </div>
       <div class="form-group">
         <label>Password</label>
         <input type="password" name="password" id="password" class="form-control" aria-describedby="emailHelp"
-          placeholder="Enter Password" required>
+          placeholder="Enter Password" formControlName="password">
+        <span class="text-danger"
+          *ngIf="(registerFormControl.password.touched || submitted) && registerFormControl.password.errors?.required">
+          Password is required
+        </span>
+        <span class="text-danger"
+          *ngIf="registerFormControl.password.touched && registerFormControl.password.errors?.invalidPassword">
+          Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number
+        </span>
       </div>
       <div class="col-md-12 text-center">
         <button type="submit" class=" btn btn-block login-btn btn-primary tx-login">Login</button>

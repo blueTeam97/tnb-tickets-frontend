@@ -1,8 +1,17 @@
 
+$green: #36898C;
+$light-green: #6D9C99;
+$dark-green: #2B656A;
+$yellow: #FEB933;
+$white: #fff;
+$red: #ff0000;
+$black: rgba(0,0,0,.2);
+
 .login {
     padding-top:3.2rem;
     padding-bottom:2.8rem;
-    background-color:#6D9C99;
+    background-color: $light-green;
+    height: 100vh;
 }
 h1 {
     font: 40px 'Kaushan Script', cursive;
@@ -21,9 +30,9 @@ img {
     padding: 2rem;
     flex-direction: column;
     width: 100%;
-    background-color: #FEB933 ;
+    background-color: $yellow ;
     background-clip: padding-box;
-    border: 1px solid rgba(0,0,0,.2);
+    border: 1px solid $black;
     outline: 0;
     max-width: 500px;
 }
@@ -32,16 +41,16 @@ img {
 }
 .login-btn {
     position: relative;
-    background-color:  #2B656A;
-    color: #fff;
+    background-color: $dark-green;
+    color: $white;
     border-radius:50px;
     margin-top: 30px;
     padding: 10px 0;
 }
 .login-btn:hover {
-    background-color: #6D9C99;
+    background-color: $green;
     cursor: pointer;
 }
 form .error {
-    color: #ff0000;
+    color: $red;
 }

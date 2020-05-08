@@ -1,0 +1,79 @@
+<div class="modal-header container">
+    <h4 class="modal-title" id="modal-basic-title">Add new play</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal('close')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="nameOfPlay">Name of the play</label>
+            <input type="text" class="form-control" name="titlePlay" [(ngModel)]="titlePlay">
+        </div>
+        <div class="form-group">
+            <label for="linkOfPlay">Link of the play</label>
+            <input type="text" class="form-control" name="linkPlay" [(ngModel)]="linkPlay">
+        </div>
+        <div class="form-group">
+            <label for="numberOfTickets">Number of tickets</label>
+            <input type="number" class="form-control" name="nrTickets" [(ngModel)]="nrTickets">
+        </div>
+        <div class="form-group row">
+            <div class="col-sm">
+                <label for="availableHourForBook">Available hour to book</label>
+                <ngb-timepicker [(ngModel)]="availableHour" name="availableHour"></ngb-timepicker>
+            </div>
+            <div class="col-sm date">
+                <label for="availableDateForBook">Available date to book</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="availableDate"
+                        ngbDatepicker #d="ngbDatepicker" name="availableDate">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                            <svg class="bi bi-calendar" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"
+                                    clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                    d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z"
+                                    clip-rule="evenodd" />
+                            </svg></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm">
+                <label for="hourOfThePlay">Hour of the play</label>
+                <ngb-timepicker [(ngModel)]="playHour" name="playHour"></ngb-timepicker>
+            </div>
+            <div class="col-sm date">
+                <label for="dateForThePlay">Date of the play</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="playDate" ngbDatepicker
+                        #c="ngbDatepicker" name="playDate">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button">
+                            <svg class="bi bi-calendar" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"
+                                    clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                    d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z"
+                                    clip-rule="evenodd" />
+                            </svg></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="closeModal('save')">Save</button>
+</div>

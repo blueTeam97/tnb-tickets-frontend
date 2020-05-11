@@ -1,33 +1,56 @@
-<div class="modal-header container">
+<div class="modal-header ">
     <h4 class="modal-title" id="modal-basic-title">Add new play</h4>
-    <button type="button" class="close" aria-label="Close" (click)="closeModal('close')">
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
-    <form>
+    <form name="addPlay" [formGroup]="addPlayForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="nameOfPlay">Name of the play</label>
-            <input type="text" class="form-control" name="titlePlay" [(ngModel)]="titlePlay">
+            <input type="text" class="form-control" name="titlePlay" formControlName="titlePlay"
+                [ngClass]="{ 'is-invalid': submitted && f.titlePlay.errors }">
+            <div *ngIf="submitted && f.titlePlay.errors" class="invalid-feedback">
+                <div *ngIf="f.titlePlay.errors.required">Title play is required</div>
+            </div>
         </div>
         <div class="form-group">
             <label for="linkOfPlay">Link of the play</label>
-            <input type="text" class="form-control" name="linkPlay" [(ngModel)]="linkPlay">
+            <input type="text" class="form-control" name="linkPlay" formControlName="linkPlay"
+                [ngClass]="{ 'is-invalid': submitted && f.linkPlay.errors }">
+            <div *ngIf="submitted && f.linkPlay.errors" class="invalid-feedback">
+                <div *ngIf="f.linkPlay.errors.required">Link play is required</div>
+            </div>
+            <div *ngIf="submitted && f.linkPlay.errors" class="invalid-feedback">
+                <div *ngIf="f.linkPlay.errors?.invalidURL">Please enter valid url.</div>
+            </div>
         </div>
         <div class="form-group">
             <label for="numberOfTickets">Number of tickets</label>
-            <input type="number" class="form-control" name="nrTickets" [(ngModel)]="nrTickets">
+            <input type="number" class="form-control" name="nrTickets" formControlName="nrTickets"
+                [ngClass]="{ 'is-invalid': submitted && f.nrTickets.errors }">
+            <div *ngIf="submitted && f.nrTickets.errors" class="invalid-feedback">
+                <div *ngIf="f.nrTickets.errors.required">Number of tickets is required</div>
+            </div>
+            <div *ngIf="submitted && f.nrTickets.errors" class="invalid-feedback">
+                <div *ngIf="f.nrTickets.errors.min">Number of tickets must be greater than 0</div>
+            </div>
         </div>
         <div class="form-group row">
             <div class="col-sm">
                 <label for="availableHourForBook">Available hour to book</label>
-                <ngb-timepicker [(ngModel)]="availableHour" name="availableHour"></ngb-timepicker>
+                <ngb-timepicker name="availableHour" formControlName="availableHour"
+                    [ngClass]="{ 'is-invalid': submitted && f.availableHour.errors }"></ngb-timepicker>
+                <div *ngIf="submitted && f.availableHour.errors" class="invalid-feedback">
+                    <div *ngIf="f.availableHour.errors.required">Available hour is required</div>
+                </div>
             </div>
             <div class="col-sm date">
                 <label for="availableDateForBook">Available date to book</label>
                 <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="availableDate"
-                        ngbDatepicker #d="ngbDatepicker" name="availableDate">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="availableDate"
+                        ngbDatepicker #d="ngbDatepicker" name="availableDate"
+                        [ngClass]="{ 'is-invalid': submitted && f.availableDate.errors }">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                             <svg class="bi bi-calendar" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
@@ -41,6 +64,9 @@
                             </svg></button>
                     </div>
                 </div>
+                <div *ngIf="submitted && f.availableDate.errors" class="invalid-feedback">
+                    <div *ngIf="f.availableDate.errors.required">Available date is required</div>
+                </div>
             </div>
 
         </div>
@@ -48,13 +74,18 @@
         <div class="form-group row">
             <div class="col-sm">
                 <label for="hourOfThePlay">Hour of the play</label>
-                <ngb-timepicker [(ngModel)]="playHour" name="playHour"></ngb-timepicker>
+                <ngb-timepicker name="playHour" formControlName="playHour"
+                    [ngClass]="{ 'is-invalid': submitted && f.playHour.errors }"></ngb-timepicker>
+                <div *ngIf="submitted && f.playHour.errors" class="invalid-feedback">
+                    <div *ngIf="f.playHour.errors.required">Play hour is required</div>
+                </div>
             </div>
             <div class="col-sm date">
                 <label for="dateForThePlay">Date of the play</label>
                 <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="playDate" ngbDatepicker
-                        #c="ngbDatepicker" name="playDate">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="playDate"
+                        ngbDatepicker #c="ngbDatepicker" name="playDate"
+                        [ngClass]="{ 'is-invalid': submitted && f.playDate.errors }">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button">
                             <svg class="bi bi-calendar" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
@@ -68,12 +99,14 @@
                             </svg></button>
                     </div>
                 </div>
+                <div *ngIf="submitted && f.playDate.errors" class="invalid-feedback">
+                    <div *ngIf="f.playDate.errors.required">Play date is required</div>
+                </div>
             </div>
 
         </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-warning">Save</button>
+        </div>
     </form>
-</div>
-
-<div class="modal-footer">
-    <button type="button" class="btn btn-warning" (click)="closeModal('save')">Save</button>
 </div>

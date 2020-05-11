@@ -6,7 +6,7 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddPlayComponent } from './add-play/add-play.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     AdminRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     AddPlayComponent

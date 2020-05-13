@@ -1,0 +1,15 @@
+<ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-button justify-content-end">
+  <li [ngbNavItem]="1">
+    <a [routerLink]="['/user/']"ngbNavLink>Plays</a>
+  </li>
+  <li *ngIf="roles.includes('user')" [ngbNavItem]="2">
+    <a [routerLink]="['/user/history']" ngbNavLink>History</a>
+  </li>
+  <li ngbDropdown class="nav-item">
+    <a href (click)="false" class="nav-link nav-button" ngbDropdownToggle>Welcome, {{username}}</a>
+    <div ngbDropdownMenu>
+      <button *ngIf="roles.includes('user')" ngbDropdownItem>Subscribe</button>
+      <button ngbDropdownItem>Logout</button>
+    </div>
+  </li>
+</ul>

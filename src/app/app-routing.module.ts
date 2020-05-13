@@ -8,8 +8,6 @@ import { HistoryComponent } from './user/pages/history/history.component';
 const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
-  
-  { path: 'history', component: HistoryComponent},
 
   {
     path: '',

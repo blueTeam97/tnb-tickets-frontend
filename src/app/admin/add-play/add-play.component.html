@@ -9,7 +9,7 @@
         <div class="form-group">
             <label for="nameOfPlay">Name of the play</label>
             <input type="text" class="form-control" name="titlePlay" formControlName="titlePlay"
-                [ngClass]="{ 'is-invalid': submitted && f.titlePlay.errors }">
+                [ngClass]="{ 'is-invalid': submitted && f.titlePlay.errors }" autofocus>
             <div *ngIf="submitted && f.titlePlay.errors" class="invalid-feedback">
                 <div *ngIf="f.titlePlay.errors.required">Title play is required</div>
             </div>

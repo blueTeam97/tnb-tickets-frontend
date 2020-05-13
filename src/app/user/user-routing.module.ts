@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '', component: UserComponent
   },
 
-  { 
+  {
     path: 'history', component: HistoryComponent
   },
 

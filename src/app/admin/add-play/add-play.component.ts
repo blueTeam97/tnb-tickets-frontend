@@ -25,7 +25,7 @@ export class AddPlayComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private customValidator: CustomValidationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -97,7 +97,8 @@ export class AddPlayComponent implements OnInit {
       ':00';
 
     //call service
-   // console.log(this.Play);
+    // console.log(this.Play);
+
   }
 
   closeModal() {

@@ -1,0 +1,39 @@
+<div class="play-bkg d-flex pl-2">
+    <div>
+        <img src="assets/img/curtain1.jpg" class="fluid w-100" alt="curtain1">
+    </div>
+    <div>
+        <form class="mx-5">
+            <div class="search-play form-group form-inline ml-3 pb-2">
+                Search: <input class="form-control ml-2" type="text" [formControl]="filter" />
+            </div>
+        </form>
+        <table class="table table-striped mx-5">
+            <thead class="standard-table">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Tickets</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let play of plays$ | async; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>
+                        <ngb-highlight [result]="play.name" [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="play.date | number" [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="play.tickets | number"></ngb-highlight>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <img src="assets/img/curtain2.jpg" class="fluid w-100 pr-2" alt="curtain2">
+    </div>
+</div>

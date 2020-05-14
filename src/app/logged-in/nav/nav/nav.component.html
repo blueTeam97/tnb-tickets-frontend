@@ -1,8 +1,13 @@
-<ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-button justify-content-end">
-  <li [ngbNavItem]="1">
-    <a [routerLink]="['/user/']"ngbNavLink>Plays</a>
+<ul ngbNav #nav="ngbNav" [activeId]="2" class="nav-tabs justify-content-end px-4 sticky-top">
+  <li class="flex-grow-1" [ngbNavItem]="1">
+    <img src="assets/img/mask-40.png" class="fluid" alt="mask-40">
+    <a class="navbar-brand text-uppercase pl-3" href="#">tnb</a>
+    <!-- <p class="text-uppercase">tnb</p> -->
   </li>
-  <li *ngIf="roles.includes('user')" [ngbNavItem]="2">
+  <li [ngbNavItem]="2">
+    <a [routerLink]="['/user/plays']"ngbNavLink>Plays</a>
+  </li>
+  <li *ngIf="roles.includes('user')" [ngbNavItem]="3">
     <a [routerLink]="['/user/history']" ngbNavLink>History</a>
   </li>
   <li ngbDropdown class="nav-item">

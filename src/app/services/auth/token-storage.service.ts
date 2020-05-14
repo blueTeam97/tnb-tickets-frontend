@@ -49,4 +49,14 @@ export class TokenStorageService {
  
     return this.roles;
   }
+
+  public getUserId(): number {
+    let userId;
+    if (sessionStorage.getItem(TOKEN_KEY)) {
+      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach(authority => {
+        userId = authority.id;
+      });
+    }
+    return userId;
+  }
 }

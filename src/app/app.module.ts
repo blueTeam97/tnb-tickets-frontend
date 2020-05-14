@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { NgbActiveModal,NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {AuthInterceptor, httpInterceptorProviders} from '../app/interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    NgbActiveModal
+    NgbActiveModal,
+    httpInterceptorProviders,
   ],
   bootstrap: [AppComponent]
 })

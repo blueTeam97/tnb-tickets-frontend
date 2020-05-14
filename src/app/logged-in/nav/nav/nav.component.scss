@@ -1,11 +1,11 @@
+@import '../../../../styles/variables';
+
 .nav-tabs {
-    //text-decoration: none;
-    background-color: #36898C;
+    background-color: $green;
     font: 20px 'Kaushan Script', cursive;
-    padding-right: 15px;
-    
 }
 
-a.nav-link {
-    color: #FEB933;
+a.nav-link,
+a.navbar-brand {
+    color: $yellow;
 }

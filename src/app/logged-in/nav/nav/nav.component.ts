@@ -10,18 +10,20 @@ import { Router } from '@angular/router';
 
 export class NavComponent implements OnInit {
 
+  email: string;
   username: string;
   roles = [];
-
+  
   constructor(private router:Router,private tokenStorage:TokenStorageService) { 
-    
     if (this.tokenStorage.getToken()) {
-      this.username = tokenStorage.getUsername();
+      this.email = this.tokenStorage.getUsername();
       this.roles = this.tokenStorage.getAuthorities();
     }
+  
   }
 
   ngOnInit(): void {
+    this.username = this.email.split("@")[0];
   }
-
+  
 }

@@ -1,3 +1,21 @@
-<app-dashboard></app-dashboard>
+<div class="container">
+    <table class="table table-striped">
+        <thead class="standard-table">
+            <tr>
+                <th scope="col">Play Title</th>
+                <th scope="col">Free Tickets</th>
+                <th scope="col">Booked Tickets</th>
+                <th scope="col">Picked-Up Tickets</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr app-dashboard *ngFor="let play of plays" [play]=play (deleteEvent)="deletePlay($event)"
+                (editEvent)=editPlay($event)></tr>
+        </tbody>
+    </table>
 
+    <button class="btn btn-lg btn-warning" (click)="openAddPlayModal()">Add play</button>
+
+</div>
 <router-outlet> </router-outlet>

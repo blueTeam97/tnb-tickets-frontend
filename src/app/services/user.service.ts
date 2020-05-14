@@ -20,7 +20,7 @@ export class UserService {
   private userGetAllPlaysURL = 'http://localhost:8081/v1/findAll';
   private getAllTicketsByUserIdURL = 'http://localhost:8081/tasks';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllPlays(): Observable<Play[]> {
     return this.http

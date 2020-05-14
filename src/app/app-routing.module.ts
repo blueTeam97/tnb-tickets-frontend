@@ -8,7 +8,6 @@ import { HistoryComponent } from './user/pages/history/history.component';
 const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
-
   {
     path: '',
     loadChildren: () => import('./logged-in/logged-in.module').then(m => m.LoggedInModule),

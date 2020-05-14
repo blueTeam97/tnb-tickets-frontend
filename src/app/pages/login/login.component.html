@@ -1,4 +1,3 @@
-
 <div class="login d-flex flex-row justify-content-center">
   <div class="d-flex">
     <img src="assets/img/kid.jpg" class="fluid" alt="kid">
@@ -36,7 +35,9 @@
         </span>
       </div>
       <div class="col-md-12 text-center">
-        <button type="submit" [disabled]="registerForm.invalid" class=" btn btn-block login-btn btn-primary tx-login">Login</button>
+        <button type="submit" [disabled]="registerForm.invalid"
+          class=" btn btn-block login-btn btn-primary tx-login">Login</button>
+        <span class="text-danger" *ngIf="submitted && error"> {{error}} </span>
       </div>
     </form>
   </div>

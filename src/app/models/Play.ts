@@ -1,8 +1,11 @@
-export interface Play{
-    title: string,
-    availableTimestamp: string,
-    playTimestamp: string,
-    registerTimestamp?: string,
-    link: string,
-    nrTickets: number,
+export interface Play {
+  id: number;
+  playName: string;
+  availableDate: string;
+  playDate: string;
+  registerDate?: string;
+  link: string;
+  ticketsNumber: number;
+  // ticketDTOList: [];
+  availableTicketsNumber: number;
 }

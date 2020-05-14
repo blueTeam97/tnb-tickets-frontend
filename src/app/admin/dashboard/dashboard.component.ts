@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AddPlayComponent } from '../add-play/add-play.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Play } from 'src/app/models/Play';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class DashboardComponent implements OnInit {
   @Output() deleteEvent: EventEmitter<any> = new EventEmitter();
   @Output() editEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor(public modalService: NgbModal) { }
+  constructor(public modalService: NgbModal,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -36,6 +38,10 @@ export class DashboardComponent implements OnInit {
       if (result)
         this.editEvent.emit(result);
     }).catch((err) => { })
+  }
+
+  handleViewTickets() {
+    this.router.navigate(['admin/play/', this.play.id]);
   }
 
 }

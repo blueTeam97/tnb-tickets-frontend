@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
     })
   }
 
-  deletePlay(id: string) {
+  deletePlay(id: number) {
     this.dataService.deletePlayRequest(id).subscribe(() => {
       this.getPlays();
     });

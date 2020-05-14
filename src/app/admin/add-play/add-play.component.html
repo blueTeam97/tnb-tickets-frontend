@@ -9,7 +9,7 @@
         <div class="form-group">
             <label for="nameOfPlay">Name of the play</label>
             <input type="text" class="form-control" name="titlePlay" formControlName="titlePlay"
-                [ngClass]="{ 'is-invalid': submitted && f.titlePlay.errors }" autofocus>
+                [ngClass]="{ 'is-invalid': submitted && f.titlePlay.errors }">
             <div *ngIf="submitted && f.titlePlay.errors" class="invalid-feedback">
                 <div *ngIf="f.titlePlay.errors.required">Title play is required</div>
             </div>
@@ -33,14 +33,15 @@
                 <div *ngIf="f.nrTickets.errors.required">Number of tickets is required</div>
             </div>
             <div *ngIf="submitted && f.nrTickets.errors" class="invalid-feedback">
-                <div *ngIf="f.nrTickets.errors.min">Number of tickets must be greater than 0</div>
+                <div *ngIf="f.nrTickets.errors.min">Number of tickets must be greater than {{play.ticketsNumber}}</div>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm">
                 <label for="availableHourForBook">Available hour to book</label>
                 <ngb-timepicker name="availableHour" formControlName="availableHour"
-                    [ngClass]="{ 'is-invalid': submitted && f.availableHour.errors }"></ngb-timepicker>
+                    [ngClass]="{ 'is-invalid': submitted && f.availableHour.errors }">
+                </ngb-timepicker>
                 <div *ngIf="submitted && f.availableHour.errors" class="invalid-feedback">
                     <div *ngIf="f.availableHour.errors.required">Available hour is required</div>
                 </div>

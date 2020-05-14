@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
-import { NgbActiveModal,NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import {AuthInterceptor, httpInterceptorProviders} from '../app/interceptor/auth.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor, httpInterceptorProviders } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -18,14 +18,14 @@ import {AuthInterceptor, httpInterceptorProviders} from '../app/interceptor/auth
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [
     NgbActiveModal,
-    httpInterceptorProviders,
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -17,6 +17,11 @@ export class AddPlayComponent implements OnInit {
   addPlayForm: FormGroup;
   submitted = false;
   play = {} as Play;
+  today = {
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate()
+  };
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -34,23 +39,16 @@ export class AddPlayComponent implements OnInit {
     }
   }
 
+
+
   public buildForm() {
 
     //assign 0 to set the error message of the ticket number
     this.play.ticketsNumber = 0;
     this.addPlayForm = this.fb.group({
       titlePlay: ['', [Validators.required]],
-      linkPlay: [
-        '',
-        Validators.compose([
-          Validators.required,
-          this.customValidator.patternValidator('URL'),
-        ]),
-      ],
-      nrTickets: [
-        '',
-        Validators.compose([Validators.required, Validators.min(1)]),
-      ],
+      linkPlay: ['', Validators.compose([Validators.required, this.customValidator.patternValidator('URL')])],
+      nrTickets: ['', Validators.compose([Validators.required, Validators.min(1)])],
       availableDate: ['', [Validators.required]],
       availableHour: ['', [Validators.required]],
       playDate: ['', [Validators.required]],
@@ -119,6 +117,14 @@ export class AddPlayComponent implements OnInit {
   }
 
 
+  formatTime(time: any): string {
+    return [
+      (time.hour < 10 ? ('0' + time.hour) : time.hour),
+      (time.minute < 10 ? ('0' + time.minute) : time.minute)
+    ].join(':');
+  }
+
+
   createPlayObject() {
 
     this.play.playName = this.addPlayForm.get('titlePlay').value;
@@ -126,12 +132,10 @@ export class AddPlayComponent implements OnInit {
     this.play.ticketsNumber = this.addPlayForm.get('nrTickets').value;
 
     this.play.availableDate = this.formatDate(this.addPlayForm.get('availableDate').value) + " " +
-      this.addPlayForm.get('availableHour').value.hour + ":" +
-      this.addPlayForm.get('availableHour').value.minute + ":00";
+      this.formatTime(this.addPlayForm.get('availableHour').value) + ":00";
 
     this.play.playDate = this.formatDate(this.addPlayForm.get('playDate').value) + " " +
-      this.addPlayForm.get('playHour').value.hour + ":" +
-      this.addPlayForm.get('playHour').value.minute + ":00";
+      this.formatTime(this.addPlayForm.get('playHour').value) + ":00";
 
   }
 

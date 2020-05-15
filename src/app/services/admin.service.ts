@@ -33,23 +33,28 @@ export class AdminService {
   }
 
   public getPlaysRequest(): Observable<Play[]> {
-    return this.httpClient.get<Play[]>(this.ADMIN_GET_PLAYS_URL).pipe(catchError(this.handleError));
+    return this.httpClient.get<Play[]>(this.ADMIN_GET_PLAYS_URL)
+      .pipe(catchError(this.handleError));
   }
 
   public postPlayRequest(play: Play) {
-    return this.httpClient.post(this.ADMIN_POST_PLAY_URL, play).pipe(catchError(this.handleError));
+    return this.httpClient.post(this.ADMIN_POST_PLAY_URL, play)
+      .pipe(catchError(this.handleError));
   }
 
   public deletePlayRequest(id: number) {
-    return this.httpClient.delete(this.ADMIN_DELETE_EDIT_PLAY_URL + id).pipe(catchError(this.handleError));
+    return this.httpClient.delete(this.ADMIN_DELETE_EDIT_PLAY_URL + id)
+      .pipe(catchError(this.handleError));
   }
 
   public editPlayRequest(play: Play) {
-    return this.httpClient.put(this.ADMIN_DELETE_EDIT_PLAY_URL + play.id, play).pipe(catchError(this.handleError));
+    return this.httpClient.put(this.ADMIN_DELETE_EDIT_PLAY_URL + play.id, play)
+      .pipe(catchError(this.handleError));
   }
 
   public getTicketsbyPlayIdRequest(id: number) {
-    return this.httpClient.get(this.ADMIN_GET_TICKETS_BY_ID_URL + id).pipe(catchError(this.handleError));
+    return this.httpClient.get(this.ADMIN_GET_TICKETS_BY_ID_URL + id)
+      .pipe(catchError(this.handleError));
   }
 
 

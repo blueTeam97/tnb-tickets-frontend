@@ -25,5 +25,10 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.username = this.email.split("@")[0];
   }
+
+  logout(){
+    this.tokenStorage.signOut();
+    this.router.navigate(['login']);
+  }
   
 }

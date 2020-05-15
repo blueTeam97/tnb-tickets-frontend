@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
-import { LoggedInGuard } from 'src/guards/logged-in.guard';
+import { LoggedInGuard } from 'src/app/guards/logged-in.guard';
 import { HistoryComponent } from './user/pages/history/history.component';
 
 

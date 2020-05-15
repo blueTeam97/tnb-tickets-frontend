@@ -50,7 +50,7 @@
                 <label for="availableDateForBook">Available date to book</label>
                 <div class="input-group">
                     <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="availableDate"
-                        ngbDatepicker #d="ngbDatepicker" name="availableDate"
+                        ngbDatepicker #d="ngbDatepicker" name="availableDate" [minDate]="today"
                         [ngClass]="{ 'is-invalid': submitted && f.availableDate.errors }">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
@@ -85,7 +85,7 @@
                 <label for="dateForThePlay">Date of the play</label>
                 <div class="input-group">
                     <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="playDate"
-                        ngbDatepicker #c="ngbDatepicker" name="playDate"
+                        ngbDatepicker #c="ngbDatepicker" name="playDate" [minDate]="today"
                         [ngClass]="{ 'is-invalid': submitted && f.playDate.errors }">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button">

@@ -41,7 +41,7 @@ export class PlaysComponent implements OnInit {
   searchText: string;
   plays: Play[];
 
-  constructor(private userService:UserService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class PlaysComponent implements OnInit {
     this.userService.getAllPlays().subscribe(
       (res) => {
         this.plays = res;
-         console.log(res);
+        console.log(res);
       },
       (error) => {
         console.log(error);

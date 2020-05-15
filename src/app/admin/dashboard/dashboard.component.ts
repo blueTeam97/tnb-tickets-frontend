@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   @Input() play: Play;
+  @Input() filterValue: string;
 
   @Output() deleteEvent: EventEmitter<any> = new EventEmitter();
   @Output() editEvent: EventEmitter<any> = new EventEmitter();

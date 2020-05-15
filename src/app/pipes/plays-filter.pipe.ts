@@ -6,8 +6,8 @@ import { Play } from 'src/app/models/Play';
 })
 export class PlaysFilterPipe implements PipeTransform {
 
-  transform(plays: Play[], text:string): any {
-    if(text == null || text ==='')
+  transform(plays: Play[], text: string): any {
+    if (text == null || text === '')
       return plays;
     return plays.filter(e => e.playName.toLowerCase().includes(text.toLowerCase()) || e.playDate.includes(text) || e.availableDate.includes(text))
   }

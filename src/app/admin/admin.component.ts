@@ -3,6 +3,9 @@ import { NgbModal, ModalDismissReasons, NgbDateStruct } from '@ng-bootstrap/ng-b
 import { AdminService } from '../services/admin.service';
 import { Play } from '../models/Play';
 import { AddPlayComponent } from './add-play/add-play.component';
+import { Observable, combineLatest } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { startWith, map } from 'rxjs/operators';
 
 
 @Component({
@@ -13,7 +16,10 @@ import { AddPlayComponent } from './add-play/add-play.component';
 
 export class AdminComponent implements OnInit {
 
-  plays: Play[];
+  plays$: Observable<Play[]>;
+  filteredPlays$: Observable<Play[]>;
+  filter: FormControl;
+  filter$: Observable<string>;
 
   constructor(public modalService: NgbModal,
     private dataService: AdminService
@@ -24,10 +30,18 @@ export class AdminComponent implements OnInit {
     this.getPlays();
   }
 
+
+  filterSearch() {
+    this.filter = new FormControl('');
+    this.filter$ = this.filter.valueChanges.pipe(startWith(''));
+    this.filteredPlays$ = combineLatest(this.plays$, this.filter$).pipe(
+      map(([plays, filterString]) => plays.filter(play =>
+        play.playName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)));
+  }
+
   getPlays() {
-    this.dataService.getPlaysRequest().subscribe((res: Play[]) => {
-      this.plays = res;
-    })
+    this.plays$ = this.dataService.getPlaysRequest();
+    this.filterSearch();
   }
 
   deletePlay(id: number) {

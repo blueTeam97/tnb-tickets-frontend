@@ -1,4 +1,7 @@
 <div class="container">
+    <div class="search-play form-group form-inline ml-3 pb-2">
+        Search: <input class="form-control ml-2" type="text" [formControl]="filter" />
+    </div>
     <table class="table table-striped">
         <thead class="standard-table">
             <tr>
@@ -10,8 +13,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr app-dashboard *ngFor="let play of plays" [play]=play (deleteEvent)="deletePlay($event)"
-                (editEvent)=editPlay($event)></tr>
+            <tr app-dashboard *ngFor="let play of filteredPlays$ | async" [play]=play [filterValue]=filter.value
+                (deleteEvent)="deletePlay($event)" (editEvent)=editPlay($event)></tr>
         </tbody>
     </table>
 

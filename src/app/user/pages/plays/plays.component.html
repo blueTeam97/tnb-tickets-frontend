@@ -3,31 +3,32 @@
         <img src="assets/img/curtain1.jpg" class="fluid w-100" alt="curtain1">
     </div>
     <div>
-        <form class="mx-5">
+        <!-- <form class="mx-5">
             <div class="search-play form-group form-inline ml-3 pb-2">
                 Search: <input class="form-control ml-2" type="text" [formControl]="filter" />
             </div>
-        </form>
+        </form> -->
+        <input type="text" [(ngModel)]="searchText">
         <table class="table table-striped mx-5">
             <thead class="standard-table">
                 <tr>
                     <th scope="col">No.</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Tickets</th>
+                    <th scope="col">Play Date</th>
+                    <th scope="col">Available Date</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let play of plays$ | async; index as i">
+                <tr *ngFor="let play of plays | playsFilter:searchText ; index as i">
                     <th scope="row">{{ i + 1 }}</th>
                     <td>
-                        <ngb-highlight [result]="play.name" [term]="filter.value"></ngb-highlight>
+                       {{play.playName}}
                     </td>
                     <td>
-                        <ngb-highlight [result]="play.date | number" [term]="filter.value"></ngb-highlight>
+                        {{play.playDate}}
                     </td>
                     <td>
-                        <ngb-highlight [result]="play.tickets | number"></ngb-highlight>
+                        {{play.availableDate}}
                     </td>
                 </tr>
             </tbody>

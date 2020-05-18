@@ -6,6 +6,10 @@
 }
 
 a.nav-link,
-a.navbar-brand {
+.navbar-brand {
     color: $yellow;
+}
+
+.navbar-brand:hover {
+    cursor: default;
 }

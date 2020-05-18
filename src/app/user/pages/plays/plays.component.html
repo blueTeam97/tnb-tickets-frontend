@@ -3,12 +3,12 @@
         <img src="assets/img/curtain1.jpg" class="fluid w-100" alt="curtain1">
     </div>
     <div>
-        <!-- <form class="mx-5">
+        <div class="mx-5">
             <div class="search-play form-group form-inline ml-3 pb-2">
-                Search: <input class="form-control ml-2" type="text" [formControl]="filter" />
+                Search: <input class="form-control search-text ml-2" type="text" [formControl]="filter" />
             </div>
-        </form> -->
-        <input type="text" [(ngModel)]="searchText">
+        </div>
+        
         <table class="table table-striped mx-5">
             <thead class="standard-table">
                 <tr>
@@ -16,19 +16,23 @@
                     <th scope="col">Name</th>
                     <th scope="col">Play Date</th>
                     <th scope="col">Available Date</th>
+                    <th scope="col">Tickets</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let play of plays | playsFilter:searchText ; index as i">
+                <tr *ngFor="let play of filteredPlays$ | async ; index as i">
                     <th scope="row">{{ i + 1 }}</th>
                     <td>
-                        {{play.playName}}
+                        <ngb-highlight [result]="play.playName" [term]="filter.value">{{play.playName}}</ngb-highlight>
                     </td>
                     <td>
-                        {{play.playDate}}
+                        <ngb-highlight [result]="play.playDate" [term]="filter.value">{{play.playDate}}</ngb-highlight>
                     </td>
                     <td>
-                        {{play.availableDate}}
+                        <ngb-highlight [result]="play.availableDate" [term]="filter.value">{{play.availableDate}}</ngb-highlight>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-info">Book</button>
                     </td>
                 </tr>
             </tbody>

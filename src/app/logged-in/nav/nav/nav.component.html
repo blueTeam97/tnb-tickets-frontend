@@ -1,20 +1,21 @@
-<ul ngbNav #nav="ngbNav" [activeId]="2" class="nav-tabs justify-content-end px-4 sticky-top">
-  <li class="flex-grow-1" [ngbNavItem]="1">
-    <img src="assets/img/mask-40.png" class="fluid" alt="mask-40">
-    <a class="navbar-brand text-uppercase pl-3" href="#">tnb</a>
-    <!-- <p class="text-uppercase">tnb</p> -->
-  </li>
-  <li [ngbNavItem]="2">
-    <a [routerLink]="['/user/plays']"ngbNavLink>Plays</a>
-  </li>
-  <li *ngIf="roles.includes('user')" [ngbNavItem]="3">
-    <a [routerLink]="['/user/history']" ngbNavLink>History</a>
-  </li>
-  <li ngbDropdown class="nav-item">
+<div ngbNav #nav="ngbNav" [activeId]="2" class="nav-tabs justify-content-end px-4 sticky-top">
+  <div class="d-flex flex-grow-1">
+    <div [ngbNavItem]="1">
+      <img src="assets/img/mask-40.png" class="fluid" alt="mask-40">
+      <div class="navbar-brand text-uppercase pl-3 pt-2">tnb</div>
+    </div>
+    <div [ngbNavItem]="2">
+      <a [routerLink]="['/user/plays']"ngbNavLink>Plays</a>
+    </div>
+    <div *ngIf="roles.includes('user')" [ngbNavItem]="3">
+      <a [routerLink]="['/user/history']" ngbNavLink>History</a>
+    </div>
+  </div>
+  <div ngbDropdown class="nav-item">
     <a href (click)="false" class="nav-link nav-button" ngbDropdownToggle>Welcome, {{username}}</a>
     <div ngbDropdownMenu>
       <button *ngIf="roles.includes('user')" ngbDropdownItem>Subscribe</button>
       <button (click)="logout()" ngbDropdownItem>Logout</button>
     </div>
-  </li>
-</ul>
+  </div>
+</div>

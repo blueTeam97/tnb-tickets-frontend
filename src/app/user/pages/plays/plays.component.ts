@@ -1,5 +1,5 @@
 import { Component, OnInit, PipeTransform } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
@@ -36,10 +36,15 @@ import { Play } from 'src/app/models/Play';
 
 export class PlaysComponent implements OnInit {
 
-  //plays$: Observable<Play[]>;
-  //filter = new FormControl('');
-  searchText: string;
-  plays: Play[];
+  // //plays$: Observable<Play[]>;
+  // //filter = new FormControl('');
+  // searchText: string;
+  // plays: Play[];
+
+  plays$: Observable<Play[]>;
+  filteredPlays$: Observable<Play[]>;
+  filter: FormControl;
+  filter$: Observable<string>;
 
   constructor(private userService: UserService) {
   }
@@ -48,17 +53,31 @@ export class PlaysComponent implements OnInit {
     this.getAllPlays();
   }
 
-  getAllPlays() {
-    this.userService.getAllPlays().subscribe(
-      (res) => {
-        this.plays = res;
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  filterSearch() {
+    this.filter = new FormControl('');
+    this.filter$ = this.filter.valueChanges.pipe(startWith(''));
+    this.filteredPlays$ = combineLatest(this.plays$, this.filter$).pipe(
+      map(([plays, filterString]) => plays.filter(play =>
+        play.playName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)));
   }
+
+  getAllPlays() {
+    this.plays$ = this.userService.getAllPlays();
+    this.filterSearch();
+  }
+
+
+  // getAllPlays() {
+  //   this.userService.getAllPlays().subscribe(
+  //     (res) => {
+  //       this.plays = res;
+  //       console.log(res);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  
 
   // function search(text: string, pipe: PipeTransform): Play[] {
   //   return PLAYS.filter(play => {

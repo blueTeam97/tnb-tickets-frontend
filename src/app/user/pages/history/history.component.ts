@@ -14,7 +14,7 @@ import { map, startWith } from 'rxjs/operators';
 export class HistoryComponent implements OnInit {
 
   tickets$: BehaviorSubject<Ticket[]> = new BehaviorSubject<Ticket[]>([]);
-  filteredTickets$: Observable<Ticket[]> = new BehaviorSubject<Ticket[]>([]);
+  filteredTickets$: Observable<Ticket[]>;
   filter: FormControl;
   filter$: Observable<string>;
 
@@ -24,7 +24,7 @@ export class HistoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllTicketsByUserId();  
+    this.getAllTicketsByUserId();
   }
 
   filterSearch() {

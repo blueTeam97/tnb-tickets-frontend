@@ -3,7 +3,8 @@ import { NgbModule, ModalDismissReasons, NgbDateStruct, NgbActiveModal } from '@
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Play } from 'src/app/models/Play';
 import { CustomValidationService } from '../../services/custom-validation.service'
-import { AdminService } from 'src/app/services/admin.service';
+import { DialogService } from 'src/app/services/dialog.service';
+
 
 @Component({
   selector: 'app-add-play',
@@ -26,7 +27,8 @@ export class AddPlayComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
-    private customValidator: CustomValidationService
+    private customValidator: CustomValidationService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -140,8 +142,16 @@ export class AddPlayComponent implements OnInit {
   }
 
   passPlayObject() {
-    this.activeModal.close(this.play);
+    this.dialogService.openConfirmDialog('Are you sure to edit this record?')
+    .afterClosed().subscribe(res => {
+      if(res) {
+        this.activeModal.close(this.play);
+        console.log(res);
+      }
+    })
   }
+
+  
 
   closeModal() {
     this.activeModal.dismiss();

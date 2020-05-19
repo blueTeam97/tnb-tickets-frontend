@@ -6,6 +6,7 @@ import { AddPlayComponent } from './add-play/add-play.component';
 import { Observable, combineLatest } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
+import { DialogService } from '../services/dialog.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class AdminComponent implements OnInit {
   filter$: Observable<string>;
 
   constructor(public modalService: NgbModal,
-    private dataService: AdminService
+    private dataService: AdminService,
+    private dialogService: DialogService
   ) { }
 
 
@@ -45,9 +47,14 @@ export class AdminComponent implements OnInit {
   }
 
   deletePlay(id: number) {
-    this.dataService.deletePlayRequest(id).subscribe(() => {
-      this.getPlays();
-    });
+    this.dialogService.openConfirmDialog('Are you sure to delete this record?')
+    .afterClosed().subscribe(res => {
+      if(res) {
+        this.dataService.deletePlayRequest(id).subscribe(() => {
+          this.getPlays();
+        });
+      }
+    })
   }
 
   postPlay(play: Play) {

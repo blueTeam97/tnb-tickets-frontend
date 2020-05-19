@@ -21,8 +21,7 @@ export class DashboardComponent implements OnInit {
   constructor(public modalService: NgbModal,
     private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 
   handleDeleteButton() {

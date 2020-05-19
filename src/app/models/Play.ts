@@ -3,7 +3,7 @@ export interface Play {
     playName: string,
     availableDate: string,
     playDate: string,
-    registerDate?: string,
+    registeredDate?: string,
     link: string,
     ticketsNumber: number,
     availableTicketsNumber: number,

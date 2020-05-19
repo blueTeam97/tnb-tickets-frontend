@@ -17,20 +17,20 @@ export class TicketsListComponent implements OnInit {
 
   tickets: Ticket[];
   playId: number;
+  play : Play;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.playId = params['id'];
     });
-
     this.getTickets();
   }
 
   getTickets() {
-    this.dataService.getTicketsbyPlayIdRequest(this.playId).subscribe((resp: any) => {
+    this.dataService.getTicketsbyPlayIdRequest(this.playId).subscribe((resp : any) => {
       this.tickets = resp;
-
-      console.log(this.tickets);
+      this.play = this.tickets.find(o => o.id == this.playId).playDTO;
+      console.log(this.play);
     })
   }
 

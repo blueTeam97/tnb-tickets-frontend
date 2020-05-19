@@ -1,1 +1,54 @@
-<p>tickets-list works!</p>
+<div class="d-flex justify-content-around">
+    <div>
+      <img src="assets/img/curtain1.jpg" class="fluid w-75" alt="curtain1" />
+    </div>
+    <table class="table table-striped">
+        <thead class="standard-table">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Play Date</th>
+                <th scope="col">Available Date</th>
+                <th scope="col">Registered Date</th>
+                <th scope="col">Link</th>
+                <th scope="col">Tickets Number</th>
+            </tr>
+        </thead>
+        <tbody>
+       
+          <tr>
+            <td>{{ play.playName }}</td>
+            <td>{{ play.playDate }}</td>
+            <td>{{ play.availableDate }}</td>
+            <td>{{ play.registeredDate }}</td>
+            <td>{{ play.link }}</td>
+            <td>{{ play.ticketsNumber }}</td> 
+          </tr>
+        </tbody>
+     
+      <thead class="standard-table">
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">UserID</th>
+          <th scope="col">PlayID</th>
+          <th scope="col">Status</th>
+          <th scope="col">Book Date</th>
+          <th scope="col">Pickup Date</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of tickets; index as i">
+          <th scope="row"></th>
+          <td>{{ ticket.userId }}</td>
+          <td>{{ ticket.playId }}</td>
+          <td>{{ ticket.status }}</td>
+          <td>{{ ticket.bookDate }}</td>
+          <td>{{ ticket.pickUpDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <img src="assets/img/curtain2.jpg" class="fluid w-75" alt="curtain2" />
+    </div>
+  </div>
+  

@@ -10,10 +10,16 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor, httpInterceptorProviders } from './interceptor/auth.interceptor';
 import { PlaysFilterPipe } from 'src/app/pipes/plays-filter.pipe';
 
+import { CustomMaterialModule } from './custom-material/custom-material.module';
+import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    MatConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +27,9 @@ import { PlaysFilterPipe } from 'src/app/pipes/plays-filter.pipe';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CustomMaterialModule,
+    BrowserAnimationsModule
   ],
   providers: [
     NgbActiveModal,

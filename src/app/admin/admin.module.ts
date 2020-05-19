@@ -8,6 +8,7 @@ import { AddPlayComponent } from './add-play/add-play.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TicketsListComponent } from './tickets-list/tickets-list.component';
+import { MatConfirmDialogComponent } from '../mat-confirm-dialog/mat-confirm-dialog.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { TicketsListComponent } from './tickets-list/tickets-list.component';
     ReactiveFormsModule
   ],
   entryComponents: [
-    AddPlayComponent
+    AddPlayComponent,
+    MatConfirmDialogComponent
   ]
 })
 export class AdminModule { }

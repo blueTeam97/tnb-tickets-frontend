@@ -1,3 +1,6 @@
+
+import { Play } from './Play';
+
 export interface Ticket {
     id: number;
     userId: number;
@@ -5,4 +8,5 @@ export interface Ticket {
     status: string;
     bookDate: string;
     pickUpDate: string;
+    playDTO: Play;
 }

@@ -2,7 +2,11 @@
   <div>
     <img src="assets/img/curtain1.jpg" class="fluid w-75" alt="curtain1" />
   </div>
-
+  <div class="mx-5">
+    <div class="search-play form-group form-inline ml-3 pb-2">
+        Search: <input class="form-control search-text ml-2" type="text"  [formControl]="filter" />
+    </div>
+</div>
   <table class="table table-striped">
     <thead class="standard-table">
       <tr>
@@ -16,10 +20,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ticket of tickets; index as i">
+      <tr *ngFor="let ticket of filteredTickets$ | async; index as i" >
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ ticket.playDTO.playName }}</td>
-        <td>{{ ticket.playDTO.playDate }}</td>
+        <td>
+          <ngb-highlight [result]="ticket.playDTO.playDate" [term]=filter.value>{{ ticket.playDTO.playDate }}</ngb-highlight>
+        </td>
         <td>{{ ticket.playDTO.link }}</td>
         <td>{{ ticket.status }}</td>
         <td>{{ ticket.bookDate }}</td>

@@ -1,30 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { Play } from 'src/app/models/Play';
-import { LiteralExpr } from '@angular/compiler';
 import { TokenStorageService } from 'src/app/services/auth/token-storage.service';
 import { Ticket } from 'src/app/models/Ticket';
-
-// interface Ticket {
-//   name: string;
-//   date: number;
-// }
-
-// const TICKETS: Ticket[] = [
-//   {
-//     name: 'O noapte furtunoasa',
-//     date: 13,
-//   },
-//   {
-//     name: 'Straini in noapte',
-//     date: 3,
-//   },
-//   {
-//     name: 'Dineu cu prosti',
-//     date: 3,
-//   },
-// ];
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-history',
@@ -32,43 +12,40 @@ import { Ticket } from 'src/app/models/Ticket';
   styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent implements OnInit {
-  //tickets = TICKETS;
-  userId: number;
-  tickets: Ticket[];
-  plays: Play[];
+
+  tickets$: BehaviorSubject<Ticket[]> = new BehaviorSubject<Ticket[]>([]);
+  filteredTickets$: Observable<Ticket[]>;
+  filter: FormControl;
+  filter$: Observable<string>;
 
   constructor(
     private userService: UserService,
     private tokenService: TokenStorageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.getAllTickets();
-    //this.getAll();
+    this.getAllTicketsByUserId();
   }
 
-  getAllTickets() {
-    this.userId = this.tokenService.getUserId();
-    this.userService.getAllTicketsByUserId(this.userId).subscribe(
-      (res) => {
-        this.tickets = res;
+  filterSearch() {
+    this.filter = new FormControl('');
+    this.filter$ = this.filter.valueChanges.pipe(startWith(''));
+    this.filteredTickets$ = combineLatest(this.tickets$, this.filter$).pipe(
+      map(([tickets, filterString]) => tickets.filter(ticket =>
+        ticket.playDTO.playDate.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
+        )));
+  }
+
+  getAllTicketsByUserId() {
+    this.userService.getAllTicketsByUserId(1)
+      .subscribe((res) => {
+        this.tickets$.next(res);
         console.log(res);
       },
-      (error) => {
-        console.log(error);
-      }
-    );
+        (error) => {
+          console.log(error);
+        });
+    this.filterSearch();
   }
 
-  // getAll() {
-  //   this.userService.getAllPlays().subscribe(
-  //     res => {
-  //             this.plays = res;
-  //             console.log(res)
-  //     },
-  //     error => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
 }

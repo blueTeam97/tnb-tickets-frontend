@@ -28,7 +28,7 @@
                     <td>{{play.playDate}}</td>
                     <td>{{play.availableDate}}</td>
                     <td>
-                        <button class="btn btn-sm btn-info">Book</button>
+                        <button class="btn btn-sm btn-info" (click)="bookClickHandler(play.id)">Book</button>
                     </td>
                 </tr>
             </tbody>

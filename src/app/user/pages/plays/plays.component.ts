@@ -19,7 +19,15 @@ export class PlaysComponent implements OnInit {
   filteredPlays$: Observable<Play[]>;
   filter: FormControl;
   filter$: Observable<string>;
-
+  bookButtonClicked:boolean;
+  bookResponse:{
+    expiredTime:number,
+    allowedToBook:boolean
+  } = {
+    expiredTime:0,
+    allowedToBook:false
+  };
+  
   constructor(private userService: UserService) {
   }
 
@@ -39,5 +47,16 @@ export class PlaysComponent implements OnInit {
     this.plays$ = this.userService.getAllPlays();
     this.filterSearch();
   }
-
+  bookClickHandler(playId:number){
+  }
+  // bookClickHandler(playId:number){
+  //   this.userService.bookTicket(playId).subscribe((res:{
+  //     expiredTime:number,
+  //     allowedToBook:boolean
+  //   })=>{
+  //       this.bookResponse=res;
+  //       console.log("Res: "+res.allowedToBook+"   "+res.expiredTime);
+  //       console.log("BookResponse: "+this.bookResponse.allowedToBook+"   "+this.bookResponse.expiredTime);
+  //     });
+  // }
 }

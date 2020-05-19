@@ -30,13 +30,13 @@ export class UserService {
 
   getAllTicketsByUserId(id: number): Observable<Ticket[]> {
     return this.http
-      .get<Ticket[]>(this.getAllTicketsByUserIdURL + '/user/' + id + '/history')
+      .get<Ticket[]>(this.getAllTicketsByUserIdURL + '/user/history')
       .pipe(catchError(this.handleError));
   }
 
-  bookTicket(playId: number, userId: number) {
+  bookTicket(playId: number) {
     return this.http
-      .get(this.getAllTicketsByUserIdURL + '/play' + playId + '/book' + userId)
+      .post(this.getAllTicketsByUserIdURL + '/play/' + playId + '/book',{})
       .pipe(catchError(this.handleError));
   }
 

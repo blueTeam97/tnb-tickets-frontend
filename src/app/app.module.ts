@@ -26,7 +26,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    CustomMaterialModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     NgbActiveModal,

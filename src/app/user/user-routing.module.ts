@@ -9,14 +9,15 @@ const routes: Routes = [
   {
     path: '', component: UserComponent
   },
+  { 
+    path: 'plays', component: PlaysComponent
+  },
 
   {
     path: 'history', component: HistoryComponent
   },
 
-  { 
-    path: 'plays', component: PlaysComponent
-  }
+
 ];
 
 @NgModule({

@@ -1,17 +1,17 @@
-<div ngbNav #nav="ngbNav" [activeId]="2" class="nav-tabs justify-content-end px-4 sticky-top">
+<div ngbNav #nav="ngbNav" [activeId]="2" class="nav-pills justify-content-end px-4 sticky-top">
   <div class="d-flex flex-grow-1">
-    <div [ngbNavItem]="1">
+    <div class="my-auto">
       <img src="assets/img/mask-40.png" class="fluid" alt="mask-40">
-      <div class="navbar-brand text-uppercase pl-3 pt-2">tnb</div>
+      <div class="navbar-brand text-uppercase ml-1 pt-2">tnb</div>
     </div>
-    <div [ngbNavItem]="2">
+    <div [ngbNavItem]="1" class="my-auto">
       <a [routerLink]="['/user/plays']"ngbNavLink>Plays</a>
     </div>
-    <div *ngIf="roles.includes('user')" [ngbNavItem]="3">
+    <div *ngIf="roles.includes('user')" [ngbNavItem]="2" class="my-auto">
       <a [routerLink]="['/user/history']" ngbNavLink>History</a>
     </div>
   </div>
-  <div ngbDropdown class="nav-item">
+  <div ngbDropdown class="nav-item my-auto">
     <a href (click)="false" class="nav-link nav-button" ngbDropdownToggle>Welcome, {{username}}</a>
     <div ngbDropdownMenu>
       <button *ngIf="roles.includes('user')" ngbDropdownItem (click)="ChangeSubscriber()">{{subscriberCurrentState}}</button>

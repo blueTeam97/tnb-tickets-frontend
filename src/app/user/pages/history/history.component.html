@@ -1,39 +1,48 @@
-<div class="d-flex justify-content-around">
-  <div>
-    <img src="assets/img/curtain1.jpg" class="fluid w-75" alt="curtain1" />
-  </div>
-  <div class="mx-5">
-    <div class="search-play form-group form-inline ml-3 pb-2">
-        Search: <input class="form-control search-text ml-2" type="text"  [formControl]="filter" />
-    </div>
-</div>
-  <table class="table table-striped">
-    <thead class="standard-table">
-      <tr>
-        <th scope="col">No.</th>
-        <th scope="col">Play</th>
-        <th scope="col">Date</th>
-        <th scope="col">Link</th>
-        <th scope="col">Status</th>
-        <th scope="col">Book Date</th>
-        <th scope="col">Pickup Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ticket of filteredTickets$ | async; index as i" >
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ ticket.playDTO.playName }}</td>
-        <td>
-          <ngb-highlight [result]="ticket.playDTO.playDate" [term]=filter.value>{{ ticket.playDTO.playDate }}</ngb-highlight>
-        </td>
-        <td>{{ ticket.playDTO.link }}</td>
-        <td>{{ ticket.status }}</td>
-        <td>{{ ticket.bookDate }}</td>
-        <td>{{ ticket.pickUpDate }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <div>
-    <img src="assets/img/curtain2.jpg" class="fluid w-75" alt="curtain2" />
+<div class="play-bkg">
+  <div class="container">
+    <!-- <div>
+      <img src="assets/img/curtain1.jpg" class="fluid w-100" alt="curtain1" />
+    </div> -->
+      <div>
+        <div class="search-play d-flex row form-inline py-3">
+          <span class=" mr-4">Search:</span>
+          <input class="form-control flex-grow-1 search-text" type="text" [formControl]="filter" />
+        </div>
+      </div>
+      <div>
+        <div class="d-flex row">
+          <div>
+            <div class="index-col index-header">No.</div>
+          </div>
+          <div class="d-flex flex-grow-1 standard-table shadow p-2 mb-4">
+            <div class="col-xl-4 col-md-6">Play</div>
+            <div class="col-xl-4 col-md-6">Date</div>
+            <!-- <div class="col">Link</div> -->
+            <div class="col d-none d-xl-inline-flex">Book Date</div>
+            <div class="col d-none d-xl-inline-flex">Pickup Date</div>
+          </div>
+        </div>
+        <div>
+          <div class="d-flex row" *ngFor="let ticket of filteredTickets$ | async; index as i">
+            <div>
+              <div class="index-col index-rows">{{ i + 1 }}.</div>
+            </div>
+            <div class="d-flex flex-grow-1 tkt-row shadow p-2 mb-4">
+              <div class="col-xl-4 col-md-6 ticket__play-name text-center" [title]="ticket.playDTO.playName">
+                {{ ticket.playDTO.playName }}</div>
+              <div class="col-xl-4 col-md-6 date-col">
+                <ngb-highlight [result]="ticket.playDTO.playDate" [term]=filter.value>{{ ticket.playDTO.playDate }}
+                </ngb-highlight>
+              </div>
+              <!-- <div class="col">{{ ticket.playDTO.link }}</div> -->
+              <div class="col d-none d-xl-inline-flex date-col">{{ ticket.bookDate }}</div>
+              <div class="col d-none d-xl-inline-flex date-col">{{ ticket.pickUpDate }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- <div>
+      <img src="assets/img/curtain2.jpg" class="fluid w-100 pr-2" alt="curtain2" />
+    </div> -->
   </div>
 </div>

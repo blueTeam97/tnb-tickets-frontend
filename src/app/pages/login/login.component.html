@@ -29,10 +29,6 @@
           *ngIf="(registerFormControl.password.touched || submitted) && registerFormControl.password.errors?.required">
           Password is required
         </span>
-        <span class="text-danger"
-          *ngIf="registerFormControl.password.touched && registerFormControl.password.errors?.invalidPassword">
-          Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 digit
-        </span>
       </div>
       <div class="col-md-12 text-center">
         <button type="submit" [disabled]="registerForm.invalid"

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModule, ModalDismissReasons, NgbDateStruct, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Play } from 'src/app/models/Play';
 import { CustomValidationService } from '../../services/custom-validation.service'
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
@@ -23,13 +23,14 @@ export class AddPlayComponent implements OnInit {
     month: new Date().getMonth() + 1,
     day: new Date().getDate()
   };
-  playOrEdit : boolean;
+  playOrEdit: boolean;
+  playDateHasError: boolean;
 
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private customValidator: CustomValidationService,
-    private confirmationDialogService : ConfirmationDialogService,
+    private confirmationDialogService: ConfirmationDialogService,
   ) { }
 
   ngOnInit(): void {
@@ -44,8 +45,6 @@ export class AddPlayComponent implements OnInit {
     }
   }
 
-
-
   public buildForm() {
 
     //assign 0 to set the error message of the ticket number
@@ -55,7 +54,7 @@ export class AddPlayComponent implements OnInit {
       linkPlay: ['', Validators.compose([Validators.required, this.customValidator.patternValidator('URL')])],
       nrTickets: ['', Validators.compose([Validators.required, Validators.min(1)])],
       availableDate: ['', [Validators.required]],
-      availableHour: ['', [Validators.required]],
+      // availableHour: ['', [Validators.required]],
       playDate: ['', [Validators.required]],
       playHour: ['', [Validators.required]],
     });
@@ -83,7 +82,6 @@ export class AddPlayComponent implements OnInit {
     return time;
   }
 
-
   private buildEditForm() {
 
     this.addPlayForm = this.fb.group({
@@ -91,7 +89,7 @@ export class AddPlayComponent implements OnInit {
       linkPlay: [this.play.link, Validators.compose([Validators.required, this.customValidator.patternValidator("URL")])],
       nrTickets: [this.play.ticketsNumber, Validators.compose([Validators.required, Validators.min(this.play.ticketsNumber)])],
       availableDate: [this.splitStringToDate(this.play.availableDate), [Validators.required,]],
-      availableHour: [this.splitStringToTime(this.play.availableDate), [Validators.required,]],
+      // availableHour: [this.splitStringToTime(this.play.availableDate), [Validators.required,]],
       playDate: [this.splitStringToDate(this.play.playDate), [Validators.required,]],
       playHour: [this.splitStringToTime(this.play.playDate), [Validators.required,]]
     });
@@ -102,30 +100,42 @@ export class AddPlayComponent implements OnInit {
     return this.addPlayForm.controls;
   }
 
+
+  dateValidator(aDate: any, pDate: any): boolean {
+    const availableDate = new Date(aDate.year, aDate.month, aDate.day);
+    const playDate = new Date(pDate.year, pDate.month, pDate.day);
+    return (availableDate > playDate);
+  }
+
   onSubmit() {
     this.submitted = true;
+
+    let dateValidation = this.dateValidator(this.addPlayForm.get('availableDate').value, this.addPlayForm.get('playDate').value);
+    if (dateValidation) {
+      this.addPlayForm.controls['availableDate'].setErrors({ 'dateError': true });
+    }
 
     if (this.addPlayForm.invalid) {
       return;
     }
 
-    if(this.playOrEdit) {
+    if (this.playOrEdit) {
       this.confirmationDialogService.confirm('Please confirm..', 'Are you sure to add this play?').then((confirmed) => {
-        if(confirmed) {
+        if (confirmed) {
           this.createPlayObject();
           this.passPlayObject();
         }
       })
-      .catch(() => console.log('User dismissed the dialog'));
+        .catch(() => console.log('User dismissed the dialog'));
     }
     else {
       this.confirmationDialogService.confirm('Please confirm..', 'Are you sure to edit this play?').then((confirmed) => {
-        if(confirmed) {
+        if (confirmed) {
           this.createPlayObject();
           this.passPlayObject();
         }
       })
-      .catch(() => console.log('User dismissed the dialog'));
+        .catch(() => console.log('User dismissed the dialog'));
     }
 
   }
@@ -138,14 +148,12 @@ export class AddPlayComponent implements OnInit {
     ].join('-');
   }
 
-
   formatTime(time: any): string {
     return [
       (time.hour < 10 ? ('0' + time.hour) : time.hour),
       (time.minute < 10 ? ('0' + time.minute) : time.minute)
     ].join(':');
   }
-
 
   createPlayObject() {
 
@@ -154,12 +162,12 @@ export class AddPlayComponent implements OnInit {
     this.play.ticketsNumber = this.addPlayForm.get('nrTickets').value;
 
     this.play.availableDate = this.formatDate(this.addPlayForm.get('availableDate').value) + " " +
-      this.formatTime(this.addPlayForm.get('availableHour').value) + ":00";
-
+      "14:00:00";
+    // this.formatTime(this.addPlayForm.get('availableHour').value) + ":00";
     this.play.playDate = this.formatDate(this.addPlayForm.get('playDate').value) + " " +
       this.formatTime(this.addPlayForm.get('playHour').value) + ":00";
-
   }
+
 
   passPlayObject() {
     this.activeModal.close(this.play);

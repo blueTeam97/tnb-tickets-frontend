@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
@@ -9,12 +9,14 @@ import BookResponse from 'src/app/models/BookResponse';
 import UserPlaysPopulator from 'src/app/models/UserPlaysPopulator';
 import { Ticket } from 'src/app/models/Ticket';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-plays',
   templateUrl: './plays.component.html',
   styleUrls: ['./plays.component.scss'],
-  providers: [DecimalPipe]
+  providers: [DecimalPipe],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class PlaysComponent implements OnInit {
@@ -27,13 +29,13 @@ export class PlaysComponent implements OnInit {
   ticketDiffInDays:number;
   nothingToShow:boolean=false;
 
-  bookResponse:BookResponse = {
-    expiredTime:0,
-    allowedToBook:false
-  };
-  
-  constructor(private userService: UserService,
-              private confirmBookModal: ConfirmationDialogService) {
+  elementType: 'url' | 'canvas' | 'img' = 'url';
+  value: string;
+  display = false;
+  href : string;
+  modalPlayLink : string = '';
+
+  constructor(private userService: UserService,private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -97,5 +99,13 @@ export class PlaysComponent implements OnInit {
   }
   bookTicket(playId:number){
     return this.userService.bookTicket(playId);
+  }
+  openModal(content,play:Play) {
+    let qrContent = play.playName + '\n' + play.playDate + '\n' + play.link;
+    this.value = qrContent;
+    this.display = true;
+    this.modalPlayLink = play.link;
+    this.modalService.open(content, { size: 'sm' });
+  
   }
 }

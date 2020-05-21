@@ -49,13 +49,19 @@
             &:hover{
                 .img{
                    // opacity: .5;
-                    filter: blur(3px) grayscale(80%) ;
+                    filter: blur(3px) grayscale(80%) brightness(65%);
                 }
                 
                 .img-holder__content{
+                    h3{
+                    color: $burlyWood;
+                    font-size:25px;
+                    font-weight: bold;
+                    font-family: 'Kaushan Script', cursive;
+                    }
                     position: absolute;
                     display: block;
-                    height: 80%;
+                    height: 40%;
                     width: 80%;
                     //background-color: brown;
                     top: 0;
@@ -64,7 +70,6 @@
                     right: 0;
                     margin: auto;
                     z-index: 1;
-                    color: white;
                 }
             }
             .img{
@@ -97,6 +102,10 @@
      background-repeat: no-repeat;
      background-size: 15% , 15%;
      background-color: #fbfbfb;
+ }
+
+ .margin-top-20{
+     margin-top: 20px;
  }
 
 //  img {

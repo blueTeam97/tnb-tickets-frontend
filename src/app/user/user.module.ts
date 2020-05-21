@@ -8,6 +8,7 @@ import { PlaysComponent } from './pages/plays/plays.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap'
 import { PlaysFilterPipe } from '../pipes/plays-filter.pipe';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [UserComponent, HistoryComponent, PlaysComponent, PlaysFilterPipe],
@@ -17,6 +18,7 @@ import { PlaysFilterPipe } from '../pipes/plays-filter.pipe';
     ReactiveFormsModule,
     FormsModule,
     NgbTypeaheadModule,
+    QRCodeModule
   ]
 })
 export class UserModule { }

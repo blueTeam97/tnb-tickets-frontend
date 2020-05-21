@@ -41,6 +41,8 @@ export class TicketsListComponent implements OnInit {
   getTickets() {
     this.dataService.getBookedTickets(this.playId).subscribe((resp : any) => {
       this.tickets = resp;
+      this.tickets.findIndex(t=>this.play=t.playDTO);
+      console.log(this.play);
     })
   }
 

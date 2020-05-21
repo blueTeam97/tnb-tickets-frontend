@@ -20,6 +20,10 @@
                 </tr>
             </thead>
             <tbody>
+                <div *ngIf="nothingToShow">
+                    <p>There are no plays available for you</p>
+                    <p>Your last ticket was booked at {{lastBookedTicket.bookDate}}</p>
+                </div>
                 <tr *ngFor="let play of filteredPlays$ | async ; index as i">
                     <th scope="row">{{ i + 1 }}</th>
                     <td>
@@ -27,8 +31,15 @@
                     </td>
                     <td>{{play.playDate}}</td>
                     <td>{{play.availableDate}}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info">Book</button>
+                    <td *ngIf="comparePlayDateToCurrentDate(play.playDate) && playIsAvailableToBook(play.availableDate) && comparePlayAvailableDateToUserTicket(play.availableDate)">
+                        <button class="btn btn-sm btn-info" (click)="bookClickHandler(play.id)">Book</button>
+                    </td>
+                    <td *ngIf="!playIsAvailableToBook(play.availableDate)">
+                        <p>Not available yet</p>
+                    </td>
+                    <td *ngIf="!comparePlayAvailableDateToUserTicket(play.availableDate) && playIsAvailableToBook(play.availableDate)">
+                        <div>You booked a ticket <div *ngIf="ticketDiffInDays==0">less than a day</div> 
+                             <div *ngIf="ticketDiffInDays!=0">{{ticketDiffInDays}} days</div> ago</div>
                     </td>
                 </tr>
             </tbody>

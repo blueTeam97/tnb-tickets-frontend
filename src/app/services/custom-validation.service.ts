@@ -20,8 +20,14 @@ export class CustomValidationService {
         return valid ? null : { invalidPassword: true };
       }
       //regex for URL validation
-      else if (method === "URL") {
+      else if (method === "PlayURL") {
         const regex = new RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?');
+        const valid = regex.test(control.value);
+        return valid ? null : { invalidURL: true };
+      }
+      //regex for URL validation
+      else if (method === "ImageURL") {
+        const regex = new RegExp('^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$');
         const valid = regex.test(control.value);
         return valid ? null : { invalidURL: true };
       }

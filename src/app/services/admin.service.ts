@@ -10,27 +10,26 @@ import { Ticket } from '../models/Ticket';
 })
 export class AdminService {
 
+  private ADMIN_GET_PLAY_URL = "http://localhost:8081/v1/findById/";
   private ADMIN_POST_PLAY_URL = "http://localhost:8081/v1/add";
   private ADMIN_GET_PLAYS_URL = "http://localhost:8081/v1/findAll";
   private ADMIN_DELETE_EDIT_PLAY_URL = "http://localhost:8081/v1/play/";
   private ADMIN_GET_TICKETS_BY_ID_URL = "http://localhost:8081/tasks/findTicketsByPlayId/";
+  private ADMIN_GET_ALL_BOOKED_TICKETS= "http://localhost:8081/tasks/findAllBookedTicketsByPlayId/";
+  private ADMIN_POST_TICKET_URL = "http://localhost:8081/tasks/updateTicket/"
 
 
   constructor(private httpClient: HttpClient) { }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
-      );
-    }
-    // return an observable with a user-facing error message
-    return throwError('Something bad happened; please try again later.');
+
+  getPlayById(id : number): Observable<Play> {
+    return this.httpClient.get<Play>(this.ADMIN_GET_PLAY_URL + id)
+                  .pipe(catchError(this.handleError));
+  }
+
+  getBookedTickets(id: number): Observable<String> {
+    return this.httpClient.get<String>(this.ADMIN_GET_ALL_BOOKED_TICKETS + id)
+                  .pipe(catchError(this.handleError));
   }
 
   public getPlaysRequest(): Observable<Play[]> {
@@ -57,6 +56,28 @@ export class AdminService {
     return this.httpClient.get(this.ADMIN_GET_TICKETS_BY_ID_URL + id)
       .pipe(catchError(this.handleError));
   }
+
+  public putTicketRequest(ticket : Ticket) {
+    console.log(ticket);
+    return this.httpClient.put(this.ADMIN_POST_TICKET_URL + ticket.id, ticket)
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+      );
+    }
+    // return an observable with a user-facing error message
+    return throwError('Something bad happened; please try again later.');
+  }
+
 
 
 }

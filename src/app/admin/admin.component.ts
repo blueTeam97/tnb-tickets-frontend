@@ -6,8 +6,7 @@ import { AddPlayComponent } from './add-play/add-play.component';
 import { Observable, combineLatest } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
-import { DialogService } from '../services/dialog.service';
-
+import { ConfirmationDialogService } from '../services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-admin',
@@ -24,7 +23,7 @@ export class AdminComponent implements OnInit {
 
   constructor(public modalService: NgbModal,
     private dataService: AdminService,
-    private dialogService: DialogService
+    private confirmationDialogService : ConfirmationDialogService
   ) { }
 
 
@@ -47,14 +46,14 @@ export class AdminComponent implements OnInit {
   }
 
   deletePlay(id: number) {
-    this.dialogService.openConfirmDialog('Are you sure to delete this record?')
-    .afterClosed().subscribe(res => {
-      if(res) {
-        this.dataService.deletePlayRequest(id).subscribe(() => {
-          this.getPlays();
-        });
-      }
-    })
+    this.confirmationDialogService.confirm('Please confirm..', 'Are you sure to delete this play?')
+        .then((confirmed) => {
+          if(confirmed) {
+            this.dataService.deletePlayRequest(id).subscribe(() => {
+            this.getPlays();
+            })
+          }
+        })
   }
 
   postPlay(play: Play) {
@@ -77,6 +76,15 @@ export class AdminComponent implements OnInit {
       this.getPlays();
     })
   }
+
+
+
+  // public openConfirmationDialog() {
+  //   this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to ... ?')
+  //   .then((confirmed) => 
+  //   console.log('User confirmed:', confirmed))
+  //   .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  // }
 
 }
 

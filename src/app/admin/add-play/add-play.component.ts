@@ -3,7 +3,7 @@ import { NgbModule, ModalDismissReasons, NgbDateStruct, NgbActiveModal } from '@
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Play } from 'src/app/models/Play';
 import { CustomValidationService } from '../../services/custom-validation.service'
-import { DialogService } from 'src/app/services/dialog.service';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 
 
 @Component({
@@ -23,21 +23,24 @@ export class AddPlayComponent implements OnInit {
     month: new Date().getMonth() + 1,
     day: new Date().getDate()
   };
+  playOrEdit : boolean;
 
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private customValidator: CustomValidationService,
-    private dialogService: DialogService
+    private confirmationDialogService : ConfirmationDialogService,
   ) { }
 
   ngOnInit(): void {
 
     if (this.play.id == null) {
       this.buildForm();
+      this.playOrEdit = true;
     }
     else {
       this.buildEditForm();
+      this.playOrEdit = false;
     }
   }
 
@@ -106,8 +109,25 @@ export class AddPlayComponent implements OnInit {
       return;
     }
 
-    this.createPlayObject();
-    this.passPlayObject();
+    if(this.playOrEdit) {
+      this.confirmationDialogService.confirm('Please confirm..', 'Are you sure to add this play?').then((confirmed) => {
+        if(confirmed) {
+          this.createPlayObject();
+          this.passPlayObject();
+        }
+      })
+      .catch(() => console.log('User dismissed the dialog'));
+    }
+    else {
+      this.confirmationDialogService.confirm('Please confirm..', 'Are you sure to edit this play?').then((confirmed) => {
+        if(confirmed) {
+          this.createPlayObject();
+          this.passPlayObject();
+        }
+      })
+      .catch(() => console.log('User dismissed the dialog'));
+    }
+
   }
 
   formatDate(date: any): string {
@@ -142,16 +162,9 @@ export class AddPlayComponent implements OnInit {
   }
 
   passPlayObject() {
-    this.dialogService.openConfirmDialog('Are you sure to edit this record?')
-    .afterClosed().subscribe(res => {
-      if(res) {
-        this.activeModal.close(this.play);
-        console.log(res);
-      }
-    })
+    this.activeModal.close(this.play);
   }
 
-  
 
   closeModal() {
     this.activeModal.dismiss();

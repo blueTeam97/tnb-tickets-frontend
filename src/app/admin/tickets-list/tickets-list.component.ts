@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import { Play } from 'src/app/models/Play';
 import { Ticket } from 'src/app/models/Ticket';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-tickets-list',
@@ -15,23 +17,38 @@ export class TicketsListComponent implements OnInit {
     private dataService: AdminService
   ) { }
 
-  tickets: Ticket[];
-  playId: number;
+  tickets : Ticket[];
+  playId : number;
   play : Play;
+  email : String;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.playId = params['id'];
     });
+    this.getPlayDetails();
     this.getTickets();
+   
+  }
+
+  getPlayDetails() {
+    this.dataService.getPlayById(this.playId).subscribe((resp : Play) => {
+      this.play = resp;
+      console.log(this.play);
+    })
   }
 
   getTickets() {
-    this.dataService.getTicketsbyPlayIdRequest(this.playId).subscribe((resp : any) => {
+    this.dataService.getBookedTickets(this.playId).subscribe((resp : any) => {
       this.tickets = resp;
-      this.play = this.tickets.find(o => o.id == this.playId).playDTO;
-      console.log(this.play);
     })
+  }
+
+  pickUp(ticket : Ticket) {
+     ticket.pickUpDate = moment().format('YYYY-MM-DD HH:mm:ss').toString();
+     ticket.bookDate = "";
+     ticket.status = "pickedup";
+     this.dataService.putTicketRequest(ticket).subscribe();
   }
 
 

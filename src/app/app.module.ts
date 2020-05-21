@@ -9,17 +9,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor, httpInterceptorProviders } from './interceptor/auth.interceptor';
 import { PlaysFilterPipe } from 'src/app/pipes/plays-filter.pipe';
-
-import { CustomMaterialModule } from './custom-material/custom-material.module';
-import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MatConfirmDialogComponent
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +26,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CustomMaterialModule,
     BrowserAnimationsModule
   ],
   providers: [

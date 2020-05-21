@@ -8,4 +8,5 @@ export interface Ticket {
     bookDate: string;
     pickUpDate: string;
     playDTO : Play;
+    email? : String;
 }

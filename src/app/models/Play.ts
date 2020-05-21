@@ -7,5 +7,6 @@ export interface Play {
     link: string,
     ticketsNumber: number,
     availableTicketsNumber: number,
-    bookedTicketsNumber: number
+    bookedTicketsNumber: number,
+    imageUrl: string,
 }

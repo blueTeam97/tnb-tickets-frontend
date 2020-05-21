@@ -1,6 +1,7 @@
 <td>
   <ngb-highlight [result]="play.playName" [term]="filterValue"></ngb-highlight>
 </td>
+
 <td>{{ play.availableTicketsNumber }}</td>
 <td>{{ play.bookedTicketsNumber }}</td>
 <td>{{ (play.ticketsNumber - (play.bookedTicketsNumber + play.availableTicketsNumber)) }}</td>

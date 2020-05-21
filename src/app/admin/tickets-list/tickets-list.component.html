@@ -2,6 +2,7 @@
     <div>
       <img src="assets/img/curtain1.jpg" class="fluid w-75" alt="curtain1" />
     </div>
+
     <table class="table table-striped">
         <thead class="standard-table">
             <tr>
@@ -13,8 +14,8 @@
                 <th scope="col">Tickets Number</th>
             </tr>
         </thead>
+
         <tbody>
-       
           <tr>
             <td>{{ play.playName }}</td>
             <td>{{ play.playDate }}</td>
@@ -28,23 +29,26 @@
       <thead class="standard-table">
         <tr>
           <th scope="col">No.</th>
-          <th scope="col">UserID</th>
-          <th scope="col">PlayID</th>
+          <th scope="col">Email</th>
           <th scope="col">Status</th>
           <th scope="col">Book Date</th>
           <th scope="col">Pickup Date</th>
-
+          <th scope="col">Options</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let ticket of tickets; index as i">
-          <th scope="row"></th>
-          <td>{{ ticket.userId }}</td>
-          <td>{{ ticket.playId }}</td>
+          <th scope="row">{{i+1}}</th>
+          <td>{{ ticket.userEmail }}</td>
           <td>{{ ticket.status }}</td>
           <td>{{ ticket.bookDate }}</td>
           <td>{{ ticket.pickUpDate }}</td>
-        </tr>
+          <td>
+            <div *ngIf="!ticket.pickUpDate">
+            <button type="button" (click)="pickUp(ticket)" class="btn btn-info">PickUp</button>
+          </div>
+         </td>
+      </tr>
       </tbody>
     </table>
     <div>

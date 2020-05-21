@@ -7,16 +7,18 @@ import { PlaysComponent } from './pages/plays/plays.component';
 
 const routes: Routes = [
   {
-    path: '', component: UserComponent
+    path: '', component: UserComponent,
+    redirectTo: 'plays'
+  },
+  { 
+    path: 'plays', component: PlaysComponent
   },
 
   {
     path: 'history', component: HistoryComponent
   },
 
-  { 
-    path: 'plays', component: PlaysComponent
-  }
+
 ];
 
 @NgModule({

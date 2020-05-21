@@ -1,21 +1,18 @@
 @import '../../../../styles/variables';
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/mixins";
+// @import "~bootstrap/scss/_functions";
+// @import "~bootstrap/scss/_variables";
+// @import "~bootstrap/scss/_breakpoints";
 
-.table,
-.form-group {
-    width: 750px;
-    margin: auto;
-}
+
 .standard-table {
     background-color: $dark-green;
     color: $white;
 }
 .table-striped  tbody tr:nth-child(odd){
     background-color: $yellow;
- }
-
- .search-play,
- .standard-table {
-    font: 20px 'Kaushan Script', cursive;
  }
 
  .search-text {
@@ -25,9 +22,108 @@
  }
 
  .play-bkg {
-     background-color:	#fbfbfb;
-     height: 100vh;
-     padding-top: 0.5rem;
+     background-color:#FBF8FB;
+ }
+
+ .play-card{
+    box-shadow: 0 0 8px rgba(0,0,0,.2);
+    border-radius:5px;
+    margin:10px 0;
+    overflow-wrap: break-word;
+    width: 100%;
+    &:hover{
+        background-color: #F6F1F7;
+    }
+    hr{
+        margin-top:0;
+    }
+    .card-header{
+        background-color:transparent;
+        border:none;
+        padding:0;
+        text-align:center;
+        //width:300px;
+        width:100%;
+        height: 360px;
+        .img-holder{
+            width:100%;
+            height:100%;
+            position: relative;
+            .img-holder__content{
+                display: none;
+            }
+            &:hover{
+                .img{
+                   // opacity: .5;
+                    filter: blur(3px) grayscale(80%) brightness(65%);
+                }
+                
+                .img-holder__content{
+                    h3{
+                    color: $ghostWhite;
+                    font-size:30px;
+                    font-weight: bold;
+                    font-family: 'Kaushan Script', cursive;
+                    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+                    }
+                    position: absolute;
+                    display: block;
+                    height: 40%;
+                    width: 80%;
+                    //background-color: brown;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    z-index: 1;
+                }
+            }
+            .img{
+                width: 100%;
+                height: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                background-color: #F6F1F7;
+            }
+        }
+    }
+    .card-body{
+        padding:10px;
+        //font-family: 'Roboto', sans-serif;
+        .btn{
+            border:none;
+            &.book-btn{
+                background-color:$indigoDye;
+            }
+            &.qr-btn{
+                background-color:$burlyWood;
+            }
+        }    
+    }
+ }
+
+ .plays__background{
+     background-image: url('../../../../assets/img/curtain1.jpg'),url('../../../../assets/img/curtain2.jpg');
+     background-position: left top, right top;
+     background-repeat: no-repeat;
+     background-size: 15% , 15%;
+     background-color: #fbfbfb;
+ }
+
+ .margin-top-20{
+     margin-top: 20px;
+ }
+
+ body{
+    background-color: #fbfbfb;
+}
+
+@include media-breakpoint-down(lg) { 
+    .plays__background {
+        background-image: none;
+      }
  }
 
 //  img {

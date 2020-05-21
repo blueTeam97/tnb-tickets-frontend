@@ -1,8 +1,5 @@
 <div class="play-bkg">
   <div class="container">
-    <!-- <div>
-      <img src="assets/img/curtain1.jpg" class="fluid w-100" alt="curtain1" />
-    </div> -->
       <div>
         <div class="search-play d-flex row form-inline py-3">
           <span class=" mr-4">Search:</span>
@@ -18,7 +15,7 @@
             <div class="col-xl-4 col-md-6">Play</div>
             <div class="col-xl-4 col-md-6">Date</div>
             <!-- <div class="col">Link</div> -->
-            <div class="col d-none d-xl-inline-flex">Book Date</div>
+            <div class="col d-none d-xl-inline-flex date-wrap">Book Date</div>
             <div class="col d-none d-xl-inline-flex">Pickup Date</div>
           </div>
         </div>
@@ -29,20 +26,17 @@
             </div>
             <div class="d-flex flex-grow-1 tkt-row shadow p-2 mb-4">
               <div class="col-xl-4 col-md-6 ticket__play-name text-center" [title]="ticket.playDTO.playName">
-                {{ ticket.playDTO.playName }}</div>
+                <ngb-highlight [result]="ticket.playDTO.playName"  [term]=filter.value>{{ ticket.playDTO.playName }}</ngb-highlight> </div> 
               <div class="col-xl-4 col-md-6 date-col">
-                <ngb-highlight [result]="ticket.playDTO.playDate" [term]=filter.value>{{ ticket.playDTO.playDate }}
+                <ngb-highlight [result]="ticket.playDTO.playDate"  [term]=filter.value>{{ ticket.playDTO.playDate | date: 'MMM-d-yyyy hh:mm'}}
                 </ngb-highlight>
               </div>
               <!-- <div class="col">{{ ticket.playDTO.link }}</div> -->
-              <div class="col d-none d-xl-inline-flex date-col">{{ ticket.bookDate }}</div>
-              <div class="col d-none d-xl-inline-flex date-col">{{ ticket.pickUpDate }}</div>
+              <div class="col d-none d-xl-inline-flex date-col date-wrap" [title]="ticket.bookDate">{{ ticket.bookDate | date: 'MMM-d-yyyy hh:mm'}}</div>
+              <div class="col d-none d-xl-inline-flex date-col">{{ ticket.pickUpDate | date: 'MMM-d-yyyy hh:mm'}}</div>
             </div>
           </div>
         </div>
       </div>
-    <!-- <div>
-      <img src="assets/img/curtain2.jpg" class="fluid w-100 pr-2" alt="curtain2" />
-    </div> -->
   </div>
 </div>

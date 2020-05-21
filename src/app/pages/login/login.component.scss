@@ -4,7 +4,7 @@
 .login {
     padding-top:3.2rem;
     padding-bottom:2.8rem;
-    background-color: $light-green;
+    background-color: $blueSapphire;
     height: 100vh;
 }
 h1 {
@@ -24,7 +24,7 @@ img {
     padding: 2rem;
     flex-direction: column;
     width: 100%;
-    background-color: $yellow ;
+    background-color: $ghostWhite ;
     background-clip: padding-box;
     border: 1px solid $black;
     outline: 0;
@@ -35,14 +35,14 @@ img {
 }
 .login-btn {
     position: relative;
-    background-color: $dark-green;
+    background-color: $blueSapphire;
     color: $white;
     border-radius:50px;
     margin-top: 30px;
     padding: 10px 0;
 }
 .login-btn:hover {
-    background-color: $green;
+    background-color: $blueSapphire;
     cursor: pointer;
 }
 form .error {

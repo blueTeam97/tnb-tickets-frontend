@@ -113,6 +113,9 @@ export class AddPlayComponent implements OnInit {
     let dateValidation = this.dateValidator(this.addPlayForm.get('availableDate').value, this.addPlayForm.get('playDate').value);
     if (dateValidation) {
       this.addPlayForm.controls['availableDate'].setErrors({ 'dateError': true });
+    }else
+    if (this.addPlayForm.controls['availableDate'].hasError('dateError')) {
+      this.addPlayForm.controls['availableDate'].setErrors(null);
     }
 
     if (this.addPlayForm.invalid) {

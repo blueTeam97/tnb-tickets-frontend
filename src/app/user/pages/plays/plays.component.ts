@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
@@ -9,12 +9,14 @@ import BookResponse from 'src/app/models/BookResponse';
 import UserPlaysPopulator from 'src/app/models/UserPlaysPopulator';
 import { Ticket } from 'src/app/models/Ticket';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-plays',
   templateUrl: './plays.component.html',
   styleUrls: ['./plays.component.scss'],
-  providers: [DecimalPipe]
+  providers: [DecimalPipe],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class PlaysComponent implements OnInit {
@@ -26,27 +28,34 @@ export class PlaysComponent implements OnInit {
   lastBookedTicket:Ticket;
   ticketDiffInDays:number;
   nothingToShow:boolean=false;
+  plays:Play[] = [];
+
+  elementType: 'url' | 'canvas' | 'img' = 'url';
+  value: string;
+  display = false;
+  href : string;
+  modalPlayLink : string = '';
 
   bookResponse:BookResponse = {
     expiredTime:0,
     allowedToBook:false
   };
-  
+
   constructor(private userService: UserService,
-              private confirmBookModal: ConfirmationDialogService) {
-  }
+    private confirmBookModal: ConfirmationDialogService,private modalService: NgbModal) {
+}
 
   ngOnInit(): void {
     this.getAllPlays();
   }
 
-  filterSearch() {
-    this.filter = new FormControl('');
-    this.filter$ = this.filter.valueChanges.pipe(startWith(''));
-    this.filteredPlays$ = combineLatest(this.userPopulator$, this.filter$).pipe(
-      map(([populator, filterString]) =>populator.userEdiblePlays.filter(play =>
-        play.playName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)));
-  }
+  // filterSearch() {
+  //   this.filter = new FormControl('');
+  //   this.filter$ = this.filter.valueChanges.pipe(startWith(''));
+  //   this.filteredPlays$ = combineLatest(this.userPopulator$, this.filter$).pipe(
+  //     map(([populator, filterString]) =>populator.userEdiblePlays.filter(play =>
+  //       play.playName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)));
+  // }
   playIsAvailableToBook(playDateString:string):boolean{
     return new Date(playDateString).getTime()<=new Date().getTime();
   }
@@ -59,22 +68,29 @@ export class PlaysComponent implements OnInit {
       let diffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()- new Date(playIsAvailableDateString).getTime())/86400000));
       return diffInDays>=30;
   }
-  getAllPlays() {
-    this.userService.getAllPlays().subscribe((res)=>{
-      console.log(res);
-      if(res.userEdiblePlays===null || res.userEdiblePlays===[]){
-        this.nothingToShow=true;
-      }
-      else{
-        this.userPopulator$.next(res);
-        this.lastBookedTicket = res.userLastBookedTicket;
-        if(this.lastBookedTicket!==null){
-          this.ticketDiffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()-new Date().getTime())/86400000));
-        }
-        console.log(this.ticketDiffInDays);
-      }
+  // getAllPlays() {
+  //   this.userService.getAllPlays().subscribe((res)=>{
+  //     console.log(res);
+  //     if(res.userEdiblePlays===null || res.userEdiblePlays===[]){
+  //       this.nothingToShow=true;
+  //     }
+  //     else{
+  //       this.userPopulator$.next(res);
+  //       this.lastBookedTicket = res.userLastBookedTicket;
+  //       if(this.lastBookedTicket!==null){
+  //         this.ticketDiffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()-new Date().getTime())/86400000));
+  //       }
+  //       console.log(this.ticketDiffInDays);
+  //     }
+  //   });
+  //   //this.filterSearch();
+  // }
+
+  getAllPlays(){
+    this.userService.getAllPlays().subscribe((res)=> {
+      this.plays=res.userEdiblePlays;
+      console.log(this.plays);
     });
-    this.filterSearch();
   }
   bookClickHandler(playId:number){
     console.log(this.bookResponse);
@@ -97,5 +113,11 @@ export class PlaysComponent implements OnInit {
   }
   bookTicket(playId:number){
     return this.userService.bookTicket(playId);
+  }
+  openModal(content,play:Play) {
+    let qrContent = play.playName + '\n' + play.playDate + '\n' + play.link;
+    this.value = qrContent;
+    this.display = true;
+    this.modalService.open(content, { size: 'sm' });
   }
 }

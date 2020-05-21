@@ -1,51 +1,61 @@
-<div class="play-bkg d-flex pl-2">
-    <div>
-        <img src="assets/img/curtain1.jpg" class="fluid w-100" alt="curtain1">
-    </div>
-    <div>
-        <div class="mx-5">
-            <div class="search-play form-group form-inline ml-3 pb-2">
-                Search: <input class="form-control search-text ml-2" type="text" [formControl]="filter" />
-            </div>
-        </div>
-        
-        <table class="table table-striped mx-5">
-            <thead class="standard-table">
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Play Date</th>
-                    <th scope="col">Available Date</th>
-                    <th scope="col">Tickets</th>
-                </tr>
-            </thead>
-            <tbody>
-                <div *ngIf="nothingToShow">
-                    <p>There are no plays available for you</p>
-                    <p>Your last ticket was booked at {{lastBookedTicket.bookDate}}</p>
+<div class="pt-5 plays__background">
+  <div *ngIf="plays" class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 d-flex align-items-stretch justify-content-around" *ngFor="let play of plays ; index as i">
+          <div class="play-card flex-column d-flex">
+            <div class="card-header">
+              <div class="img-holder">
+                <div class="img-holder__content">
+                  <h3 >{{play.playDate | date}} </h3>
                 </div>
-                <tr *ngFor="let play of filteredPlays$ | async ; index as i">
-                    <th scope="row">{{ i + 1 }}</th>
-                    <td>
-                        <ngb-highlight [result]="play.playName" [term]="filter.value">{{play.playName}}</ngb-highlight>
-                    </td>
-                    <td>{{play.playDate}}</td>
-                    <td>{{play.availableDate}}</td>
-                    <td *ngIf="comparePlayDateToCurrentDate(play.playDate) && playIsAvailableToBook(play.availableDate) && comparePlayAvailableDateToUserTicket(play.availableDate)">
-                        <button class="btn btn-sm btn-info" (click)="bookClickHandler(play.id)">Book</button>
-                    </td>
-                    <td *ngIf="!playIsAvailableToBook(play.availableDate)">
-                        <p>Not available yet</p>
-                    </td>
-                    <td *ngIf="!comparePlayAvailableDateToUserTicket(play.availableDate) && playIsAvailableToBook(play.availableDate)">
-                        <div>You booked a ticket <div *ngIf="ticketDiffInDays==0">less than a day</div> 
-                             <div *ngIf="ticketDiffInDays!=0">{{ticketDiffInDays}} days</div> ago</div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <!-- <img src="https://www.tnb.ro/uploads/spectacles/670/748/front_FIGURANTA_1_web.jpg" class="img-fluid" /> -->
+                <div class="img" style="background-image:url('https://www.tnb.ro/uploads/spectacles/627/755/front_ontheroof_web_nou.jpg'), url(../../../../../../assets/img/theatre.jpg)"></div>
+              </div>
+            </div>
+            <hr/>
+            <div class="card-body flex-column d-flex">
+               <div class="flex-grow-1">
+                  <h6><b>Name:</b> {{play.playName}}</h6>
+                  <p><b>Play date:</b> {{play.playDate}}</p>
+                  <p><b>Tickets:</b> {{play.availableTicketsNumber}}</p>
+                </div>
+                <div class="text-center">
+                  <button class="btn btn-sm btn-info text-center w-25 mx-2 book-btn" (click)="bookClickHandler(play.id)">Book</button>
+                  <button class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn" (click)="openModal(content,play)"><i class="fas fa-qrcode"></i></button>
+                </div>
+            </div>
+          </div>
+          <div class="margin-top-20">
+            <ng-template #content let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title"><b>QR Code and details</b></h4>
+                <button
+                  type="button"
+                  class="close"
+                  aria-label="Close"
+                  (click)="modal.dismiss('Cross click')"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <a [href]="modalPlayLink">{{play.playName}} @TNB</a>
+                <qrcode
+                  *ngIf="value"
+                  [qrdata]="value"
+                  [width]="256"
+                  [errorCorrectionLevel]="'M'"
+                  [elementType]="'svg'"
+                ></qrcode>
+              </div>
+            </ng-template>
+          </div>
+          <!-- <div *ngIf="plays.length === 0" >
+            <div class="img" style="background-image:url('https://www.tnb.ro/uploads/spectacles/627/755/front_ontheroof_web_nou.jpg')" >
+              <h4>asdsadad</h4>
+            </div>
+          </div> -->
+        </div>
+      </div>
     </div>
-    <div>
-        <img src="assets/img/curtain2.jpg" class="fluid w-100 pr-2" alt="curtain2">
-    </div>
-</div>
+  </div>

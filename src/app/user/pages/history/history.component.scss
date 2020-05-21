@@ -1,4 +1,7 @@
 @import '../../../../styles/variables';
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/mixins";
 
 .table,
 .form-group {
@@ -7,7 +10,7 @@
 }
 .standard-table,
 .index-header {
-    background-color: $green;
+    background-color: $blueSapphire;
     color: $white;
 }
 
@@ -18,10 +21,6 @@
 
 .tkt-row:hover {
     background-color: #e0e0e0;
-}
-
-.date-col {
-    font-size: 22px;
 }
 
  .standard-table,
@@ -44,10 +43,18 @@
      background-color:	#fbfbfb;
      height: 100vh;
      padding-top: 0.5rem;
+     background-image: url('../../../../assets/img/curtain1.jpg'),url('../../../../assets/img/curtain2.jpg');
+     background-position: left top, right top;
+     background-repeat: no-repeat;
+     background-size: 15% , 15%;
+     background-color: #fbfbfb;
  }
+ 
 
- .tkt-row {
-    font: 25px 'Cookie', cursive;
+ .tkt-row, 
+ .date-col {
+    //font: 20px 'Cookie', cursive;
+    font: 18px 'Roboto', sans-serif;
  }
 
 .tkt-row,
@@ -78,11 +85,19 @@
     box-shadow: 0 .5rem 0.6rem rgba(0,0,0,.15)!important;
 }
 
-.ticket__play-name {
+.ticket__play-name,
+.date-wrap {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
+
+@include media-breakpoint-down(lg) { 
+    .play-bkg {
+        background-image: none;
+      }
+}
+ 
 //  img {
 //      width: 180px;
 //      height: auto;

@@ -1,36 +1,28 @@
-<div class="mt-5">
-  <div class="container-fluid">
-    <div class="row">
-      <div
-        class="col-sm-12 col-md-4 col-lg-3 d-flex align-items-stretch justify-content-around"
-        *ngFor="let play of filteredPlays$ | async; index as i"
-      >
-        <div class="play-card">
-          <div class="card-header">
-            <div class="img-holder">
-              <!-- <img src="https://www.tnb.ro/uploads/spectacles/670/748/front_FIGURANTA_1_web.jpg" class="img-fluid" /> -->
-              <div
-                class="img"
-                style="
-                  background-image: url('https://www.tnb.ro/uploads/spectacles/670/748/front_FIGURANTA_1_web.jpg');
-                "
-              ></div>
+<div class="pt-5 plays__background">
+  <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-3 d-flex align-items-stretch justify-content-around" *ngFor="let play of filteredPlays$ | async ; index as i">
+          <div class="play-card flex-column d-flex">
+            <div class="card-header">
+              <div class="img-holder">
+                <div class="img-holder__content">
+                  <h3>asdasdasd</h3>
+                </div>
+                <!-- <img src="https://www.tnb.ro/uploads/spectacles/670/748/front_FIGURANTA_1_web.jpg" class="img-fluid" /> -->
+                <div class="img" style="background-image:url('https://www.tnb.ro/uploads/spectacles/627/755/front_ontheroof_web_nou.jpg')"></div>
+              </div>
             </div>
-          </div>
-          <hr />
-          <div class="card-body">
-            <h4><b>Name:</b> {{ play.playName }}</h4>
-            <p><b>Play date:</b> {{ play.playDate }}</p>
-            <p><b>Tickets:</b> {{ play.availableTicketsNumber }}</p>
-            <div class="text-center">
-              <button
-                class="btn btn-sm btn-info text-center w-25 mx-2 book-btn"
-              >
-                Book
-              </button>
-              <button class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn">
-                <i class="fas fa-qrcode"></i>
-              </button>
+            <hr/>
+            <div class="card-body flex-column d-flex">
+               <div class="flex-grow-1">
+                  <h4><b>Name:</b> {{play.playName}}</h4>
+                  <p><b>Play date:</b> {{play.playDate}}</p>
+                  <p><b>Tickets:</b> {{play.availableTicketsNumber}}</p>
+                </div>
+                <div class="text-center">
+                  <button class="btn btn-sm btn-info text-center w-25 mx-2 book-btn">Book</button>
+                  <button class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn"><i class="fas fa-qrcode"></i></button>
+                </div>
             </div>
           </div>
         </div>

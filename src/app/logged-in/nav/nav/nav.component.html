@@ -4,7 +4,7 @@
       <img src="assets/img/mask-40.png" class="fluid" alt="mask-40">
       <div class="navbar-brand text-uppercase ml-1 pt-2">tnb</div>
     </div>
-    <div [ngbNavItem]="1" class="my-auto">
+    <div *ngIf="roles.includes('user')" [ngbNavItem]="1" class="my-auto">
       <a [routerLink]="['/user/plays']"ngbNavLink>Plays</a>
     </div>
     <div *ngIf="roles.includes('user')" [ngbNavItem]="2" class="my-auto">

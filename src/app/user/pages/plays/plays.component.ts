@@ -5,11 +5,10 @@ import { FormControl } from '@angular/forms';
 import { map, startWith, last } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { Play } from 'src/app/models/Play';
-import { DialogService } from 'src/app/services/dialog.service';
 import BookResponse from 'src/app/models/BookResponse';
-import { NotifyService } from 'src/app/services/notify.service';
 import UserPlaysPopulator from 'src/app/models/UserPlaysPopulator';
 import { Ticket } from 'src/app/models/Ticket';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-plays',
@@ -34,8 +33,7 @@ export class PlaysComponent implements OnInit {
   };
   
   constructor(private userService: UserService,
-              private dialogService: DialogService,
-              private confirmBookModal: NotifyService) {
+              private confirmBookModal: ConfirmationDialogService) {
   }
 
   ngOnInit(): void {
@@ -70,7 +68,9 @@ export class PlaysComponent implements OnInit {
       else{
         this.userPopulator$.next(res);
         this.lastBookedTicket = res.userLastBookedTicket;
-        this.ticketDiffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()-new Date().getTime())/86400000));
+        if(this.lastBookedTicket!==null){
+          this.ticketDiffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()-new Date().getTime())/86400000));
+        }
         console.log(this.ticketDiffInDays);
       }
     });
@@ -78,20 +78,16 @@ export class PlaysComponent implements OnInit {
   }
   bookClickHandler(playId:number){
     console.log(this.bookResponse);
-    this.dialogService.openConfirmDialog("Are you sure you want to book this play?")
-                      .afterClosed().subscribe(res=>{
+    this.confirmBookModal.confirm("Confirmation dialog","Are you sure you want to book this play?")
+                      .then(res=>{
                         if(res){
                           this.bookTicket(playId).subscribe((res:BookResponse)=>{
                             this.bookResponse=res;
                             if(this.bookResponse.allowedToBook){
-                              this.confirmBookModal.openConfirmDialog("Your ticket was booked!");
-                              this.getAllPlays();
-                            }
-                            else if(!this.bookResponse.allowedToBook && (this.bookResponse.expiredTime==0 || this.bookResponse.expiredTime==null)){
-                              this.confirmBookModal.openConfirmDialog("Unfortunately, this play doesn't have free tickets anymore...");
+                              this.confirmBookModal.confirm("Done!","Your ticket was booked!").then((res)=>{this.getAllPlays();});
                             }
                             else if(!this.bookResponse.allowedToBook){
-                              this.confirmBookModal.openConfirmDialog("Bad Luck!The last ticket was booked "+this.bookResponse.expiredTime.toString()+"s ago");
+                              this.confirmBookModal.confirm("Too slow!","Bad Luck!The last ticket was booked "+this.bookResponse.expiredTime.toString()+"s ago");
                             }
                             else console.log("Booking cancelled!");
                           });

@@ -11,7 +11,6 @@ import { AuthInterceptor, httpInterceptorProviders } from './interceptor/auth.in
 import { PlaysFilterPipe } from 'src/app/pipes/plays-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { MatNotifyDialogComponent } from './mat-notify-dialog/mat-notify-dialog.component';
 
 
 @NgModule({
@@ -19,8 +18,6 @@ import { MatNotifyDialogComponent } from './mat-notify-dialog/mat-notify-dialog.
     AppComponent,
     LoginComponent,
     ConfirmationDialogComponent
-    MatConfirmDialogComponent,
-    MatNotifyDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,10 @@
 @import '../../../../styles/variables';
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+@import "~bootstrap/scss/mixins";
+// @import "~bootstrap/scss/_functions";
+// @import "~bootstrap/scss/_variables";
+// @import "~bootstrap/scss/_breakpoints";
 
 
 .standard-table {
@@ -54,10 +60,11 @@
                 
                 .img-holder__content{
                     h3{
-                    color: $burlyWood;
-                    font-size:25px;
+                    color: $ghostWhite;
+                    font-size:30px;
                     font-weight: bold;
                     font-family: 'Kaushan Script', cursive;
+                    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
                     }
                     position: absolute;
                     display: block;
@@ -84,6 +91,7 @@
     }
     .card-body{
         padding:10px;
+        //font-family: 'Roboto', sans-serif;
         .btn{
             border:none;
             &.book-btn{
@@ -106,6 +114,16 @@
 
  .margin-top-20{
      margin-top: 20px;
+ }
+
+ body{
+    background-color: #fbfbfb;
+}
+
+@include media-breakpoint-down(lg) { 
+    .plays__background {
+        background-image: none;
+      }
  }
 
 //  img {

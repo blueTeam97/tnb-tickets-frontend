@@ -18,6 +18,8 @@ export class HistoryComponent implements OnInit {
   filter: FormControl;
   filter$: Observable<string>;
 
+  date: string;
+
   constructor(
     private userService: UserService,
     private tokenService: TokenStorageService
@@ -32,7 +34,8 @@ export class HistoryComponent implements OnInit {
     this.filter$ = this.filter.valueChanges.pipe(startWith(''));
     this.filteredTickets$ = combineLatest(this.tickets$, this.filter$).pipe(
       map(([tickets, filterString]) => tickets.filter(ticket =>
-        ticket.playDTO.playDate.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
+        ticket.playDTO.playDate.toLowerCase().indexOf(filterString.toLowerCase()) !== -1 || 
+        ticket.playDTO.playName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
         )));
   }
 

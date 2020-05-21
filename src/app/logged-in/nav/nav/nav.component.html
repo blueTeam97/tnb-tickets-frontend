@@ -10,6 +10,9 @@
     <div *ngIf="roles.includes('user')" [ngbNavItem]="2" class="my-auto">
       <a [routerLink]="['/user/history']" ngbNavLink>History</a>
     </div>
+    <div *ngIf="roles.includes('admin')" [ngbNavItem]="2" class="my-auto">
+      <a [routerLink]="['/admin']" ngbNavLink>Plays</a>
+    </div>
   </div>
   <div ngbDropdown class="nav-item my-auto">
     <a href (click)="false" class="nav-link nav-button" ngbDropdownToggle>Welcome, {{username}}</a>

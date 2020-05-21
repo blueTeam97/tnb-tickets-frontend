@@ -28,6 +28,7 @@ export class PlaysComponent implements OnInit {
   lastBookedTicket:Ticket;
   ticketDiffInDays:number;
   nothingToShow:boolean=false;
+  plays:Play[] = [];
 
   elementType: 'url' | 'canvas' | 'img' = 'url';
   value: string;
@@ -35,20 +36,26 @@ export class PlaysComponent implements OnInit {
   href : string;
   modalPlayLink : string = '';
 
-  constructor(private userService: UserService,private modalService: NgbModal) {
-  }
+  bookResponse:BookResponse = {
+    expiredTime:0,
+    allowedToBook:false
+  };
+
+  constructor(private userService: UserService,
+    private confirmBookModal: ConfirmationDialogService,private modalService: NgbModal) {
+}
 
   ngOnInit(): void {
     this.getAllPlays();
   }
 
-  filterSearch() {
-    this.filter = new FormControl('');
-    this.filter$ = this.filter.valueChanges.pipe(startWith(''));
-    this.filteredPlays$ = combineLatest(this.userPopulator$, this.filter$).pipe(
-      map(([populator, filterString]) =>populator.userEdiblePlays.filter(play =>
-        play.playName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)));
-  }
+  // filterSearch() {
+  //   this.filter = new FormControl('');
+  //   this.filter$ = this.filter.valueChanges.pipe(startWith(''));
+  //   this.filteredPlays$ = combineLatest(this.userPopulator$, this.filter$).pipe(
+  //     map(([populator, filterString]) =>populator.userEdiblePlays.filter(play =>
+  //       play.playName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)));
+  // }
   playIsAvailableToBook(playDateString:string):boolean{
     return new Date(playDateString).getTime()<=new Date().getTime();
   }
@@ -61,22 +68,29 @@ export class PlaysComponent implements OnInit {
       let diffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()- new Date(playIsAvailableDateString).getTime())/86400000));
       return diffInDays>=30;
   }
-  getAllPlays() {
-    this.userService.getAllPlays().subscribe((res)=>{
-      console.log(res);
-      if(res.userEdiblePlays===null || res.userEdiblePlays===[]){
-        this.nothingToShow=true;
-      }
-      else{
-        this.userPopulator$.next(res);
-        this.lastBookedTicket = res.userLastBookedTicket;
-        if(this.lastBookedTicket!==null){
-          this.ticketDiffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()-new Date().getTime())/86400000));
-        }
-        console.log(this.ticketDiffInDays);
-      }
+  // getAllPlays() {
+  //   this.userService.getAllPlays().subscribe((res)=>{
+  //     console.log(res);
+  //     if(res.userEdiblePlays===null || res.userEdiblePlays===[]){
+  //       this.nothingToShow=true;
+  //     }
+  //     else{
+  //       this.userPopulator$.next(res);
+  //       this.lastBookedTicket = res.userLastBookedTicket;
+  //       if(this.lastBookedTicket!==null){
+  //         this.ticketDiffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()-new Date().getTime())/86400000));
+  //       }
+  //       console.log(this.ticketDiffInDays);
+  //     }
+  //   });
+  //   //this.filterSearch();
+  // }
+
+  getAllPlays(){
+    this.userService.getAllPlays().subscribe((res)=> {
+      this.plays=res.userEdiblePlays;
+      console.log(this.plays);
     });
-    this.filterSearch();
   }
   bookClickHandler(playId:number){
     console.log(this.bookResponse);
@@ -104,8 +118,6 @@ export class PlaysComponent implements OnInit {
     let qrContent = play.playName + '\n' + play.playDate + '\n' + play.link;
     this.value = qrContent;
     this.display = true;
-    this.modalPlayLink = play.link;
     this.modalService.open(content, { size: 'sm' });
-  
   }
 }

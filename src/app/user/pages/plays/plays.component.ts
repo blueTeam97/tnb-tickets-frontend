@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, last } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { Play } from 'src/app/models/Play';
+import { DialogService } from 'src/app/services/dialog.service';
+import BookResponse from 'src/app/models/BookResponse';
+import { NotifyService } from 'src/app/services/notify.service';
+import UserPlaysPopulator from 'src/app/models/UserPlaysPopulator';
+import { Ticket } from 'src/app/models/Ticket';
 
 @Component({
   selector: 'app-plays',
@@ -15,20 +20,22 @@ import { Play } from 'src/app/models/Play';
 
 export class PlaysComponent implements OnInit {
 
-  plays$: Observable<Play[]>;
+  userPopulator$: BehaviorSubject<UserPlaysPopulator> = new BehaviorSubject<UserPlaysPopulator>({userEdiblePlays:[],userLastBookedTicket:null});
   filteredPlays$: Observable<Play[]>;
   filter: FormControl;
   filter$: Observable<string>;
-  bookButtonClicked:boolean;
-  bookResponse:{
-    expiredTime:number,
-    allowedToBook:boolean
-  } = {
+  lastBookedTicket:Ticket;
+  ticketDiffInDays:number;
+  nothingToShow:boolean=false;
+
+  bookResponse:BookResponse = {
     expiredTime:0,
     allowedToBook:false
   };
   
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private dialogService: DialogService,
+              private confirmBookModal: NotifyService) {
   }
 
   ngOnInit(): void {
@@ -38,25 +45,61 @@ export class PlaysComponent implements OnInit {
   filterSearch() {
     this.filter = new FormControl('');
     this.filter$ = this.filter.valueChanges.pipe(startWith(''));
-    this.filteredPlays$ = combineLatest(this.plays$, this.filter$).pipe(
-      map(([plays, filterString]) => plays.filter(play =>
+    this.filteredPlays$ = combineLatest(this.userPopulator$, this.filter$).pipe(
+      map(([populator, filterString]) =>populator.userEdiblePlays.filter(play =>
         play.playName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)));
   }
-
+  playIsAvailableToBook(playDateString:string):boolean{
+    return new Date(playDateString).getTime()<=new Date().getTime();
+  }
+  comparePlayDateToCurrentDate(playDateString:string):boolean{
+      return new Date().getTime() <= new Date(playDateString).getTime();
+  }
+  comparePlayAvailableDateToUserTicket(playIsAvailableDateString:string):boolean{
+      if(this.lastBookedTicket===null)
+        return true;
+      let diffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()- new Date(playIsAvailableDateString).getTime())/86400000));
+      return diffInDays>=30;
+  }
   getAllPlays() {
-    this.plays$ = this.userService.getAllPlays();
+    this.userService.getAllPlays().subscribe((res)=>{
+      console.log(res);
+      if(res.userEdiblePlays===null || res.userEdiblePlays===[]){
+        this.nothingToShow=true;
+      }
+      else{
+        this.userPopulator$.next(res);
+        this.lastBookedTicket = res.userLastBookedTicket;
+        this.ticketDiffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()-new Date().getTime())/86400000));
+        console.log(this.ticketDiffInDays);
+      }
+    });
     this.filterSearch();
   }
   bookClickHandler(playId:number){
+    console.log(this.bookResponse);
+    this.dialogService.openConfirmDialog("Are you sure you want to book this play?")
+                      .afterClosed().subscribe(res=>{
+                        if(res){
+                          this.bookTicket(playId).subscribe((res:BookResponse)=>{
+                            this.bookResponse=res;
+                            if(this.bookResponse.allowedToBook){
+                              this.confirmBookModal.openConfirmDialog("Your ticket was booked!");
+                              this.getAllPlays();
+                            }
+                            else if(!this.bookResponse.allowedToBook && (this.bookResponse.expiredTime==0 || this.bookResponse.expiredTime==null)){
+                              this.confirmBookModal.openConfirmDialog("Unfortunately, this play doesn't have free tickets anymore...");
+                            }
+                            else if(!this.bookResponse.allowedToBook){
+                              this.confirmBookModal.openConfirmDialog("Bad Luck!The last ticket was booked "+this.bookResponse.expiredTime.toString()+"s ago");
+                            }
+                            else console.log("Booking cancelled!");
+                          });
+                           
+                        }
+                      });
   }
-  // bookClickHandler(playId:number){
-  //   this.userService.bookTicket(playId).subscribe((res:{
-  //     expiredTime:number,
-  //     allowedToBook:boolean
-  //   })=>{
-  //       this.bookResponse=res;
-  //       console.log("Res: "+res.allowedToBook+"   "+res.expiredTime);
-  //       console.log("BookResponse: "+this.bookResponse.allowedToBook+"   "+this.bookResponse.expiredTime);
-  //     });
-  // }
+  bookTicket(playId:number){
+    return this.userService.bookTicket(playId);
+  }
 }

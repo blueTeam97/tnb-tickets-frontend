@@ -8,6 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { Play } from '../models/Play';
 import { catchError } from 'rxjs/operators';
 import { Ticket } from '../models/Ticket';
+import UserPlaysPopulator from '../models/UserPlaysPopulator';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,14 +18,15 @@ import { Ticket } from '../models/Ticket';
   providedIn: 'root',
 })
 export class UserService {
-  private userGetAllPlaysURL = 'http://localhost:8081/v1/findAll';
+  private userGetAllPlaysURL = 'http://localhost:8081/v1/user/findPlays';
   private getAllTicketsByUserIdURL = 'http://localhost:8081/tasks';
+  private changeUserSubscribeURL='http://localhost:8081/tasks/user/changeSubscribe'
 
   constructor(private http: HttpClient) { }
 
-  getAllPlays(): Observable<Play[]> {
+  getAllPlays(): Observable<UserPlaysPopulator> {
     return this.http
-      .get<Play[]>(this.userGetAllPlaysURL)
+      .get<UserPlaysPopulator>(this.userGetAllPlaysURL)
       .pipe(catchError(this.handleError));
   }
 
@@ -36,10 +38,13 @@ export class UserService {
 
   bookTicket(playId: number) {
     return this.http
-      .post(this.getAllTicketsByUserIdURL + '/play/' + playId + '/book',{})
+      .post(this.getAllTicketsByUserIdURL + '/play/' + playId.toString() + '/book',{})
       .pipe(catchError(this.handleError));
   }
-
+  changeSubscribe(){
+    return this.http.put(this.changeUserSubscribeURL,{})
+               .pipe(catchError(this.handleError))
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

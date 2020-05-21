@@ -14,7 +14,7 @@
   <div ngbDropdown class="nav-item">
     <a href (click)="false" class="nav-link nav-button" ngbDropdownToggle>Welcome, {{username}}</a>
     <div ngbDropdownMenu>
-      <button *ngIf="roles.includes('user')" ngbDropdownItem>Subscribe</button>
+      <button *ngIf="roles.includes('user')" ngbDropdownItem (click)="ChangeSubscriber()">{{subscriberCurrentState}}</button>
       <button (click)="logout()" ngbDropdownItem>Logout</button>
     </div>
   </div>

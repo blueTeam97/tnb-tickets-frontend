@@ -1,4 +1,6 @@
 .date {
     padding-top: 39px;
 }
-
+button[aria-label="Close"]:focus {
+    outline: none;
+  }

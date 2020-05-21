@@ -18,13 +18,14 @@ export class AddPlayComponent implements OnInit {
   addPlayForm: FormGroup;
   submitted = false;
   play = {} as Play;
+  addOrEdit: boolean;
+  playDateHasError: boolean;
   today = {
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
     day: new Date().getDate()
   };
-  playOrEdit: boolean;
-  playDateHasError: boolean;
+  minDate = {};
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -37,11 +38,11 @@ export class AddPlayComponent implements OnInit {
 
     if (this.play.id == null) {
       this.buildForm();
-      this.playOrEdit = true;
+      this.addOrEdit = true;
     }
     else {
       this.buildEditForm();
-      this.playOrEdit = false;
+      this.addOrEdit = false;
     }
   }
 
@@ -51,13 +52,15 @@ export class AddPlayComponent implements OnInit {
     this.play.ticketsNumber = 0;
     this.addPlayForm = this.fb.group({
       titlePlay: ['', [Validators.required]],
-      linkPlay: ['', Validators.compose([Validators.required, this.customValidator.patternValidator('URL')])],
+      linkPlay: ['', Validators.compose([Validators.required, this.customValidator.patternValidator('PlayURL')])],
+      linkPlayImage: ['', this.customValidator.patternValidator('ImageURL')],
       nrTickets: ['', Validators.compose([Validators.required, Validators.min(1)])],
       availableDate: ['', [Validators.required]],
       // availableHour: ['', [Validators.required]],
       playDate: ['', [Validators.required]],
       playHour: ['', [Validators.required]],
     });
+    this.minDate = this.today;
   }
 
   splitStringToDate(fullDate: string) {
@@ -87,12 +90,14 @@ export class AddPlayComponent implements OnInit {
     this.addPlayForm = this.fb.group({
       titlePlay: [this.play.playName, [Validators.required,]],
       linkPlay: [this.play.link, Validators.compose([Validators.required, this.customValidator.patternValidator("URL")])],
+      linkPlayImage: [this.play.imageUrl, this.customValidator.patternValidator('PlayURL')],
       nrTickets: [this.play.ticketsNumber, Validators.compose([Validators.required, Validators.min(this.play.ticketsNumber)])],
       availableDate: [this.splitStringToDate(this.play.availableDate), [Validators.required,]],
       // availableHour: [this.splitStringToTime(this.play.availableDate), [Validators.required,]],
       playDate: [this.splitStringToDate(this.play.playDate), [Validators.required,]],
       playHour: [this.splitStringToTime(this.play.playDate), [Validators.required,]]
     });
+    this.minDate = this.splitStringToDate(this.play.availableDate);
   }
 
   // convenience getter for easy access to form fields
@@ -102,8 +107,8 @@ export class AddPlayComponent implements OnInit {
 
 
   dateValidator(aDate: any, pDate: any): boolean {
-    const availableDate = new Date(aDate.year, aDate.month, aDate.day);
-    const playDate = new Date(pDate.year, pDate.month, pDate.day);
+    const availableDate = new Date(aDate.year, aDate.month, aDate.day).getTime();
+    const playDate = new Date(pDate.year, pDate.month, pDate.day).getTime();
     return (availableDate > playDate);
   }
 
@@ -113,16 +118,16 @@ export class AddPlayComponent implements OnInit {
     let dateValidation = this.dateValidator(this.addPlayForm.get('availableDate').value, this.addPlayForm.get('playDate').value);
     if (dateValidation) {
       this.addPlayForm.controls['availableDate'].setErrors({ 'dateError': true });
-    }else
-    if (this.addPlayForm.controls['availableDate'].hasError('dateError')) {
-      this.addPlayForm.controls['availableDate'].setErrors(null);
-    }
+    } else
+      if (this.addPlayForm.controls['availableDate'].hasError('dateError')) {
+        this.addPlayForm.controls['availableDate'].setErrors(null);
+      }
 
     if (this.addPlayForm.invalid) {
       return;
     }
 
-    if (this.playOrEdit) {
+    if (this.addOrEdit) {
       this.confirmationDialogService.confirm('Please confirm..', 'Are you sure to add this play?').then((confirmed) => {
         if (confirmed) {
           this.createPlayObject();
@@ -140,7 +145,6 @@ export class AddPlayComponent implements OnInit {
       })
         .catch(() => console.log('User dismissed the dialog'));
     }
-
   }
 
   formatDate(date: any): string {
@@ -162,8 +166,8 @@ export class AddPlayComponent implements OnInit {
 
     this.play.playName = this.addPlayForm.get('titlePlay').value;
     this.play.link = this.addPlayForm.get('linkPlay').value;
+    this.play.imageUrl = this.addPlayForm.get('linkPlayImage').value;
     this.play.ticketsNumber = this.addPlayForm.get('nrTickets').value;
-
     this.play.availableDate = this.formatDate(this.addPlayForm.get('availableDate').value) + " " +
       "14:00:00";
     // this.formatTime(this.addPlayForm.get('availableHour').value) + ":00";

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/services/auth/token-storage.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav',
@@ -15,6 +16,8 @@ export class NavComponent implements OnInit {
   username: string;
   subscriberCurrentState:string="Unsubscribe";
   roles = [];
+
+  faSignOutAlt = faSignOutAlt;
   
   constructor(private router:Router,private tokenStorage:TokenStorageService,private userService:UserService) { 
     if (this.tokenStorage.getToken()) {

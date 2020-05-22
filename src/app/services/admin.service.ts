@@ -22,13 +22,13 @@ export class AdminService {
   constructor(private httpClient: HttpClient) { }
 
 
-  getPlayById(id : number): Observable<Play> {
+  public getPlayById(id : number): Observable<Play> {
     return this.httpClient.get<Play>(this.ADMIN_GET_PLAY_URL + id)
                   .pipe(catchError(this.handleError));
   }
 
-  getBookedTickets(id: number): Observable<String> {
-    return this.httpClient.get<String>(this.ADMIN_GET_ALL_BOOKED_TICKETS + id)
+  public getBookedTickets(id: number): Observable<Ticket[]> {
+    return this.httpClient.get<Ticket[]>(this.ADMIN_GET_ALL_BOOKED_TICKETS + id)
                   .pipe(catchError(this.handleError));
   }
 

@@ -9,7 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TicketsListComponent } from './tickets-list/tickets-list.component';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [AdminComponent, DashboardComponent, AddPlayComponent, TicketsListComponent],
   imports: [
@@ -17,7 +17,8 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
     AdminRoutingModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   entryComponents: [
     AddPlayComponent,

@@ -4,6 +4,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { Play } from 'src/app/models/Play';
 import { Ticket } from 'src/app/models/Ticket';
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class TicketsListComponent implements OnInit {
     private dataService: AdminService
   ) { }
 
-  tickets : Ticket[];
+  tickets : Observable<Ticket[]>;
   playId : number;
   play : Play;
   email : String;
@@ -34,15 +35,12 @@ export class TicketsListComponent implements OnInit {
   getPlayDetails() {
     this.dataService.getPlayById(this.playId).subscribe((resp : Play) => {
       this.play = resp;
-      console.log(this.play);
     })
   }
 
   getTickets() {
     this.dataService.getBookedTickets(this.playId).subscribe((resp : any) => {
       this.tickets = resp;
-      this.tickets.findIndex(t=>this.play=t.playDTO);
-      console.log(this.play);
     })
   }
 

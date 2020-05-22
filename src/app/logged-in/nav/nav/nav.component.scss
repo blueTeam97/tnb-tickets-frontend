@@ -1,38 +1,42 @@
 @import "../../../../styles/variables";
-
 .nav-pills {
-  background-color: $blueSapphire;
-  //font-weight: bold;
-  padding:5px 0;
+    background-color: $blueSapphire;
+    //font-weight: bold;
+    padding: 5px 0;
 }
 
 a.nav-link {
-  color: white;
-  margin:auto 0;
-  transition:all .2s ease-in-out;
-  font-family: "Kaushan Script", cursive;
-  &:hover {
-    border: none;
-    background-color: lighten($blueSapphire,5%);
-  }
-  &.active{
-      background-color:lighten($blueSapphire,5%);
-  }
-}
-.nav-pills .show>.nav-link{
-    background-color:lighten($blueSapphire,5%);
+    color: white;
+    margin: auto 0;
+    transition: all .2s ease-in-out;
+    font-family: "Kaushan Script", cursive;
+    &:hover {
+        border: none;
+        background-color: lighten($blueSapphire, 5%);
+    }
+    &.active {
+        background-color: lighten($blueSapphire, 5%);
+    }
 }
 
-.nav-item{
-    margin:0 5px;
+.nav-pills .show>.nav-link {
+    background-color: lighten($blueSapphire, 5%);
 }
 
-.navbar-brand{
-    margin-right:10px;
-    color:white;
+.nav-item {
+    margin: 0 5px;
+}
+
+.navbar-brand {
+    margin-right: 10px;
+    color: white;
     font-family: "Kaushan Script", cursive;
 }
 
 .navbar-brand:hover {
-  cursor: default;
+    cursor: default;
+}
+
+.dropdown-item {
+    justify-content: flex-end;
 }

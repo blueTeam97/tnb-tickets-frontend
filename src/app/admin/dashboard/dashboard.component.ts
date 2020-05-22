@@ -3,6 +3,7 @@ import { AddPlayComponent } from '../add-play/add-play.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Play } from 'src/app/models/Play';
 import { Router } from '@angular/router';
+import { faTrash, faEdit, faList } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -14,9 +15,14 @@ export class DashboardComponent implements OnInit {
 
   @Input() play: Play;
   @Input() filterValue: string;
+  @Input() i : number;
 
   @Output() deleteEvent: EventEmitter<any> = new EventEmitter();
   @Output() editEvent: EventEmitter<any> = new EventEmitter();
+
+  faTrash = faTrash;
+  faEdit = faEdit;
+  faList = faList;
 
   constructor(public modalService: NgbModal,
     private router: Router) { }

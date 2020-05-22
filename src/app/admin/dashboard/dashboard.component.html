@@ -1,14 +1,15 @@
-<td>
-  <ngb-highlight [result]="play.playName" [term]="filterValue"></ngb-highlight>
-</td>
-
-<td>{{ play.availableTicketsNumber }}</td>
-<td>{{ play.bookedTicketsNumber }}</td>
-<td>{{ (play.ticketsNumber - (play.bookedTicketsNumber + play.availableTicketsNumber)) }}</td>
-
-
-<td class="text-center">
-  <button type="button" class="btn btn-danger" (click)="handleDeleteButton()">Delete</button>
-  <button type="button" class="btn btn-success" (click)="openEditModal()">Edit Play</button>
-  <button type="button" class="btn btn-info" (click)="handleViewTickets()">View Tickets</button>
-</td>
+<div class="d-flex row">
+    <div class="index-col index-rows">{{i+1}}.</div>
+    <div class="d-flex flex-grow-1 justify-content-around tkt-row shadow p-2 mb-4">
+        <div class="col-xl-2  text-center">
+            <ngb-highlight [result]="play.playName" [term]="filterValue"></ngb-highlight>
+        </div>
+        <div class="col-xl-2  date-col">{{ play.availableTicketsNumber }}</div>
+        <div class="col-xl-2  date-col">{{ play.bookedTicketsNumber }}</div>
+        <div class="col-xl-2  date-col">
+            {{ (play.ticketsNumber - (play.bookedTicketsNumber + play.availableTicketsNumber)) }}</div>
+        <button type="button" class="btn btn-danger" (click)="handleDeleteButton()"><fa-icon [icon]="faTrash"></fa-icon></button>
+        <button type="button" class="btn btn-success" (click)="openEditModal()"><fa-icon [icon]="faEdit"></fa-icon></button>
+        <button type="button" class="btn btn-info" (click)="handleViewTickets()"><fa-icon [icon]="faList"></fa-icon></button>
+    </div>
+</div>

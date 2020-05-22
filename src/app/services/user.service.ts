@@ -21,6 +21,8 @@ export class UserService {
   private userGetAllPlaysURL = 'http://localhost:8081/v1/user/findPlays';
   private getAllTicketsByUserIdURL = 'http://localhost:8081/tasks';
   private changeUserSubscribeURL='http://localhost:8081/tasks/user/changeSubscribe'
+  private getUserSubscribeStatusURL='http://localhost:8081/tasks/user/getSubscribeStatus';
+
 
   constructor(private http: HttpClient) { }
 
@@ -35,7 +37,9 @@ export class UserService {
       .get<Ticket[]>(this.getAllTicketsByUserIdURL + '/user/history')
       .pipe(catchError(this.handleError));
   }
-
+  getSubscribeStatus():Observable<Boolean>{
+      return this.http.get<Boolean>(this.getUserSubscribeStatusURL);
+ }
   bookTicket(playId: number) {
     return this.http
       .post(this.getAllTicketsByUserIdURL + '/play/' + playId.toString() + '/book',{})

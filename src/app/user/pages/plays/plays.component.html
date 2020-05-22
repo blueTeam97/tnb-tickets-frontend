@@ -23,8 +23,16 @@
               <p><b>Tickets:</b> {{play.availableTicketsNumber}}</p>
             </div>
             <div class="text-center">
-              <button class="btn btn-sm btn-info text-center w-25 mx-2 book-btn"
-                (click)="bookClickHandler(play.id)">Book</button>
+                <div *ngIf="comparePlayDateToCurrentDate(play.playDate) && playIsAvailableToBook(play.availableDate) && comparePlayAvailableDateToUserTicket(play.availableDate)">
+                    <button class="btn btn-sm btn-info" (click)="bookClickHandler(play.id)">Book</button>
+                </div>
+                <div *ngIf="!playIsAvailableToBook(play.availableDate)">
+                    <p>Not available yet</p>
+                </div>
+                <div *ngIf="!comparePlayAvailableDateToUserTicket(play.availableDate) && playIsAvailableToBook(play.availableDate)">
+                    <div>You booked a ticket <div *ngIf="ticketDiffInDays==0">less than a day</div> 
+                    <div *ngIf="ticketDiffInDays!=0">{{ticketDiffInDays}} days</div> ago</div>
+                </div>
               <button class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn" (click)="openModal(content,play)"><i
                   class="fas fa-qrcode"></i></button>
             </div>

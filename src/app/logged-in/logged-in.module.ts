@@ -6,6 +6,7 @@ import { LoggedInComponent } from './logged-in.component';
 import { NavComponent } from './nav/nav/nav.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrComponent } from '../toastr/toastr.component';
 
 @NgModule({
   declarations: [LoggedInComponent, NavComponent],

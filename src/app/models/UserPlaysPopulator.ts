@@ -3,5 +3,6 @@ import { Ticket } from './Ticket';
 
 export default interface UserPlaysPopulator{
     userEdiblePlays:Play[],
-    userLastBookedTicket:Ticket
+    userLastBookedTicket:Ticket,
+    bookedAvailablePlays:Play[]
 }

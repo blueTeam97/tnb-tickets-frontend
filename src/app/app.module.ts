@@ -11,6 +11,8 @@ import { AuthInterceptor, httpInterceptorProviders } from './interceptor/auth.in
 import { PlaysFilterPipe } from 'src/app/pipes/plays-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+ 
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -27,6 +29,9 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    })
   ],
   providers: [
     NgbActiveModal,

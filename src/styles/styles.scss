@@ -1,13 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import './variables';
 
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
-
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~ngx-toastr/toastr';
+ 
+// bootstrap style toast 
+// or import a bootstrap 4 alert styled design (SASS ONLY) 
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions 
+@import '~bootstrap/scss/mixins';
+@import '~ngx-toastr/toastr-bs4-alert';
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+.toast-container{
+    top:100px!important;
+}
+.toast-success{
+    background-color: $indigoDye!important;
+}
 button[aria-label="Close"]:focus {
     outline: none;
 }

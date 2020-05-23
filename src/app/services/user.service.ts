@@ -3,9 +3,9 @@ import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
+  HttpParams,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Play } from '../models/Play';
 import { catchError } from 'rxjs/operators';
 import { Ticket } from '../models/Ticket';
 import UserPlaysPopulator from '../models/UserPlaysPopulator';
@@ -21,6 +21,8 @@ export class UserService {
   private userGetAllPlaysURL = 'http://localhost:8081/v1/user/findPlays';
   private getAllTicketsByUserIdURL = 'http://localhost:8081/tasks';
   private changeUserSubscribeURL='http://localhost:8081/tasks/user/changeSubscribe'
+  private getUserSubscribeStatusURL='http://localhost:8081/tasks/user/getSubscribeStatus';
+  private userUnbookTicketURL='http://localhost:8081/tasks/user/ticket/'
 
   constructor(private http: HttpClient) { }
 
@@ -35,7 +37,9 @@ export class UserService {
       .get<Ticket[]>(this.getAllTicketsByUserIdURL + '/user/history')
       .pipe(catchError(this.handleError));
   }
-
+  getSubscribeStatus():Observable<Boolean>{
+      return this.http.get<Boolean>(this.getUserSubscribeStatusURL);
+ }
   bookTicket(playId: number) {
     return this.http
       .post(this.getAllTicketsByUserIdURL + '/play/' + playId.toString() + '/book',{})
@@ -44,6 +48,10 @@ export class UserService {
   changeSubscribe(){
     return this.http.put(this.changeUserSubscribeURL,{})
                .pipe(catchError(this.handleError))
+  }
+  unbookTicket(playId:number){
+    return this.http.put(this.userUnbookTicketURL+playId+"/unbook",{})
+                    .pipe(catchError(this.handleError));
   }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

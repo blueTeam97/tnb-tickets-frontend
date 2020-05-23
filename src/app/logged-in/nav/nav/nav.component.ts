@@ -15,11 +15,10 @@ export class NavComponent implements OnInit {
 
   email: string;
   username: string;
-  subscriberCurrentState:string="Unsubscribe";
+  subscriberCurrentState: string = "Unsubscribe";
   roles = [];
 
   faSignOutAlt = faSignOutAlt;
-  toastrActive:Boolean=false;
   
   constructor(private router:Router,
               private tokenStorage:TokenStorageService,
@@ -29,39 +28,45 @@ export class NavComponent implements OnInit {
       this.email = this.tokenStorage.getUsername();
       this.roles = this.tokenStorage.getAuthorities();
     }
-  
+
   }
-  toastrDisplayStatus(){
-    if(this.subscriberCurrentState==="Subscribe"){
-      this.toastr.success("You successfully subscribed!");
+  toastrDisplayStatus() {
+    const toastOptions = {
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      tapToDismiss: false,
+      disableTimeout:true
+    };
+    if (this.subscriberCurrentState === "Subscribe") {
+      this.toastr.success("You successfully unsubscribed!", "", toastOptions);
     }
-    else this.toastr.success("You successfully unsubscribed!");
+    else this.toastr.success("You successfully subscribed!", "", toastOptions);
   }
   ngOnInit(): void {
     this.username = this.email.split("@")[0];
-    this.userService.getSubscribeStatus().subscribe((res)=>{
-      console.log("Response: "+res);
-      console.log("Status: "+this.subscriberCurrentState);
-      const subscribeValue=res;
-      if(subscribeValue){
-        this.subscriberCurrentState="Unsubscribe";
+    this.userService.getSubscribeStatus().subscribe((res) => {
+      console.log("Response: " + res);
+      console.log("Status: " + this.subscriberCurrentState);
+      const subscribeValue = res;
+      if (subscribeValue) {
+        this.subscriberCurrentState = "Unsubscribe";
       }
-      else this.subscriberCurrentState="Subscribe";
+      else this.subscriberCurrentState = "Subscribe";
     })
   }
 
-  logout(){
+  logout() {
     this.tokenStorage.signOut();
     this.router.navigate(['login']);
   }
-  ChangeSubscriber(){
+  ChangeSubscriber() {
     console.log("Subscribe changed");
-    this.userService.changeSubscribe().subscribe((res)=>{
-      if(res==0){
-        this.subscriberCurrentState="Unsubscribe";
+    this.userService.changeSubscribe().subscribe((res) => {
+      if (res == 0) {
+        this.subscriberCurrentState = "Unsubscribe";
       }
-      else if(res==1){
-        this.subscriberCurrentState="Subscribe";
+      else if (res == 1) {
+        this.subscriberCurrentState = "Subscribe";
       }
       this.toastrDisplayStatus();
     });

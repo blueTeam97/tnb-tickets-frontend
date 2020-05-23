@@ -10,6 +10,7 @@ import UserPlaysPopulator from 'src/app/models/UserPlaysPopulator';
 import { Ticket } from 'src/app/models/Ticket';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-plays',
@@ -21,14 +22,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class PlaysComponent implements OnInit {
 
-  userPopulator$: BehaviorSubject<UserPlaysPopulator> = new BehaviorSubject<UserPlaysPopulator>({userEdiblePlays:[],userLastBookedTicket:null});
+  userPopulator: UserPlaysPopulator;
   filteredPlays$: Observable<Play[]>;
   filter: FormControl;
   filter$: Observable<string>;
   lastBookedTicket:Ticket;
   ticketDiffInDays:number;
   nothingToShow:boolean=false;
-  plays:Play[] = [];
+  bookedAvailablePlays:Play[]=[];
 
   elementType: 'url' | 'canvas' | 'img' = 'url';
   value: string;
@@ -42,20 +43,12 @@ export class PlaysComponent implements OnInit {
   };
 
   constructor(private userService: UserService,
-    private confirmBookModal: ConfirmationDialogService,private modalService: NgbModal) {
+    private confirmBookModal: ConfirmationDialogService,private modalService: NgbModal,private toastr:ToastrService) {
 }
 
   ngOnInit(): void {
     this.getAllPlays();
   }
-
-  // filterSearch() {
-  //   this.filter = new FormControl('');
-  //   this.filter$ = this.filter.valueChanges.pipe(startWith(''));
-  //   this.filteredPlays$ = combineLatest(this.userPopulator$, this.filter$).pipe(
-  //     map(([populator, filterString]) =>populator.userEdiblePlays.filter(play =>
-  //       play.playName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)));
-  // }
   playIsAvailableToBook(playDateString:string):boolean{
     return new Date(playDateString).getTime()<=new Date().getTime();
   }
@@ -63,34 +56,44 @@ export class PlaysComponent implements OnInit {
       return new Date().getTime() <= new Date(playDateString).getTime();
   }
   comparePlayAvailableDateToUserTicket(playIsAvailableDateString:string):boolean{
-      if(this.lastBookedTicket===null)
+      if(!this.userPopulator.userLastBookedTicket)
         return true;
-      let diffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()- new Date(playIsAvailableDateString).getTime())/86400000));
+      let diffInDays=Math.floor(Math.abs((new Date(this.userPopulator.userLastBookedTicket.bookDate).getTime()- new Date(playIsAvailableDateString).getTime())/86400000));
       return diffInDays>=30;
   }
-  // getAllPlays() {
-  //   this.userService.getAllPlays().subscribe((res)=>{
-  //     console.log(res);
-  //     if(res.userEdiblePlays===null || res.userEdiblePlays===[]){
-  //       this.nothingToShow=true;
-  //     }
-  //     else{
-  //       this.userPopulator$.next(res);
-  //       this.lastBookedTicket = res.userLastBookedTicket;
-  //       if(this.lastBookedTicket!==null){
-  //         this.ticketDiffInDays=Math.floor(Math.abs((new Date(this.lastBookedTicket.bookDate).getTime()-new Date().getTime())/86400000));
-  //       }
-  //       console.log(this.ticketDiffInDays);
-  //     }
-  //   });
-  //   //this.filterSearch();
-  // }
-
-  getAllPlays(){
-    this.userService.getAllPlays().subscribe((res)=> {
-      this.plays=res.userEdiblePlays;
-      console.log(this.plays);
+  getAllPlays() {
+    this.userService.getAllPlays().subscribe((res)=>{
+      console.log(res,res.bookedAvailablePlays);
+      this.userPopulator=res;
+      if(this.userPopulator.userEdiblePlays.length==0){
+        this.nothingToShow=true;
+      }
+      else{
+        if(this.userPopulator.userLastBookedTicket){
+          this.ticketDiffInDays=Math.floor(Math.abs((new Date(this.userPopulator.userLastBookedTicket.bookDate).getTime()-new Date().getTime())/86400000));
+        }
+      }
     });
+  }
+
+  // getAllPlays(){
+  //   this.userService.getAllPlays().subscribe((res)=> {
+  //     this.plays=res.userEdiblePlays;
+  //     console.log(this.plays);
+  //   });
+  // }
+  unbookClickHandler(playId:number){
+    this.confirmBookModal.confirm("Atention!","Are you sure you want to unbook this ticket?")
+                         .then(modalRes=>{
+                            if(modalRes){
+                              this.userService.unbookTicket(playId).subscribe((unbookRes)=>{
+                                if(unbookRes){
+                                  this.toastr.success("Your ticket was unbooked successfully","");
+                                  this.getAllPlays();
+                                }
+                              });
+                            }
+                         })
   }
   bookClickHandler(playId:number){
     console.log(this.bookResponse);
@@ -100,14 +103,14 @@ export class PlaysComponent implements OnInit {
                           this.bookTicket(playId).subscribe((res:BookResponse)=>{
                             this.bookResponse=res;
                             if(this.bookResponse.allowedToBook){
-                              this.confirmBookModal.confirm("Done!","Your ticket was booked!").then((res)=>{this.getAllPlays();});
+                              this.toastr.success("Done!","Your ticket was booked!");
+                              this.getAllPlays();
                             }
                             else if(!this.bookResponse.allowedToBook){
                               this.confirmBookModal.confirm("Too slow!","Bad Luck!The last ticket was booked "+this.bookResponse.expiredTime.toString()+"s ago");
                             }
                             else console.log("Booking cancelled!");
                           });
-                           
                         }
                       });
   }

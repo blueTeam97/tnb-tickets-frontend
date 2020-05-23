@@ -1,0 +1,34 @@
+<div class="container timer-box">
+    <h3>You will be able to book your next ticket in</h3>
+    <div class="countdown-wrapper">
+        <div class="countdown-item">
+            <svg class="countdown-svg">
+                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, 0)" />
+            </svg>
+            {{days}}
+            <span>days</span>
+        </div>
+        <div class="countdown-item">
+            <svg class="countdown-svg">
+                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, 1)" />
+            </svg>
+            {{hours}}
+            <span>hours</span>
+        </div>
+        <div class="countdown-item">
+            <svg class="countdown-svg">
+                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, 2)" />
+            </svg>
+            {{minutes}}
+            <span>minutes</span>
+        </div>
+        <div class="countdown-item">
+            <svg class="countdown-svg">
+                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, 3)" />
+            </svg>
+            {{seconds}}
+            <span>seconds</span>
+
+        </div>
+    </div>
+</div>

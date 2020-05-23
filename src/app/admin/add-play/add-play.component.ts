@@ -51,9 +51,9 @@ export class AddPlayComponent implements OnInit {
     //assign 0 to set the error message of the ticket number
     this.play.ticketsNumber = 0;
     this.addPlayForm = this.fb.group({
-      titlePlay: ['', [Validators.required]],
-      linkPlay: ['', Validators.compose([Validators.required, this.customValidator.patternValidator('PlayURL')])],
-      linkPlayImage: ['', this.customValidator.patternValidator('ImageURL')],
+      titlePlay: ['', [Validators.compose([Validators.required, Validators.maxLength(255)])]],
+      linkPlay: ['', Validators.compose([Validators.required, this.customValidator.patternValidator('PlayURL'), Validators.maxLength(255)])],
+      linkPlayImage: ['', Validators.compose([this.customValidator.patternValidator('ImageURL'), Validators.maxLength(255)])],
       nrTickets: ['', Validators.compose([Validators.required, Validators.min(1)])],
       availableDate: ['', [Validators.required]],
       // availableHour: ['', [Validators.required]],

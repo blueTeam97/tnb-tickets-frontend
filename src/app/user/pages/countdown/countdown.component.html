@@ -3,28 +3,28 @@
     <div class="countdown-wrapper">
         <div class="countdown-item">
             <svg class="countdown-svg">
-                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, 0)" />
+                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, daysRadius)" />
             </svg>
             {{days}}
             <span>days</span>
         </div>
         <div class="countdown-item">
             <svg class="countdown-svg">
-                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, 1)" />
+                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, hoursRadius)" />
             </svg>
             {{hours}}
             <span>hours</span>
         </div>
         <div class="countdown-item">
             <svg class="countdown-svg">
-                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, 2)" />
+                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, minutesRadius)" />
             </svg>
             {{minutes}}
             <span>minutes</span>
         </div>
         <div class="countdown-item">
             <svg class="countdown-svg">
-                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, 3)" />
+                <path class="pathSVG" [attr.d]="describeArc(50, 50, 48, 0, secondsRadius)" />
             </svg>
             {{seconds}}
             <span>seconds</span>

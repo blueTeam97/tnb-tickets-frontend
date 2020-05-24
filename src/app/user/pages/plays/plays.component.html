@@ -1,8 +1,8 @@
 <div class="mt-5 plays__background">
   <div class="container">
-    <div class="row">
+    <div *ngIf="nothingToShow" class="row">
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <app-countdown></app-countdown>
+        <app-countdown [thenDate]=freeToBookAgainDate></app-countdown>
         <hr>
       </div>
     </div>

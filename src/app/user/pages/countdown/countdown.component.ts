@@ -33,24 +33,12 @@ export class CountdownComponent implements OnInit {
 
   ngOnInit(): void {
     this.createInterval();
-  }
-
-  setEndAngle(value: number) {
-    if (value == 0) {
-      this.endAngle = this.daysRadius;
-    } else if (value == 1) {
-      this.endAngle = this.hoursRadius;
-    } else if (value == 2) {
-      this.endAngle = this.minutesRadius;
-    } else if (value == 3) {
-      this.endAngle = this.secondsRadius;
-    }
+    this.countdown = setInterval(() => this.createInterval(), 1000);
   }
 
   describeArc(x: number, y: number, radius: number, startAngle: number, value: number) {
 
-    this.setEndAngle(value);
-
+    this.endAngle = value;
     let start = this.polarToCartesian(x, y, radius, this.endAngle);
     let end = this.polarToCartesian(x, y, radius, startAngle);
 
@@ -89,34 +77,32 @@ export class CountdownComponent implements OnInit {
   }
 
   createInterval() {
-    this.countdown = setInterval(() => {
-      this.then = this.thenDate;
-      this.now = moment();
-      this.duration = moment.duration(this.then.diff(this.now));
+    this.then = this.thenDate
+    // moment("2020-06-21 23:59");
+    this.now = moment();
+    this.duration = moment.duration(this.then.diff(this.now));
 
-      this.days = this.duration.days();
-      this.duration.subtract(moment.duration(this.days, 'days'));
+    this.days = this.duration.days();
+    this.duration.subtract(moment.duration(this.days, 'days'));
 
-      this.hours = this.duration.hours();
-      this.duration.subtract(moment.duration(this.hours, 'hours'));
+    this.hours = this.duration.hours();
+    this.duration.subtract(moment.duration(this.hours, 'hours'));
 
-      this.minutes = this.duration.minutes();
-      this.duration.subtract(moment.duration(this.minutes, 'minutes'));
+    this.minutes = this.duration.minutes();
+    this.duration.subtract(moment.duration(this.minutes, 'minutes'));
 
-      this.seconds = this.duration.seconds();
+    this.seconds = this.duration.seconds();
 
-      this.positiveValues();
+    this.positiveValues();
 
-      this.daysRadius = this.mapNumber(this.days, 29, 0, 0, 360);
-      this.hoursRadius = this.mapNumber(this.hours, 24, 0, 0, 360);
-      this.minutesRadius = this.mapNumber(this.minutes, 60, 0, 0, 360);
-      this.secondsRadius = this.mapNumber(this.seconds, 60, 0, 0, 360);
+    this.daysRadius = this.mapNumber(this.days, 30, 0, 0, 360);
+    this.hoursRadius = this.mapNumber(this.hours, 24, 0, 0, 360);
+    this.minutesRadius = this.mapNumber(this.minutes, 60, 0, 0, 360);
+    this.secondsRadius = this.mapNumber(this.seconds, 60, 0, 0, 360);
 
-      if (!this.days && !this.hours && !this.minutes && !this.seconds) {
-        clearInterval(this.countdown);
-      }
-
-    }, 1000);
+    if (!this.days && !this.hours && !this.minutes && !this.seconds) {
+      clearInterval(this.countdown);
+    }
   }
 
   positiveValues() {

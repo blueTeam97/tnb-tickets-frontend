@@ -11,6 +11,7 @@ import { Ticket } from 'src/app/models/Ticket';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-plays',
@@ -43,6 +44,8 @@ export class PlaysComponent implements OnInit {
   href: string;
   modalPlayLink: string = '';
 
+  freeToBookAgainDate: moment.Moment;
+
   bookResponse: BookResponse = {
     expiredTime: 0,
     allowedToBook: false
@@ -71,15 +74,30 @@ export class PlaysComponent implements OnInit {
     this.userService.getAllPlays().subscribe((res) => {
       console.log(res, res.bookedAvailablePlays);
       this.userPopulator = res;
-      if (this.userPopulator.userEdiblePlays.length == 0) {
-        this.nothingToShow = true;
-      }
-      else {
-        if (this.userPopulator.userLastBookedTicket) {
-          this.ticketDiffInDays = Math.floor(Math.abs((new Date(this.userPopulator.userLastBookedTicket.bookDate).getTime() - new Date().getTime()) / 86400000));
-        }
-      }
+
+      this.checkUserEdibleBook()
+
+      // if (this.userPopulator.userEdiblePlays.length == 0) {
+      //   this.nothingToShow = true;
+      // }
+      // else {
+      //   if (this.userPopulator.userLastBookedTicket) {
+      //     this.ticketDiffInDays = Math.floor(Math.abs((new Date(this.userPopulator.userLastBookedTicket.bookDate).getTime() - new Date().getTime()) / 86400000));
+      //   }
+      // }
     });
+  }
+
+  checkUserEdibleBook() {
+    if (this.userPopulator.userEdiblePlays.length == 0 && this.userPopulator.userLastBookedTicket) {
+      let today = moment();
+      let bookDate = moment(this.userPopulator.userLastBookedTicket.bookDate);
+      let difference = moment(bookDate).diff(today, 'days');
+      if (difference < 30) {
+        this.nothingToShow = true;
+        this.freeToBookAgainDate = moment(bookDate).add(30, 'd');
+      }
+    }
   }
 
   // getAllPlays(){

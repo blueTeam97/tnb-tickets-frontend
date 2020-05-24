@@ -30,6 +30,12 @@ export class PlaysComponent implements OnInit {
   ticketDiffInDays:number;
   nothingToShow:boolean=false;
   bookedAvailablePlays:Play[]=[];
+  customDate = {
+    day: '',
+    year: '',
+    dayNumber: '',
+    month: '',
+  }
 
   elementType: 'url' | 'canvas' | 'img' = 'url';
   value: string;
@@ -58,7 +64,7 @@ export class PlaysComponent implements OnInit {
   comparePlayAvailableDateToUserTicket(playIsAvailableDateString:string):boolean{
       if(!this.userPopulator.userLastBookedTicket)
         return true;
-      let diffInDays=Math.floor(Math.abs((new Date(this.userPopulator.userLastBookedTicket.bookDate).getTime()- new Date(playIsAvailableDateString).getTime())/86400000));
+      let diffInDays=Math.floor(Math.abs((new Date(this.userPopulator.userLastBookedTicket.bookDate).getTime()- new Date().getTime())/86400000));
       return diffInDays>=30;
   }
   getAllPlays() {
@@ -120,7 +126,18 @@ export class PlaysComponent implements OnInit {
   openModal(content,play:Play) {
     let qrContent = play.playName + '\n' + play.playDate + '\n' + play.link;
     this.value = qrContent;
+    this.modalPlayLink = play.link;
     this.display = true;
     this.modalService.open(content, { size: 'sm' });
+  }
+
+  test(playDate:string) {
+    let dateArray = playDate.split(',');
+    this.customDate.day = dateArray[0];
+    let date = dateArray[1];
+    let splitDate = date.split(" ");
+    this.customDate.year = dateArray[2];
+    this.customDate.dayNumber = splitDate[2];
+    this.customDate.month = splitDate[1]; 
   }
 }

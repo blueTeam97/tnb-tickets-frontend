@@ -99,6 +99,9 @@
             }
             &.qr-btn{
                 background-color:$burlyWood;
+                &:focus{
+                    box-shadow:0 0 0 0.2rem $ghostWhite !important;
+                } 
             }
         }    
     }
@@ -118,6 +121,58 @@
 
  body{
     background-color: #fbfbfb;
+}
+
+.play-horizontal-card{
+    //box-shadow: 0 0 8px rgba(0,0,0,.2);
+    //background-color: #e9d9d979;
+    border-radius:5px;
+    margin:10px 0;
+    overflow-wrap: break-word;
+    width: 100%;
+    .qr-btn{
+        background-color:$burlyWood;
+        border:none;
+        &:focus{
+            box-shadow:0 0 0 0.2rem $ghostWhite !important;
+        }
+        &:active{
+            background-color:$burlyWood !important;
+        }
+    }
+}
+
+.dayNumber{
+    font-size: 100px;
+    font-family: 'Cormorant Garamond', serif;
+    color: #d1cece;
+    font-weight: bold;
+}
+
+.month{
+    margin-bottom: 1px;
+    font-size: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    //font-weight: bold;
+}
+
+.day{
+    font-size: 22px;
+    font-family: 'Cormorant Garamond', serif;
+    //font-weight: bold;
+}
+
+.playName{
+    font-size: 45px;
+    font-family: 'Cormorant Garamond', serif;
+    //font-weight: bold;
+    margin-bottom: 0;
+}
+
+.playDate{
+    font-size: 32px;
+    font-family: 'Cormorant Garamond', serif;
+    //font-weight: bold;
 }
 
 @include media-breakpoint-down(lg) { 

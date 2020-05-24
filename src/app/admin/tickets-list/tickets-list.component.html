@@ -45,45 +45,47 @@
       </div>
     </div>
     <hr>
-      <div class="search-play d-flex row form-inline py-3 mt-4 mb-3">
-          <span class=" mr-4">Search:</span>
-          <input class="form-control flex-grow-1 search-text " type="text" [formControl]="filter" />
-      </div>
-      <div>
-          <div class="d-flex row">
-              <div>
-                  <div class="index-col index-header">No.</div>
-              </div>
-              <div class="d-flex flex-grow-1 justify-content-around standard-table p-2 mb-4">
-                  <div class="col-xl-4 col-md-6">Email</div>
-                  <div class="col d-none d-xl-inline-flex">Status</div>
-                  <div class="col d-none d-xl-inline-flex">Book Date</div>
-                  <div class="col d-none d-xl-inline-flex">Pickup Date</div>
-                  <div class="col d-none d-xl-inline-flex">Options</div>
-              </div>
-          </div>
-          <div>
-              <div class="d-flex row" *ngFor="let ticket of filteredTickets$ | async; index as i">
-                  <div>
-                      <div class="index-col index-rows">{{ i + 1 }}.</div>
-                  </div>
-                  <div class="d-flex flex-grow-1 tkt-row shadow  p-2 mb-4">
-                      <div class="col-xl-4 col-md-6  date-col ticket__email" [title]="ticket.userEmail">
-                          <ngb-highlight [result]="ticket.userEmail" [term]=filter.value>{{ ticket.userEmail}}</ngb-highlight>
-                      </div>
-                      <div class="col d-none d-xl-inline-flex  date-col">
-                          <ngb-highlight [result]="ticket.status" [term]=filter.value>{{ ticket.status }}
-                          </ngb-highlight>
-                      </div>
-                      <div class="col d-none d-xl-inline-flex  date-col" [title]="ticket.bookDate">{{ ticket.bookDate | date: 'MMM-d-yyyy HH:mm'}}</div>
-                      <div class="col d-none d-xl-inline-flex  date-col">{{ ticket.pickUpDate | date: 'MMM-d-yyyy HH:mm'}}</div>
-                      <div class="col d-none d-xl-inline-flex  date-col" *ngIf="!ticket.pickUpDate">
-                          <button type="button" (click)="pickUp(ticket)" class="btn btn-info">PickUp</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+    <div class="search-play d-flex row form-inline py-3">
+
+        <span class=" mr-4">Search:</span>
+        <input class="form-control flex-grow-1 search-text" type="text" [formControl]="filter" />
+    </div>
+    <div>
+        <div class="d-flex row">
+            <div>
+                <div class="index-col index-header">No.</div>
+            </div>
+            <div class="d-flex flex-grow-1 justify-content-around standard-table p-2 mb-4">
+                <div scope="col-xl-4 col-md-6">Email</div>
+                <div scope="col-xl-4 col-md-6">Status</div>
+                <div scope="col-xl-4 col-md-6">Book Date</div>
+                <div scope="col-xl-4 col-md-6">Pickup Date</div>
+                <div scope="col-xl-4 col-md-6">Options</div>
+            </div>
+        </div>
+        <div>
+            <div class="d-flex row" *ngFor="let ticket of filteredTickets$ | async; index as i">
+                <div>
+                    <div class="index-col index-rows">{{ i + 1 }}.</div>
+                </div>
+                <div class="d-flex flex-grow-1 tkt-row shadow  p-2 mb-4">
+                    <div class="col-xl-2  date-col ticket__email" [title]="ticket.userEmail">
+                        <ngb-highlight [result]="ticket.userEmail" [term]=filter.value>{{ ticket.userEmail}}</ngb-highlight>
+                    </div>
+                    <div class="col-xl-2  date-col">
+                        <ngb-highlight [result]="ticket.status" [term]=filter.value>{{ ticket.status }}
+                        </ngb-highlight>
+                    </div>
+
+                    <div class="col-xl-2  date-col" [title]="ticket.bookDate">{{ ticket.bookDate | date: 'MMM-d-yyyy HH:mm'}}</div>
+                    <div class="col-xl-2  date-col">{{ ticket.pickUpDate | date: 'MMM-d-yyyy HH:mm'}}</div>
+                    <div *ngIf="!ticket.pickUpDate">
+                        <button class="col-xl-2  date-col" type="button" (click)="pickUp(ticket)" class="btn btn-info">PickUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </div>
   

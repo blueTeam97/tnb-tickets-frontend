@@ -8,7 +8,7 @@
 a.nav-link {
     color: white;
     margin: auto 0;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     font-family: "Kaushan Script", cursive;
     &:hover {
         border: none;
@@ -19,7 +19,7 @@ a.nav-link {
     }
 }
 
-.nav-pills .show>.nav-link {
+.nav-pills .show > .nav-link {
     background-color: lighten($blueSapphire, 5%);
 }
 
@@ -41,20 +41,20 @@ a.nav-link {
     justify-content: flex-end;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     width: 100%;
 }
 
-.logo{
-  padding-bottom:1.5px;
-  display: flex;
-  justify-content: center;
+.logo {
+    padding-bottom: 1.5px;
+    display: flex;
+    justify-content: center;
 }
 
-.logo-image{
-  align-items: center; 
+.logo-image {
+    align-items: center;
 }
 
-.logo-text{
-  align-items: center; 
+.logo-text {
+    align-items: center;
 }

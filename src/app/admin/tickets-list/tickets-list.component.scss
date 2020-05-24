@@ -2,12 +2,12 @@
 @import "~bootstrap/scss/_functions";
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/mixins";
-
 .table,
 .form-group {
     width: 750px;
     margin: auto;
 }
+
 .standard-table,
 .index-header {
     background-color: $blueSapphire;
@@ -15,50 +15,48 @@
 }
 
 .tkt-row,
-.index-rows{
+.index-rows {
     background-color: #f5f5f5;
- }
+}
 
 .tkt-row:hover {
     background-color: #e0e0e0;
 }
 
- .standard-table,
- .index-header {
-    font: 20px 'Kaushan Script'; 
- }
+.standard-table,
+.index-header {
+    font: 20px 'Kaushan Script';
+}
 
- .search-play {
-    font: 25px 'Kaushan Script'; 
- }
- 
- .search-text {
+.search-play {
+    font: 25px 'Kaushan Script';
+}
+
+.search-text {
     font: 20px 'Crimson Text', serif;
     color: black;
     max-width: 300px;
-    
- }
+}
 
- .play-bkg {
-     background-color:	#fbfbfb;
-     height: 100vh;
-     padding-top: 0.5rem;
-     //background-image: url('../../../../assets/img/curtain1.jpg'),url('../../../../assets/img/curtain2.jpg');
-     background-position: left top, right top;
-     background-repeat: no-repeat;
-     background-size: 15% , 15%;
-     background-color: #fbfbfb;
- }
- 
-
- .tkt-row, 
- .date-col {
-    //font: 20px 'Cookie', cursive;
-    font: 18px 'Roboto', sans-serif;
- }
+.play-bkg {
+    background-color: #fbfbfb;
+    height: 100vh;
+    padding-top: 0.5rem;
+    //background-image: url('../../../../assets/img/curtain1.jpg'),url('../../../../assets/img/curtain2.jpg');
+    background-position: left top, right top;
+    background-repeat: no-repeat;
+    background-size: 15%, 15%;
+    background-color: #fbfbfb;
+}
 
 .tkt-row,
-.standard-table{
+.date-col {
+    //font: 20px 'Cookie', cursive;
+    font: 18px 'Roboto', sans-serif;
+}
+
+.tkt-row,
+.standard-table {
     // width: 90%;
     border-radius: 40px;
     margin-bottom: 15px;
@@ -71,18 +69,19 @@
     font: 18px 'Sofia', cursive;
     font-weight: bold;
 }
-.index-col{
+
+.index-col {
     text-align: center;
     vertical-align: middle;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     padding: 10px;
-    box-shadow: 0 .5rem 0.6rem rgba(0,0,0,.15)!important;
-}   
+    box-shadow: 0 .5rem 0.6rem rgba(0, 0, 0, .15)!important;
+}
 
 .shadow {
-    box-shadow: 0 .5rem 0.6rem rgba(0,0,0,.15)!important;
+    box-shadow: 0 .5rem 0.6rem rgba(0, 0, 0, .15)!important;
 }
 
 .ticket__play-name,
@@ -92,12 +91,12 @@
     overflow: hidden;
 }
 
-@include media-breakpoint-down(lg) { 
+@include media-breakpoint-down(lg) {
     .play-bkg {
         background-image: none;
-      }
+    }
 }
- 
+
 //  img {
 //      width: 180px;
 //      height: auto;
@@ -106,3 +105,9 @@
 //  .table {
 //     position: relative;
 //  }
+.ticket__email,
+.date-wrap {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

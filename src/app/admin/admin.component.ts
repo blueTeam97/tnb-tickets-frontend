@@ -31,7 +31,6 @@ export class AdminComponent implements OnInit {
     this.getPlays();
   }
 
-
   filterSearch() {
     this.filter = new FormControl('');
     this.filter$ = this.filter.valueChanges.pipe(startWith(''));

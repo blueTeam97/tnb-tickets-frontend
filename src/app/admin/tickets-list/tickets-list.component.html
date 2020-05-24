@@ -1,6 +1,6 @@
-<div class="d-flex justify-content-around">
+<!-- <div class="d-flex justify-content-around">
     <div>
-      <img src="assets/img/curtain1.jpg" class="fluid w-75" alt="curtain1" />
+        <img src="assets/img/curtain1.jpg" class="fluid w-75" alt="curtain1" />
     </div>
 
     <table class="table table-striped">
@@ -16,43 +16,89 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td>{{ play.playName }}</td>
-            <td>{{ play.playDate }}</td>
-            <td>{{ play.availableDate }}</td>
-            <td>{{ play.registeredDate }}</td>
-            <td>{{ play.link }}</td>
-            <td>{{ play.ticketsNumber }}</td> 
-          </tr>
+            <tr>
+                <td>{{ play.playName }}</td>
+                <td>{{ play.playDate }}</td>
+                <td>{{ play.availableDate }}</td>
+                <td>{{ play.registeredDate }}</td>
+                <td>{{ play.link }}</td>
+                <td>{{ play.ticketsNumber }}</td>
+            </tr>
         </tbody>
-     
-      <thead class="standard-table">
-        <tr>
-          <th scope="col">No.</th>
-          <th scope="col">Email</th>
-          <th scope="col">Status</th>
-          <th scope="col">Book Date</th>
-          <th scope="col">Pickup Date</th>
-          <th scope="col">Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ticket of tickets; index as i">
-          <th scope="row">{{i+1}}</th>
-          <td>{{ ticket.userEmail }}</td>
-          <td>{{ ticket.status }}</td>
-          <td>{{ ticket.bookDate }}</td>
-          <td>{{ ticket.pickUpDate }}</td>
-          <td>
-            <div *ngIf="!ticket.pickUpDate">
-            <button type="button" (click)="pickUp(ticket)" class="btn btn-info">PickUp</button>
-          </div>
-         </td>
-      </tr>
-      </tbody>
+
+        <thead class="standard-table">
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Email</th>
+                <th scope="col">Status</th>
+                <th scope="col">Book Date</th>
+                <th scope="col">Pickup Date</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ticket of tickets; index as i">
+                <th scope="row">{{i+1}}</th>
+                <td>{{ ticket.userEmail }}</td>
+                <td>{{ ticket.status }}</td>
+                <td>{{ ticket.bookDate }}</td>
+                <td>{{ ticket.pickUpDate }}</td>
+                <td>
+                    <div *ngIf="!ticket.pickUpDate">
+                        <button type="button" (click)="pickUp(ticket)" class="btn btn-info">PickUp</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
     </table>
     <div>
-      <img src="assets/img/curtain2.jpg" class="fluid w-75" alt="curtain2" />
+        <img src="assets/img/curtain2.jpg" class="fluid w-75" alt="curtain2" />
     </div>
-  </div>
-  
+</div> -->
+
+
+<div class="play-bkg">
+    <div class="container">
+        <div class="search-play d-flex row form-inline py-3">
+
+            <span class=" mr-4">Search:</span>
+            <input class="form-control flex-grow-1 search-text" type="text" [formControl]="filter" />
+        </div>
+        <div>
+            <div class="d-flex row">
+                <div>
+                    <div class="index-col index-header">No.</div>
+                </div>
+                <div class="d-flex flex-grow-1 justify-content-around standard-table p-2 mb-4">
+                    <div scope="col-xl-4 col-md-6">Email</div>
+                    <div scope="col-xl-4 col-md-6">Status</div>
+                    <div scope="col-xl-4 col-md-6">Book Date</div>
+                    <div scope="col-xl-4 col-md-6">Pickup Date</div>
+                    <div scope="col-xl-4 col-md-6">Options</div>
+                </div>
+            </div>
+            <div>
+                <div class="d-flex row" *ngFor="let ticket of filteredTickets$ | async; index as i">
+                    <div>
+                        <div class="index-col index-rows">{{ i + 1 }}.</div>
+                    </div>
+                    <div class="d-flex flex-grow-1 tkt-row shadow  p-2 mb-4">
+                        <div class="col-xl-2  date-col ticket__email" [title]="ticket.userEmail">
+                            <ngb-highlight [result]="ticket.userEmail" [term]=filter.value>{{ ticket.userEmail}}</ngb-highlight>
+                        </div>
+                        <div class="col-xl-2  date-col">
+                            <ngb-highlight [result]="ticket.status" [term]=filter.value>{{ ticket.status }}
+                            </ngb-highlight>
+                        </div>
+
+                        <div class="col-xl-2  date-col" [title]="ticket.bookDate">{{ ticket.bookDate | date: 'MMM-d-yyyy HH:mm'}}</div>
+                        <div class="col-xl-2  date-col">{{ ticket.pickUpDate | date: 'MMM-d-yyyy HH:mm'}}</div>
+                        <div *ngIf="!ticket.pickUpDate">
+                            <button class="col-xl-2  date-col" type="button" (click)="pickUp(ticket)" class="btn btn-info">PickUp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

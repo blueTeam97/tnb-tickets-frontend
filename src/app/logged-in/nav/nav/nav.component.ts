@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBellSlash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav',
@@ -19,6 +21,8 @@ export class NavComponent implements OnInit {
   roles = [];
 
   faSignOutAlt = faSignOutAlt;
+  faBell=faBell;
+  faBellSlash=faBellSlash;
   
   constructor(private router:Router,
               private tokenStorage:TokenStorageService,

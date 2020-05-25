@@ -1,4 +1,4 @@
-<div class="mt-5 plays__background">
+<div class="mt-5">
   <div class="container">
     <div *ngIf="nothingToShow" class="row">
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -16,10 +16,10 @@
           <img class="img-fluid" src={{play.imageUrl}} alt="">
         </div>
         <div class="col-xs-12 col-md-4 col-lg-4 d-flex">
-          <div class="col-6 align-self-center">
+          <div class="col-6 align-self-center d-flex">
             <div>
               <span>{{test(play.playDate | date:'EEEE, MMMM dd, y')}}</span>
-              <span class="dayNumber">{{customDate.dayNumber}}</span>
+              <span class="dayNumber mr-auto p-2">{{customDate.dayNumber}}</span>
             </div>
           </div>
           <div class="col-6 align-self-center">

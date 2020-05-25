@@ -2,63 +2,46 @@
 @import "~bootstrap/scss/_functions";
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/mixins";
-
 .table,
 .form-group {
     width: 750px;
     margin: auto;
 }
+ 
 .standard-table,
 .index-header {
     background-color: $blueSapphire;
     color: $white;
 }
-
-.tkt-row,
-.index-rows{
-    background-color: #f5f5f5;
- }
-
-.tkt-row:hover {
-    background-color: #e0e0e0;
-}
-
- .standard-table,
- .index-header {
-    font: 20px 'Kaushan Script'; 
- }
-
- .search-play {
-    font: 25px 'Kaushan Script'; 
- }
  
- .search-text {
+.tkt-row,
+.index-rows {
+    background-color: #f5f5f5;
+}
+ 
+.standard-table,
+.index-header {
+    font: 20px 'Kaushan Script';
+}
+ 
+.search-play {
+    font: 25px 'Kaushan Script';
+}
+ 
+.search-text {
     font: 20px 'Crimson Text', serif;
     color: black;
     max-width: 300px;
-    
- }
-
- .play-bkg {
-     background-color:	#fbfbfb;
-     height: 100vh;
-     padding-top: 0.5rem;
-     //background-image: url('../../../../assets/img/curtain1.jpg'),url('../../../../assets/img/curtain2.jpg');
-     background-position: left top, right top;
-     background-repeat: no-repeat;
-     background-size: 15% , 15%;
-     background-color: #fbfbfb;
- }
+}
  
-
- .tkt-row, 
- .date-col {
+.tkt-row,
+.date-col {
     //font: 20px 'Cookie', cursive;
     font: 18px 'Roboto', sans-serif;
- }
-
+}
+ 
 .tkt-row,
-.standard-table{
+.standard-table {
     // width: 90%;
     border-radius: 40px;
     margin-bottom: 15px;
@@ -66,43 +49,113 @@
     height: 60px;
     text-align: center;
 }
-
+ 
 .index-rows {
     font: 18px 'Sofia', cursive;
     font-weight: bold;
 }
-.index-col{
+ 
+.index-col {
     text-align: center;
     vertical-align: middle;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     padding: 10px;
-    box-shadow: 0 .5rem 0.6rem rgba(0,0,0,.15)!important;
-}   
-
-.shadow {
-    box-shadow: 0 .5rem 0.6rem rgba(0,0,0,.15)!important;
+    box-shadow: 0 .5rem 0.6rem rgba(0, 0, 0, .15)!important;
 }
-
+ 
+.shadow {
+    box-shadow: 0 .5rem 0.6rem rgba(0, 0, 0, .15)!important;
+}
+ 
 .ticket__play-name,
 .date-wrap {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
-
-@include media-breakpoint-down(lg) { 
+ 
+@include media-breakpoint-down(lg) {
     .play-bkg {
         background-image: none;
-      }
+    }
 }
  
-//  img {
-//      width: 180px;
-//      height: auto;
-//      position: fixed;
-//  }
-//  .table {
-//     position: relative;
-//  }
+.ticket__email,
+.date-wrap {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+ 
+.btn-info {
+    background-color: $burlyWood;
+    color: white;
+    border: none;
+    outline: none;
+    &:focus {
+        box-shadow: 0 0 0 0.2rem $ghostWhite !important;
+    }
+    &:active {
+        background-color: $burlyWood !important;
+    }
+}
+
+.play-horizontal-card{
+    //box-shadow: 0 0 8px rgba(0,0,0,.2);
+    //background-color: #e9d9d979;
+    border-radius:5px;
+    margin:10px 0;
+    overflow-wrap: break-word;
+    width: 100%;
+    .qr-btn{
+        background-color:$burlyWood;
+        border:none;
+        &:focus{
+            box-shadow:0 0 0 0.2rem $ghostWhite !important;
+        }
+        &:active{
+            background-color:$burlyWood !important;
+        }
+    }
+}
+
+.dayNumber{
+    font-size: 60px;
+    font-family: 'Cormorant Garamond', serif;
+    color: #d1cece;
+    font-weight: bold;
+}
+
+.month{
+    margin-bottom: 1px;
+    font-size: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    //font-weight: bold;
+}
+
+.day{
+    font-size: 22px;
+    font-family: 'Cormorant Garamond', serif;
+    //font-weight: bold;
+}
+
+.playName{
+    font-size: 45px;
+    font-family: 'Cormorant Garamond', serif;
+    //font-weight: bold;
+    margin-bottom: 0;
+}
+
+.playDate{
+    font-size: 32px;
+    font-family: 'Cormorant Garamond', serif;
+    //font-weight: bold;
+}
+
+.play-date-label{
+    margin-bottom: 0rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+}

@@ -1,5 +1,10 @@
 <div class="mt-5 plays__background">
   <div class="container">
+    <div *ngIf="nothingToShow" class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <app-countdown [then]=freeToBookAgainDate (countdownExpired)="getAllPlays()"></app-countdown>
+      </div>
+    </div>
     <div *ngIf="
     userPopulator &&
     userPopulator.bookedAvailablePlays &&
@@ -7,75 +12,56 @@
   ">
       <hr>
       <div class="row play-horizontal-card" *ngFor="let play of userPopulator.bookedAvailablePlays; index as i">
-          <div class="col-xs-12 col-md-4 col-lg-4">
-            <img class="img-fluid" src={{play.imageUrl}} alt="">
-          </div>
-          <div class="col-xs-12 col-md-4 col-lg-4 d-flex">
-             <div class="col-6 align-self-center">
-                <div>
-                  <span>{{test(play.playDate | date:'EEEE, MMMM dd, y')}}</span>
-                  <span class="dayNumber">{{customDate.dayNumber}}</span>
-                </div>
-             </div>
-              <div class="col-6 align-self-center">
-                <div>
-                  <p class="month">{{customDate.month}}</p>
-                  <p class="day">{{customDate.day}}</p>
-                </div>
-             </div>
-          </div>
-          <div class="col-xs-12 col-md-4 col-lg-4 d-flex">
-            <div class="align-self-center text-center">
-              <p class="playName">{{play.playName}}</p>
-              <p class="playDate">@ {{play.playDate | date:'shortTime'}}</p>
-              <div class="text-center">
-                <button
-                  class="btn btn-sm btn-info"
-                  (click)="unbookClickHandler(play.id)"
-                >
-                  Unbook
-                </button>
-                <button
-                  class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn"
-                  (click)="openModal(content, play)"
-                >
-                  <i class="fas fa-qrcode"></i>
-                </button>
-              </div>
+        <div class="col-xs-12 col-md-4 col-lg-4">
+          <img class="img-fluid" src={{play.imageUrl}} alt="">
+        </div>
+        <div class="col-xs-12 col-md-4 col-lg-4 d-flex">
+          <div class="col-6 align-self-center">
+            <div>
+              <span>{{test(play.playDate | date:'EEEE, MMMM dd, y')}}</span>
+              <span class="dayNumber">{{customDate.dayNumber}}</span>
             </div>
           </div>
-          <ng-template #content let-modal>
-            <div class="modal-header">
-              <h4 class="modal-title"><b>QR Code and details</b></h4>
-              <button
-                type="button"
-                class="close"
-                aria-label="Close"
-                (click)="modal.dismiss('Cross click')"
-              >
-                <span aria-hidden="true">&times;</span>
+          <div class="col-6 align-self-center">
+            <div>
+              <p class="month">{{customDate.month}}</p>
+              <p class="day">{{customDate.day}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-4 col-lg-4 d-flex">
+          <div class="align-self-center text-center">
+            <p class="playName">{{play.playName}}</p>
+            <p class="playDate">@ {{play.playDate | date:'shortTime'}}</p>
+            <div class="text-center">
+              <button class="btn btn-sm btn-info" (click)="unbookClickHandler(play.id)">
+                Unbook
+              </button>
+              <button class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn" (click)="openModal(content, play)">
+                <i class="fas fa-qrcode"></i>
               </button>
             </div>
-            <div class="modal-body text-center">
-              <a [href]="modalPlayLink">{{ play.playName }} @TNB</a>
-              <qrcode
-                *ngIf="value"
-                [qrdata]="value"
-                [width]="256"
-                [errorCorrectionLevel]="'M'"
-                [elementType]="'svg'"
-              >
-              </qrcode>
-            </div>
-          </ng-template>
+          </div>
+        </div>
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title"><b>QR Code and details</b></h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <a [href]="modalPlayLink">{{ play.playName }} @TNB</a>
+            <qrcode *ngIf="value" [qrdata]="value" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'svg'">
+            </qrcode>
+          </div>
+        </ng-template>
       </div>
       <hr>
     </div>
     <div *ngIf="userPopulator && userPopulator.userEdiblePlays" class="row">
-      <div
-        class="col-sm-12 col-md-4 col-lg-4 col-xl-3 d-flex align-items-stretch justify-content-around"
-        *ngFor="let play of userPopulator.userEdiblePlays; index as i"
-      >
+      <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 d-flex align-items-stretch justify-content-around"
+        *ngFor="let play of userPopulator.userEdiblePlays; index as i">
         <div class="play-card flex-column d-flex">
           <div class="card-header">
             <div class="img-holder">
@@ -98,28 +84,27 @@
               <h6><b>Name:</b> {{ play.playName }}</h6>
               <p><b>Play date:</b> {{ play.playDate | date:'MMM d, y, HH:mm'}}</p>
               <p><b>Tickets:</b> {{ play.availableTicketsNumber }}</p>
+              <p>
+                <ngb-progressbar class="progress-bar-display"
+                  [value]="((play.ticketsNumber-play.availableTicketsNumber)/play.ticketsNumber)*100" height="10px">
+                </ngb-progressbar>
+              </p>
             </div>
             <div class="text-center">
-              <button
-                *ngIf="
+              <button *ngIf="
                   comparePlayDateToCurrentDate(play.playDate) &&
                   playIsAvailableToBook(play.availableDate) &&
                   comparePlayAvailableDateToUserTicket(play.availableDate)
-                "
-                class="btn btn-sm btn-info"
-                (click)="bookClickHandler(play.id)"
-              >
+                " class="btn btn-sm btn-info" (click)="bookClickHandler(play.id)">
                 Book
               </button>
               <div *ngIf="!playIsAvailableToBook(play.availableDate)">
                 <p>Not available yet</p>
               </div>
-              <div
-                *ngIf="
+              <div *ngIf="
                   !comparePlayAvailableDateToUserTicket(play.availableDate) &&
                   playIsAvailableToBook(play.availableDate)
-                "
-              >
+                ">
                 <div>
                   You booked a ticket
                   <div *ngIf="ticketDiffInDays == 0">less than a day</div>
@@ -129,10 +114,7 @@
                   ago
                 </div>
               </div>
-              <button
-                class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn"
-                (click)="openModal(content, play)"
-              >
+              <button class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn" (click)="openModal(content, play)">
                 <i class="fas fa-qrcode"></i>
               </button>
             </div>
@@ -142,24 +124,13 @@
           <ng-template #content let-modal>
             <div class="modal-header">
               <h4 class="modal-title"><b>QR Code and details</b></h4>
-              <button
-                type="button"
-                class="close"
-                aria-label="Close"
-                (click)="modal.dismiss('Cross click')"
-              >
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body text-center">
               <a [href]="modalPlayLink">{{ play.playName }} @TNB</a>
-              <qrcode
-                *ngIf="value"
-                [qrdata]="value"
-                [width]="256"
-                [errorCorrectionLevel]="'M'"
-                [elementType]="'svg'"
-              >
+              <qrcode *ngIf="value" [qrdata]="value" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'svg'">
               </qrcode>
             </div>
           </ng-template>

@@ -89,13 +89,16 @@ export class PlaysComponent implements OnInit {
   }
 
   checkUserEdibleBook() {
-    if (this.userPopulator.userEdiblePlays.length == 0 && this.userPopulator.userLastBookedTicket) {
+    if (this.userPopulator.userLastBookedTicket) {
       let today = moment();
       let bookDate = moment(this.userPopulator.userLastBookedTicket.bookDate);
-      let difference = moment(bookDate).diff(today, 'days');
+      let difference = moment(today).diff(bookDate, 'days');
       if (difference < 30) {
         this.nothingToShow = true;
         this.freeToBookAgainDate = moment(bookDate).add(30, 'd');
+      }
+      else {
+        this.nothingToShow = false;
       }
     }
   }

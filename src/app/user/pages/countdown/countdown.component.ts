@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import * as moment from 'moment';
 import { MergeMapSubscriber } from 'rxjs/internal/operators/mergeMap';
 import { map } from 'rxjs/operators';
@@ -14,8 +14,9 @@ import { ThrowStmt } from '@angular/compiler';
 
 export class CountdownComponent implements OnInit {
 
-  @Input() thenDate: moment.Moment;
-  then: moment.Moment;
+
+  @Output() countdownExpired: EventEmitter<any> = new EventEmitter();
+  @Input() then: moment.Moment;
   now: moment.Moment;
   duration: moment.Duration;
   days: number;
@@ -35,6 +36,12 @@ export class CountdownComponent implements OnInit {
     this.createInterval();
     this.countdown = setInterval(() => this.createInterval(), 1000);
   }
+
+  // ngDoCheck(): void {
+  //   clearInterval(this.countdown);
+  //   this.createInterval();
+  //   this.countdown = setInterval(() => this.createInterval(), 1000);
+  // }
 
   describeArc(x: number, y: number, radius: number, startAngle: number, value: number) {
 
@@ -77,7 +84,7 @@ export class CountdownComponent implements OnInit {
   }
 
   createInterval() {
-    this.then = this.thenDate
+
     // moment("2020-06-21 23:59");
     this.now = moment();
     this.duration = moment.duration(this.then.diff(this.now));
@@ -91,33 +98,20 @@ export class CountdownComponent implements OnInit {
     this.minutes = this.duration.minutes();
     this.duration.subtract(moment.duration(this.minutes, 'minutes'));
 
-    this.seconds = this.duration.seconds();
+    if (this.duration.seconds() >= 0) {
+      this.seconds = this.duration.seconds();
+    }
 
-    this.positiveValues();
+    if (this.duration.seconds() < 0) {
+      clearInterval(this.countdown);
+      this.countdownExpired.emit();
+    }
 
     this.daysRadius = this.mapNumber(this.days, 30, 0, 0, 360);
     this.hoursRadius = this.mapNumber(this.hours, 24, 0, 0, 360);
     this.minutesRadius = this.mapNumber(this.minutes, 60, 0, 0, 360);
     this.secondsRadius = this.mapNumber(this.seconds, 60, 0, 0, 360);
 
-    if (!this.days && !this.hours && !this.minutes && !this.seconds) {
-      clearInterval(this.countdown);
-    }
-  }
-
-  positiveValues() {
-    if (this.days < 0) {
-      this.days = this.days * -1;
-    }
-    if (this.hours < 0) {
-      this.hours = this.hours * -1;
-    }
-    if (this.minutes < 0) {
-      this.minutes = this.minutes * -1;
-    }
-    if (this.seconds < 0) {
-      this.seconds = this.seconds * -1;
-    }
   }
 
   ngOnDestroy() {

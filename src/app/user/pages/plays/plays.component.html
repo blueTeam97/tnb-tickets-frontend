@@ -2,8 +2,7 @@
   <div class="container">
     <div *ngIf="nothingToShow" class="row">
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <app-countdown [thenDate]=freeToBookAgainDate></app-countdown>
-        <hr>
+        <app-countdown [then]=freeToBookAgainDate (countdownExpired)="getAllPlays()"></app-countdown>
       </div>
     </div>
     <div *ngIf="
@@ -85,6 +84,11 @@
               <h6><b>Name:</b> {{ play.playName }}</h6>
               <p><b>Play date:</b> {{ play.playDate | date:'MMM d, y, HH:mm'}}</p>
               <p><b>Tickets:</b> {{ play.availableTicketsNumber }}</p>
+              <p>
+                <ngb-progressbar class="progress-bar-display"
+                  [value]="((play.ticketsNumber-play.availableTicketsNumber)/play.ticketsNumber)*100" height="10px">
+                </ngb-progressbar>
+              </p>
             </div>
             <div class="text-center">
               <button *ngIf="

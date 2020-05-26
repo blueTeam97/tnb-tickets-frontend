@@ -147,11 +147,13 @@
     }
 }
 
-.dayNumber{
+.day-number{
     font-size: 100px;
     font-family: 'Cormorant Garamond', serif;
     color: #d1cece;
     font-weight: bold;
+    position: relative;
+    top: -16px;
 }
 
 .month{
@@ -167,14 +169,14 @@
     //font-weight: bold;
 }
 
-.playName{
+.play-name{
     font-size: 45px;
     font-family: 'Cormorant Garamond', serif;
     //font-weight: bold;
     margin-bottom: 0;
 }
 
-.playDate{
+.play-date{
     font-size: 32px;
     font-family: 'Cormorant Garamond', serif;
     //font-weight: bold;

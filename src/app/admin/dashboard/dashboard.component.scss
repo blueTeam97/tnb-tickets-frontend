@@ -39,4 +39,10 @@
     color: white;
     border: none;
     outline: none;
+    &:focus {
+        box-shadow: 0 0 0 0.2rem $ghostWhite !important;
+    }
+    &:active {
+        background-color: $burlyWood !important;
+    }
 }

@@ -31,7 +31,6 @@ export class AdminComponent implements OnInit {
     this.getPlays();
   }
 
-
   filterSearch() {
     this.filter = new FormControl('');
     this.filter$ = this.filter.valueChanges.pipe(startWith(''));
@@ -46,7 +45,7 @@ export class AdminComponent implements OnInit {
   }
 
   deletePlay(id: number) {
-    this.confirmationDialogService.confirm('Please confirm..', 'Are you sure to delete this play?')
+    this.confirmationDialogService.confirm(' ', 'Are you sure you want to delete this play?')
         .then((confirmed) => {
           if(confirmed) {
             this.dataService.deletePlayRequest(id).subscribe(() => {

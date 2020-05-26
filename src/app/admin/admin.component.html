@@ -1,30 +1,32 @@
 <div class="container">
     <div>
-        <div class="search-play d-flex row form-inline py-3">
-            <span class=" mr-4">Search:</span>
-            <input class="form-control flex-grow-1 search-text" type="text" [formControl]="filter" />
-        </div>
-   
-    <div>
-        <div class="d-flex row">
+        <div class="search-play d-flex row justify-content-between form-inline py-3">
             <div>
-                <div class="index-col index-header">No.</div>
+                <span class=" mr-4">Search:</span>
+                <input class="form-control flex-grow-1 search-text" type="text" [formControl]="filter" />
             </div>
-            <div class="d-flex flex-grow-1 justify-content-around standard-table p-2 mb-4">
-                <div scope="col-xl-4 col-md-6">Play Title</div>
-                <div scope="col-xl-4 col-md-6">Free Tickets</div>
-                <div scope="col-xl-4 col-md-6">Booked Tickets</div>
-                <div scope="col-xl-4 col-md-6">Picked-Up Tickets</div>
-                <div scope="col-xl-4 col-md-6">Options</div>
-            </div>
+            <button class="btn btn-lg btn-warning" (click)="openAddPlayModal()">Add play</button>
         </div>
-        <div>
-            <div app-dashboard *ngFor="let play of filteredPlays$ | async; let i = index" [play]=play [i] = i
-                [filterValue]=filter.value (deleteEvent)="deletePlay($event)" (editEvent)=editPlay($event)>
-            </div>
-        </div>
-    </div>
-    <button class="btn btn-lg btn-warning" (click)="openAddPlayModal()">Add play</button>
 
-</div>
-<router-outlet> </router-outlet>
+        <div>
+            <div class="d-flex row">
+                <div>
+                    <div class="index-col index-header">No.</div>
+                </div>
+                <div class="d-flex flex-grow-1 standard-table shadow p-2 mb-4">
+                    <div class="col-xl-4 col-md-6">Play Title</div>
+                    <div class="col d-none d-xl-inline-flex">Free Tickets</div>
+                    <div class="col d-none d-xl-inline-flex">Booked Tickets</div>
+                    <div class="col d-none d-xl-inline-flex">Picked-Up Tickets</div>
+                    <div class="col-xl-4 col-md-6">Options</div>
+                </div>
+            </div>
+            <div>
+                <div app-dashboard *ngFor="let play of filteredPlays$ | async; let i = index" [play]=play [i]=i [filterValue]=filter.value (deleteEvent)="deletePlay($event)" (editEvent)=editPlay($event)>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <router-outlet> </router-outlet>

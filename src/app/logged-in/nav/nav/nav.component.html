@@ -1,4 +1,4 @@
-<div ngbNav #nav="ngbNav" [activeId]="2" class="nav-pills justify-content-end px-4 sticky-top">
+<div ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills justify-content-end px-4 sticky-top">
   <div class="d-flex flex-grow-1">
     <div class="my-auto logo">
       <img src="assets/img/mask-40.png" class="fluid logo-image" alt="mask-40">
@@ -6,23 +6,32 @@
     </div>
     <div *ngIf="roles.includes('user')" [ngbNavItem]="1" class="my-auto">
       <a [routerLink]="['/user/plays']" ngbNavLink>Plays</a>
+      <div ngbDropdown class="nav-item my-auto">
+        <a href (click)="false" class="nav-link nav-button" ngbDropdownToggle>Welcome, {{username}}</a>
+        <div ngbDropdownMenu>
+          <button *ngIf="roles.includes('user')" ngbDropdownItem
+            (click)="ChangeSubscriber()">{{subscriberCurrentState}}</button>
+          <button class="text-center" (click)="logout()" ngbDropdownItem>Logout
+            <fa-icon [icon]="faSignOutAlt"></fa-icon>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="roles.includes('user')" [ngbNavItem]="2" class="my-auto">
+        <a [routerLink]="['/user/history']" ngbNavLink>History</a>
+      </div>
+      <div *ngIf="roles.includes('admin')" [ngbNavItem]="2" class="my-auto">
+        <a [routerLink]="['/admin']" ngbNavLink>Plays</a>
+      </div>
     </div>
-    <div *ngIf="roles.includes('user')" [ngbNavItem]="2" class="my-auto">
-      <a [routerLink]="['/user/history']" ngbNavLink>History</a>
+    <div ngbDropdown class="nav-item my-auto">
+      <a href (click)="false" class="nav-link nav-button" ngbDropdownToggle>Welcome, {{username}}</a>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <button *ngIf="roles.includes('user')" ngbDropdownItem (click)="ChangeSubscriber()">{{subscriberCurrentState}}
+          <fa-icon *ngIf="subscriberCurrentState=='Subscribe'" style="float: right;" [icon]="faBell"></fa-icon>
+          <fa-icon *ngIf="subscriberCurrentState=='Unsubscribe'" style="float: right;" [icon]="faBellSlash"></fa-icon>
+        </button>
+        <button (click)="logout()" ngbDropdownItem>Logout
+          <fa-icon style="float: right;" [icon]="faSignOutAlt"></fa-icon>
+        </button>
+      </div>
     </div>
-    <div *ngIf="roles.includes('admin')" [ngbNavItem]="2" class="my-auto">
-      <a [routerLink]="['/admin']" ngbNavLink>Plays</a>
-    </div>
-  </div>
-  <div ngbDropdown class="nav-item my-auto">
-    <a href (click)="false" class="nav-link nav-button" ngbDropdownToggle>Welcome, {{username}}</a>
-    <div class="dropdown-menu" ngbDropdownMenu>
-      <button *ngIf="roles.includes('user')" ngbDropdownItem (click)="ChangeSubscriber()">{{subscriberCurrentState}}
-        <fa-icon *ngIf="subscriberCurrentState=='Subscribe'" style="float: right;" [icon]="faBell"></fa-icon>
-        <fa-icon *ngIf="subscriberCurrentState=='Unsubscribe'" style="float: right;" [icon]="faBellSlash"></fa-icon>
-      </button>
-      <button (click)="logout()" ngbDropdownItem>Logout
-        <fa-icon style="float: right;" [icon]="faSignOutAlt"></fa-icon>
-      </button>
-    </div>
-  </div>

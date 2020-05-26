@@ -23,7 +23,7 @@ export class AdminComponent implements OnInit {
 
   constructor(public modalService: NgbModal,
     private dataService: AdminService,
-    private confirmationDialogService : ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService
   ) { }
 
 
@@ -46,13 +46,13 @@ export class AdminComponent implements OnInit {
 
   deletePlay(id: number) {
     this.confirmationDialogService.confirm(' ', 'Are you sure you want to delete this play?')
-        .then((confirmed) => {
-          if(confirmed) {
-            this.dataService.deletePlayRequest(id).subscribe(() => {
+      .then((confirmed) => {
+        if (confirmed) {
+          this.dataService.deletePlayRequest(id).subscribe(() => {
             this.getPlays();
-            })
-          }
-        })
+          })
+        }
+      })
   }
 
   postPlay(play: Play) {
@@ -73,6 +73,12 @@ export class AdminComponent implements OnInit {
   editPlay(play: Play) {
     this.dataService.editPlayRequest(play).subscribe(() => {
       this.getPlays();
+    })
+  }
+
+  sendNotification(id: number) {
+    this.dataService.sendPlayEmailNotification(id).subscribe((res) => {
+      console.log(res);
     })
   }
 

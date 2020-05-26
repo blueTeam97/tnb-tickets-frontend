@@ -15,21 +15,22 @@ export class AdminService {
   private ADMIN_GET_PLAYS_URL = "http://localhost:8081/v1/findAll";
   private ADMIN_DELETE_EDIT_PLAY_URL = "http://localhost:8081/v1/play/";
   private ADMIN_GET_TICKETS_BY_ID_URL = "http://localhost:8081/tasks/findTicketsByPlayId/";
-  private ADMIN_GET_ALL_BOOKED_TICKETS= "http://localhost:8081/tasks/findAllBookedTicketsByPlayId/";
+  private ADMIN_GET_ALL_BOOKED_TICKETS = "http://localhost:8081/tasks/findAllBookedTicketsByPlayId/";
   private ADMIN_POST_TICKET_URL = "http://localhost:8081/tasks/updateTicket/"
+  private ADMIN_SEND_NOTIFICATION_URL = "http://localhost:8081/v1/play/"
 
 
   constructor(private httpClient: HttpClient) { }
 
 
-  public getPlayById(id : number): Observable<Play> {
+  public getPlayById(id: number): Observable<Play> {
     return this.httpClient.get<Play>(this.ADMIN_GET_PLAY_URL + id)
-                  .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   public getBookedTickets(id: number): Observable<Ticket[]> {
     return this.httpClient.get<Ticket[]>(this.ADMIN_GET_ALL_BOOKED_TICKETS + id)
-                  .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   public getPlaysRequest(): Observable<Play[]> {
@@ -57,9 +58,14 @@ export class AdminService {
       .pipe(catchError(this.handleError));
   }
 
-  public putTicketRequest(ticket : Ticket) {
+  public putTicketRequest(ticket: Ticket) {
     console.log(ticket);
     return this.httpClient.put(this.ADMIN_POST_TICKET_URL + ticket.id, ticket)
+      .pipe(catchError(this.handleError));
+  }
+
+  public sendPlayEmailNotification(id: number) {
+    return this.httpClient.get(this.ADMIN_SEND_NOTIFICATION_URL + id.toString() + '/notification')
       .pipe(catchError(this.handleError));
   }
 

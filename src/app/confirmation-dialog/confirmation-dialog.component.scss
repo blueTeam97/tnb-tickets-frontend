@@ -28,3 +28,9 @@
     .close {
         outline: none;
     }
+    
+.modal-position{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+}

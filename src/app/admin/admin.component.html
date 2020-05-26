@@ -22,7 +22,9 @@
                 </div>
             </div>
             <div>
-                <div app-dashboard *ngFor="let play of filteredPlays$ | async; let i = index" [play]=play [i]=i [filterValue]=filter.value (deleteEvent)="deletePlay($event)" (editEvent)=editPlay($event)>
+                <div app-dashboard *ngFor="let play of filteredPlays$ | async; let i = index" [play]=play [i]=i
+                    [filterValue]=filter.value (deleteEvent)="deletePlay($event)" (editEvent)=editPlay($event)
+                    (sendNotificationEvent)=sendNotification($event)>
                 </div>
             </div>
         </div>

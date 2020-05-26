@@ -9,9 +9,20 @@
         <div class="col d-none d-xl-block date-col">
             {{ (play.ticketsNumber - (play.bookedTicketsNumber + play.availableTicketsNumber)) }}</div>
         <div class="col-xl-4 col-md-6">
-            <button type="button" class="btn btn-danger" (click)="handleDeleteButton()"><fa-icon [icon]="faTrash"></fa-icon></button>
-            <button type="button" class="btn btn-success ml-3" (click)="openEditModal()"><fa-icon [icon]="faEdit"></fa-icon></button>
-            <button type="button" class="btn btn-info ml-3" (click)="handleViewTickets()"><fa-icon [icon]="faList"></fa-icon></button>
+            <button type="button" class="btn btn-danger" (click)="handleDeleteButton()">
+                <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+            <button type="button" class="btn btn-success ml-3" (click)="openEditModal()">
+                <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+            <button type="button" class="btn btn-info ml-3" (click)="handleViewTickets()">
+                <fa-icon [icon]="faList"></fa-icon>
+            </button>
+            <button [disabled]="!showSendNotification"
+                [ngStyle]="{'cursor': !showSendNotification?'not-allowed' : 'pointer'}" type="button"
+                class="btn btn-success ml-3" (click)="handleSendNotification()">
+                <fa-icon [icon]="faEnvelope"></fa-icon>
+            </button>
         </div>
     </div>
 </div>

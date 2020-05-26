@@ -2,7 +2,6 @@
 @import "~bootstrap/scss/_functions";
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/mixins";
-
 .table,
 .form-group {
     width: 750px;
@@ -19,6 +18,7 @@
 .index-rows {
     background-color: #f5f5f5;
 }
+
 .tkt-row:hover {
     background-color: #e0e0e0;
 }

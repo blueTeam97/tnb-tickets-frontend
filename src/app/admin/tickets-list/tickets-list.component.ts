@@ -9,8 +9,6 @@ import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 
-
-
 @Component({
   selector: 'app-tickets-list',
   templateUrl: './tickets-list.component.html',

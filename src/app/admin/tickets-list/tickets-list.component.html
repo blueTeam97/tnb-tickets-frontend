@@ -3,7 +3,8 @@
     <hr>
     <div *ngIf="play" class="row play-horizontal-card">
       <div class="col-xs-12 col-md-4 col-lg-4">
-        <img class="img-fluid" src={{play.imageUrl}} alt="">
+        <!-- <img class="img-fluid" src="../../../assets/img/theatre.jpg" alt=""> -->
+        <div class="img" [ngStyle]="{'background-image': 'url(' + play.imageUrl + '), url(../../../assets/img/theatre.jpg)'}"></div>
       </div>
       <div class="col-xs-12 col-md-4 col-lg-4 d-flex">
         <div class="col-4 align-self-center p-1">
@@ -52,34 +53,34 @@
     <div>
         <div class="d-flex row">
             <div>
-                <div class="index-col index-header">No.</div>
+                <div class="index-col index-header d-flex align-items-center justify-content-center">No.</div>
             </div>
-            <div class="d-flex flex-grow-1 justify-content-around standard-table p-2 mb-4">
+            <div class="d-flex flex-grow-1 justify-content-around standard-table p-2 mb-4 align-items-center">
                 <div class="col-xl-4 col-md-6">Email</div>
-                <div class="col d-none d-xl-inline-flex">Status</div>
-                <div class="col d-none d-xl-inline-flex">Book Date</div>
-                <div class="col d-none d-xl-inline-flex">Pickup Date</div>
-                <div class="col d-xl-inline-flex">Options</div>
+                <div class="col d-none d-xl-block">Status</div>
+                <div class="col d-none d-xl-block">Book Date</div>
+                <div class="col d-none d-xl-block">Pickup Date</div>
+                <div class="col d-xl-block">Options</div>
             </div>
         </div>
         <div>
             <div>
                 <div class="d-flex row" *ngFor="let ticket of filteredTickets$ | async; index as i">
                     <div>
-                        <div class="index-col index-rows">{{ i + 1 }}.</div>
+                        <div class="index-col index-rows d-flex align-items-center justify-content-center">{{ i + 1 }}.</div>
                     </div>
-                    <div class="d-flex flex-grow-1 tkt-row shadow  p-2 mb-4">
+                    <div class="d-flex flex-grow-1 tkt-row shadow  p-2 mb-4 align-items-center">
                         <div class="col-xl-4 col-md-6  date-col ticket__email" [title]="ticket.userEmail">
                             <ngb-highlight [result]="ticket.userEmail" [term]=filter.value>{{ ticket.userEmail}}</ngb-highlight>
                         </div>
-                        <div class="col d-none d-xl-inline-flex  date-col">
+                        <div class="col d-none d-xl-block  date-col">
                             <ngb-highlight [result]="ticket.status" [term]=filter.value>{{ ticket.status }}
                             </ngb-highlight>
                         </div>
-                        <div class="col d-none d-xl-inline-flex  date-col" [title]="ticket.bookDate">{{ ticket.bookDate | date: 'MMM-d-yyyy HH:mm'}}</div>
-                        <div class="col d-none d-xl-inline-flex  date-col">{{ ticket.pickUpDate | date: 'MMM-d-yyyy HH:mm'}}</div>
-                        <div class="col d-xl-inline-flex  date-col" *ngIf="!ticket.pickUpDate">
-                            <button type="button" (click)="pickUp(ticket)" class="btn btn-info">PickUp</button>
+                        <div class="col d-none d-xl-block  date-col" [title]="ticket.bookDate">{{ ticket.bookDate | date: 'MMM-d-yyyy HH:mm'}}</div>
+                        <div class="col d-none d-xl-block  date-col">{{ ticket.pickUpDate | date: 'MMM-d-yyyy HH:mm'}}</div>
+                        <div class="col d-xl-block  date-col">
+                            <button *ngIf="!ticket.pickUpDate" type="button" (click)="pickUp(ticket)" class="btn btn-info">PickUp</button>
                         </div>
                     </div>
                 </div>

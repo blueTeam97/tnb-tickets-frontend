@@ -152,13 +152,20 @@ export class PlaysComponent implements OnInit {
     this.modalService.open(content, { size: 'sm' });
   }
 
-  test(playDate: string) {
+  splitDate(playDate: string) {
     let dateArray = playDate.split(',');
-    this.customDate.day = dateArray[0];
+    const day = dateArray[0];
     let date = dateArray[1];
     let splitDate = date.split(" ");
-    this.customDate.year = dateArray[2];
-    this.customDate.dayNumber = splitDate[2];
-    this.customDate.month = splitDate[1];
+    const year = dateArray[2];
+    const dayNumber = splitDate[2];
+    const month = splitDate[1];
+
+    return { 
+      day,
+      year,
+      dayNumber,
+      month
+    }
   }
 }

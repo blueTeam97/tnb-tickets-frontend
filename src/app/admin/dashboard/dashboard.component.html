@@ -1,12 +1,12 @@
 <div class="d-flex row">
-    <div class="index-col index-rows">{{i+1}}.</div>
-    <div class="d-flex flex-grow-1 justify-content-around tkt-row shadow p-2 mb-4">
+    <div class="index-col index-rows d-flex align-items-center justify-content-center">{{i+1}}.</div>
+    <div class="d-flex flex-grow-1 justify-content-around tkt-row shadow p-2 mb-4 align-items-center">
         <div class="col-xl-4 col-md-6 text-center">
             <ngb-highlight [result]="play.playName" [term]="filterValue"></ngb-highlight>
         </div>
-        <div class="col d-none d-xl-inline-flex date-col">{{ play.availableTicketsNumber }}</div>
-        <div class="col d-none d-xl-inline-flex date-col">{{ play.bookedTicketsNumber }}</div>
-        <div class="col d-none d-xl-inline-flex date-col">
+        <div class="col d-none d-xl-block date-col">{{ play.availableTicketsNumber }}</div>
+        <div class="col d-none d-xl-block date-col">{{ play.bookedTicketsNumber }}</div>
+        <div class="col d-none d-xl-block date-col">
             {{ (play.ticketsNumber - (play.bookedTicketsNumber + play.availableTicketsNumber)) }}</div>
         <div class="col-xl-4 col-md-6">
             <button type="button" class="btn btn-danger" (click)="handleDeleteButton()"><fa-icon [icon]="faTrash"></fa-icon></button>

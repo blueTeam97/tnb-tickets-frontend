@@ -1,13 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.scss'], 
-            styles:['./']
+  styleUrls: ['./confirmation-dialog.component.scss'],
+  styles: ['./'],
+  encapsulation: ViewEncapsulation.None
 })
+
 export class ConfirmationDialogComponent implements OnInit {
 
   @Input() title: string;

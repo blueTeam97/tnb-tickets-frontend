@@ -1,15 +1,17 @@
 <div class="d-flex row">
     <div class="index-col index-rows">{{i+1}}.</div>
     <div class="d-flex flex-grow-1 justify-content-around tkt-row shadow p-2 mb-4">
-        <div class="col-xl-2  text-center">
+        <div class="col-xl-4 col-md-6 text-center">
             <ngb-highlight [result]="play.playName" [term]="filterValue"></ngb-highlight>
         </div>
-        <div class="col-xl-2  date-col">{{ play.availableTicketsNumber }}</div>
-        <div class="col-xl-2  date-col">{{ play.bookedTicketsNumber }}</div>
-        <div class="col-xl-2  date-col">
+        <div class="col d-none d-xl-inline-flex date-col">{{ play.availableTicketsNumber }}</div>
+        <div class="col d-none d-xl-inline-flex date-col">{{ play.bookedTicketsNumber }}</div>
+        <div class="col d-none d-xl-inline-flex date-col">
             {{ (play.ticketsNumber - (play.bookedTicketsNumber + play.availableTicketsNumber)) }}</div>
-        <button type="button" class="btn btn-danger" (click)="handleDeleteButton()"><fa-icon [icon]="faTrash"></fa-icon></button>
-        <button type="button" class="btn btn-success" (click)="openEditModal()"><fa-icon [icon]="faEdit"></fa-icon></button>
-        <button type="button" class="btn btn-info" (click)="handleViewTickets()"><fa-icon [icon]="faList"></fa-icon></button>
+        <div class="col-xl-4 col-md-6">
+            <button type="button" class="btn btn-danger" (click)="handleDeleteButton()"><fa-icon [icon]="faTrash"></fa-icon></button>
+            <button type="button" class="btn btn-success ml-3" (click)="openEditModal()"><fa-icon [icon]="faEdit"></fa-icon></button>
+            <button type="button" class="btn btn-info ml-3" (click)="handleViewTickets()"><fa-icon [icon]="faList"></fa-icon></button>
+        </div>
     </div>
 </div>

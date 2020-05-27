@@ -4,7 +4,9 @@
     <div *ngIf="play" class="row play-horizontal-card">
       <div class="col-xs-12 col-md-4 col-lg-4">
         <!-- <img class="img-fluid" src="../../../assets/img/theatre.jpg" alt=""> -->
-        <div class="img" [ngStyle]="{'background-image': 'url(' + play.imageUrl + '), url(../../../assets/img/theatre.jpg)'}"></div>
+        <div class="card-img__holder">
+          <div class="img" [ngStyle]="{'background-image': 'url(' + play.imageUrl + '), url(../../../assets/img/theatre.jpg)'}"></div>
+        </div>
       </div>
       <div class="col-xs-12 col-md-4 col-lg-4 d-flex">
         <div class="col-4 align-self-center p-1">

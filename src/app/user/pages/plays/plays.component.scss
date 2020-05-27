@@ -136,6 +136,9 @@
     margin:10px 0;
     overflow-wrap: break-word;
     width: 100%;
+    .card-img__container{
+        height: 360px;
+    }
     .qr-btn{
         background-color:$burlyWood;
         border:none;
@@ -192,9 +195,11 @@
 
  .img{
     height: 100%;
+    width: 80%;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center; 
+    background-size: 100% 100%;
 }
 
 //  img {

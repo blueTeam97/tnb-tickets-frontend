@@ -10,11 +10,11 @@
         <label>Email address</label>
         <input type="email" name="email" id="email" class="form-control" aria-describedby="emailHelp"
           placeholder="Enter email" formControlName="email">
-        <span class="text-danger"
+        <span class="text-danger custom-error-font"
           *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
           Email is required
         </span>
-        <span class="text-danger" *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.email">
+        <span class="text-danger custom-error-font" *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.email">
           Enter a valid email address
         </span>
       </div>
@@ -22,7 +22,7 @@
         <label>Password</label>
         <input type="password" name="password" id="password" class="form-control" aria-describedby="emailHelp"
           placeholder="Enter Password" formControlName="password">
-        <span class="text-danger"
+        <span class="text-danger custom-error-font"
           *ngIf="(registerFormControl.password.touched || submitted) && registerFormControl.password.errors?.required">
           Password is required
         </span>
@@ -31,7 +31,7 @@
         <button type="submit" [disabled]="registerForm.invalid"
           [ngStyle]="{'cursor': registerForm.invalid ? 'not-allowed' : 'pointer'}"
           class=" btn btn-block login-btn btn-primary tx-login">Login</button>
-        <span class="text-danger" *ngIf="submitted && error"> {{error}} </span>
+        <span class="text-danger custom-error-font" *ngIf="submitted && error"> {{error}} </span>
       </div>
     </form>
   </div>

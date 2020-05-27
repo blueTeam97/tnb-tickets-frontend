@@ -25,16 +25,15 @@
           </div>
           <div class="d-flex flex-grow-1 tkt-row shadow p-2 mb-4 align-items-center justify-content-center">
             <div class="col-xl-4 col-md-6 ticket__play-name text-center" [title]="ticket.playDTO.playName">
-              <ngb-highlight [result]="ticket.playDTO.playName" [term]=filter.value>{{ ticket.playDTO.playName }}
+              <ngb-highlight [result]="ticket.playDTO.playName" [term]=filter.value>
               </ngb-highlight>
             </div>
             <div class="col-xl-4 col-md-6 date-col">
-              <ngb-highlight [result]="ticket.playDTO.playDate" [term]=filter.value>
-                {{ ticket.playDTO.playDate | date: 'MMM-d-yyyy HH:mm'}}
+              <ngb-highlight [result]="ticket.playDTO.playDate | date: 'MMM-d-yyyy HH:mm'" [term]=filter.value>
               </ngb-highlight>
             </div>
             <!-- <div class="col">{{ ticket.playDTO.link }}</div> -->
-            <div class="col d-none d-xl-block date-col date-wrap" [title]="ticket.bookDate">
+            <div class="col d-none d-xl-block date-col">
               {{ ticket.bookDate | date: 'MMM-d-yyyy HH:mm'}}</div>
             <div class="col d-none d-xl-block date-col">{{ ticket.pickUpDate | date: 'MMM-d-yyyy HH:mm'}}</div>
           </div>

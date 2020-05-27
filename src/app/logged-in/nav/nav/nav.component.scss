@@ -9,7 +9,7 @@ a.nav-link {
     color: white;
     margin: auto 0;
     transition: all 0.2s ease-in-out;
-    font-family: "Kaushan Script", cursive;
+    font-family: $font-roboto;
     &:hover {
         border: none;
         background-color: lighten($blueSapphire, 5%);
@@ -30,7 +30,7 @@ a.nav-link {
 .navbar-brand {
     margin-right: 10px;
     color: white;
-    font-family: "Kaushan Script", cursive;
+    font-family: $font-roboto;
 }
 
 .navbar-brand:hover {
@@ -43,6 +43,7 @@ a.nav-link {
 
 .dropdown-menu {
     width: 100%;
+    font-family: $font-roboto;
 }
 
 .logo {

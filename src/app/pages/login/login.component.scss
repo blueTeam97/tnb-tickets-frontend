@@ -8,10 +8,12 @@
     height: 100vh;
 }
 h1 {
-    font: 40px 'Kaushan Script', cursive;
+    font-size: 38px;
+    font-family: $font-roboto;
 }
 label {
-    font: 25px 'Dancing Script', cursive;
+    font-size: 18px;
+    font-family: $font-roboto;
 }
 .myform {
     position: relative;
@@ -28,6 +30,7 @@ label {
 }
 .tx-login {
     text-transform: uppercase;
+    font-family: $font-roboto;
 }
 .login-btn {
     position: relative;
@@ -43,4 +46,10 @@ label {
 }
 form .error {
     color: $red;
+}
+
+.custom-error-font{
+    font-family: $font-roboto;
+    font-size: 13px;
+    letter-spacing: 0.5px;
 }

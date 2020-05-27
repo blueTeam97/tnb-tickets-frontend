@@ -1,4 +1,4 @@
-<div class="d-flex row">
+<div class="d-flex row custom-font">
     <div class="index-col index-rows d-flex align-items-center justify-content-center">{{i+1}}.</div>
     <div class="d-flex flex-grow-1 justify-content-around tkt-row shadow p-2 mb-4 align-items-center">
         <div class="col-xl-4 col-md-6 text-center">
@@ -9,18 +9,18 @@
         <div class="col d-none d-xl-block date-col">
             {{ (play.ticketsNumber - (play.bookedTicketsNumber + play.availableTicketsNumber)) }}</div>
         <div class="col-xl-4 col-md-6">
-            <button type="button" class="btn btn-danger" (click)="handleDeleteButton()">
+            <button type="button" class="btn btn-warning btn-design" (click)="handleDeleteButton()">
                 <fa-icon [icon]="faTrash"></fa-icon>
             </button>
-            <button type="button" class="btn btn-success ml-3" (click)="openEditModal()">
+            <button type="button" class="btn btn-success ml-3 btn-design" (click)="openEditModal()">
                 <fa-icon [icon]="faEdit"></fa-icon>
             </button>
-            <button type="button" class="btn btn-info ml-3" (click)="handleViewTickets()">
+            <button type="button" class="btn btn-info ml-3 btn-design" (click)="handleViewTickets()">
                 <fa-icon [icon]="faList"></fa-icon>
             </button>
             <button [disabled]="!showSendNotification"
                 [ngStyle]="{'cursor': !showSendNotification?'not-allowed' : 'pointer'}" type="button"
-                class="btn btn-success ml-3" (click)="handleSendNotification()">
+                class="btn btn-success ml-3 btn-design" (click)="handleSendNotification()">
                 <fa-icon [icon]="faEnvelope"></fa-icon>
             </button>
         </div>

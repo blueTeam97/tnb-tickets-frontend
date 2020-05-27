@@ -31,24 +31,24 @@
             <p class="play-name">{{play.playName}}</p>
             <p class="play-date">@ {{play.playDate | date:'shortTime'}}</p>
             <div class="text-center">
-              <button class="btn btn-sm btn-info" (click)="unbookClickHandler(play.id)">
+              <button class="btn btn-sm btn-primary" (click)="unbookClickHandler(play.id)">
                 Unbook
               </button>
-              <button class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn" (click)="openModal(content, play)">
+              <button class="btn btn-sm btn-info text-center w-25 mx-2 qr-btn text-white" (click)="openModal(content, play)">
                 <i class="fas fa-qrcode"></i>
               </button>
             </div>
           </div>
         </div>
         <ng-template #content let-modal>
-          <div class="modal-header">
+          <!-- <div class="modal-header">
             <h4 class="modal-title"><b>QR Code and details</b></h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
+          </div> -->
           <div class="modal-body text-center">
-            <a [href]="modalPlayLink">{{ play.playName }} @TNB</a>
+            <a [href]="modalPlayLink" target="_blank">{{ play.playName }} @TNB</a>
             <qrcode *ngIf="value" [qrdata]="value" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'svg'">
             </qrcode>
           </div>
@@ -86,7 +86,7 @@
                   comparePlayDateToCurrentDate(play.playDate) &&
                   playIsAvailableToBook(play.availableDate) &&
                   comparePlayAvailableDateToUserTicket(play.availableDate)
-                " class="btn btn-sm btn-info" (click)="bookClickHandler(play.id)">
+                " class="btn btn-sm btn-primary" (click)="bookClickHandler(play.id)">
                 Book
               </button>
               <div *ngIf="!playIsAvailableToBook(play.availableDate)">
@@ -113,14 +113,14 @@
         </div>
         <div class="margin-top-20">
           <ng-template #content let-modal>
-            <div class="modal-header">
-              <h4 class="modal-title"><b>QR Code and details</b></h4>
+            <!-- <div class="modal-header">
+              <h4 class="modal-title text-center"><b>QR CODE</b></h4>
               <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>
-            </div>
+            </div> -->
             <div class="modal-body text-center">
-              <a [href]="modalPlayLink">{{ play.playName }} @TNB</a>
+              <a [href]="modalPlayLink" target="_blank">{{ play.playName }} @TNB</a>
               <qrcode *ngIf="value" [qrdata]="value" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'svg'">
               </qrcode>
             </div>

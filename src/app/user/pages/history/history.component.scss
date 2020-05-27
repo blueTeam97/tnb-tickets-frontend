@@ -25,15 +25,18 @@
 
  .standard-table,
  .index-header {
-    font: 20px 'Kaushan Script'; 
+    font-size: 20px;
+    font-family: $font-roboto; 
  }
 
  .search-play {
-    font: 25px 'Kaushan Script'; 
+    font-size: 22px; 
+    font-family: $font-roboto;
  }
  
  .search-text {
-    font: 20px 'Crimson Text', serif;
+    font-size: 18px;
+    font-family: $font-roboto;
     color: black;
     max-width: 300px;
     
@@ -54,7 +57,8 @@
  .tkt-row, 
  .date-col {
     //font: 20px 'Cookie', cursive;
-    font: 18px 'Roboto', sans-serif;
+    font-size: 18px;
+    font-family: $font-roboto;
  }
 
 .tkt-row,
@@ -68,7 +72,8 @@
 }
 
 .index-rows {
-    font: 18px 'Sofia', cursive;
+    font-size: 18px;
+    font-family: $font-roboto;
     font-weight: bold;
 }
 .index-col{

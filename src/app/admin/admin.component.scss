@@ -3,15 +3,18 @@
 .index-header {
     background-color: $blueSapphire;
     color: $white;
-    font: 20px 'Kaushan Script';
+    font-size: 20px;
+    font-family: $font-roboto;
 }
 
 .search-play {
-    font: 25px 'Kaushan Script';
+    font-size: 22px;
+    font-family: $font-roboto;
 }
 
 .search-text {
-    font: 20px 'Crimson Text', serif;
+    font-size: 18px;
+    font-family: $font-roboto;
     color: black;
     max-width: 300px;
 }
@@ -26,7 +29,8 @@
 }
 
 .index-rows {
-    font: 18px 'Sofia', cursive;
+    font-size: 18px;
+    font-family: $font-roboto;
     font-weight: bold;
 }
 

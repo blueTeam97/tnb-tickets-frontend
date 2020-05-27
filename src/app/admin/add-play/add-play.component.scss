@@ -1,6 +1,12 @@
+@import '../../../styles/variables';
+
 .date {
     padding-top: 39px;
 }
 button[aria-label="Close"]:focus {
     outline: none;
+  }
+
+  .custom-font{
+    font-family: $font-roboto;
   }

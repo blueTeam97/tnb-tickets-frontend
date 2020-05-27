@@ -96,7 +96,7 @@
         .btn{
             border:none;
             &.book-btn{
-                background-color:$indigoDye;
+                background-color:$blueSapphire;
             }
             &.qr-btn{
                 background-color:$burlyWood;
@@ -202,6 +202,11 @@
     background-size: 100% 100%;
 }
 
+.modal-position{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+}
 //  img {
 //      width: 180px;
 //      height: auto;

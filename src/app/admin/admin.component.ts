@@ -85,6 +85,7 @@ export class AdminComponent implements OnInit {
     this.confirmationDialogService.confirm(' ', 'Are you sure you want to send email notifications?')
       .then((confirmed) => {
         if (confirmed) {
+          this.toastr.warning("Sending emails..");
           this.dataService.sendPlayEmailNotification(id).subscribe(() => {
             this.toastr.success("Emails were sent successfully");
           },

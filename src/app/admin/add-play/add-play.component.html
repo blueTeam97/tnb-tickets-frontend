@@ -11,7 +11,7 @@
             <input type="text" class="form-control" name="titlePlay" formControlName="titlePlay"
                 [ngClass]="{ 'is-invalid': submitted && f.titlePlay.errors }" maxlength="255">
             <div *ngIf="submitted && f.titlePlay.errors" class="invalid-feedback">
-                <div *ngIf="f.titlePlay.errors.required">Title play is required</div>
+                <div *ngIf="f.titlePlay.errors.required">Title of the play is required</div>
             </div>
         </div>
         <div class="form-group">
@@ -20,7 +20,7 @@
                 [ngClass]="{ 'is-invalid': submitted && f.linkPlay.errors }"
                 placeholder="Example: https://www.google.com" maxlength="255">
             <div *ngIf="submitted && f.linkPlay.errors" class="invalid-feedback">
-                <div *ngIf="f.linkPlay.errors.required">Link play is required</div>
+                <div *ngIf="f.linkPlay.errors.required">Link of the play is required</div>
             </div>
             <div *ngIf="submitted && f.linkPlay.errors" class="invalid-feedback">
                 <div *ngIf="f.linkPlay.errors?.invalidURL">Please enter valid URL.</div>

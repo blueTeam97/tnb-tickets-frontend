@@ -19,6 +19,7 @@ export class HistoryComponent implements OnInit {
   filter$: Observable<string>;
 
   date: string;
+  hasHistory :boolean = true;
 
   constructor(
     private userService: UserService,
@@ -26,7 +27,7 @@ export class HistoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllTicketsByUserId();
+    this.getAllTicketsByUserId(this.tokenService.getUserId());
   }
 
   filterSearch() {
@@ -39,14 +40,17 @@ export class HistoryComponent implements OnInit {
         )));
   }
 
-  getAllTicketsByUserId() {
-    this.userService.getAllTicketsByUserId(1)
+  getAllTicketsByUserId(userId:number) {
+    this.userService.getAllTicketsByUserId(userId)
       .subscribe((res) => {
         this.tickets$.next(res);
-        console.log(res);
+        if(res.length === 0){
+          this.hasHistory = false;
+        }  
+        //console.log(res.length);
       },
         (error) => {
-          console.log(error);
+          //console.log(error);
         });
     this.filterSearch();
   }

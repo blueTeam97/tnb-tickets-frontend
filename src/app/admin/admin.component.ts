@@ -7,6 +7,8 @@ import { Observable, combineLatest } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { ConfirmationDialogService } from '../services/confirmation-dialog.service';
+import { HttpResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin',
@@ -23,7 +25,8 @@ export class AdminComponent implements OnInit {
 
   constructor(public modalService: NgbModal,
     private dataService: AdminService,
-    private confirmationDialogService: ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService,
+    private toastr: ToastrService
   ) { }
 
 
@@ -53,6 +56,7 @@ export class AdminComponent implements OnInit {
           })
         }
       })
+      .catch((err) => { })
   }
 
   postPlay(play: Play) {
@@ -77,9 +81,22 @@ export class AdminComponent implements OnInit {
   }
 
   sendNotification(id: number) {
-    this.dataService.sendPlayEmailNotification(id).subscribe((res) => {
-      console.log(res);
-    })
+
+    this.confirmationDialogService.confirm(' ', 'Are you sure you want to send email notifications?')
+      .then((confirmed) => {
+        if (confirmed) {
+          this.toastr.warning("Sending emails..");
+          this.dataService.sendPlayEmailNotification(id).subscribe(() => {
+            this.toastr.success("Emails were sent successfully");
+          },
+            (error) => {
+              this.toastr.warning("Failed to send");
+            }
+          );
+        }
+      })
+      .catch((error) => { })
+
   }
 
 }

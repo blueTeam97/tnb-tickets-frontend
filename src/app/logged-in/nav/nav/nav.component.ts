@@ -21,13 +21,13 @@ export class NavComponent implements OnInit {
   roles = [];
 
   faSignOutAlt = faSignOutAlt;
-  faBell=faBell;
-  faBellSlash=faBellSlash;
-  
-  constructor(private router:Router,
-              private tokenStorage:TokenStorageService,
-              private userService:UserService,
-              private toastr: ToastrService) { 
+  faBell = faBell;
+  faBellSlash = faBellSlash;
+
+  constructor(private router: Router,
+    private tokenStorage: TokenStorageService,
+    private userService: UserService,
+    private toastr: ToastrService) {
     if (this.tokenStorage.getToken()) {
       this.email = this.tokenStorage.getUsername();
       this.roles = this.tokenStorage.getAuthorities();
@@ -39,7 +39,7 @@ export class NavComponent implements OnInit {
       timeOut: 5000,
       positionClass: 'toast-top-right',
       tapToDismiss: false,
-      disableTimeout:true
+      disableTimeout: true
     };
     if (this.subscriberCurrentState === "Subscribe") {
       this.toastr.success("You successfully unsubscribed!", "", toastOptions);
@@ -67,10 +67,10 @@ export class NavComponent implements OnInit {
     console.log("Subscribe changed");
     this.userService.changeSubscribe().subscribe((res) => {
       if (res == 0) {
-        this.subscriberCurrentState = "Unsubscribe";
+        this.subscriberCurrentState = "Subscribe";
       }
       else if (res == 1) {
-        this.subscriberCurrentState = "Subscribe";
+        this.subscriberCurrentState = "Unsubscribe";
       }
       this.toastrDisplayStatus();
     });

@@ -1,18 +1,5 @@
     @import "../../styles/variables";
     .btn-primary {
-        background-color: $indigoDye;
-        color: white;
-        border: none;
-        outline: none;
-        &:focus {
-            box-shadow: 0 0 0 0.2rem $indigoDye !important;
-        }
-        &:active {
-            background-color: $indigoDye !important;
-        }
-    }
-    
-    .btn-danger {
         background-color: $blueSapphire;
         color: white;
         border: none;
@@ -22,6 +9,23 @@
         }
         &:active {
             background-color: $blueSapphire !important;
+        }
+    }
+    
+    .btn-danger {
+        background-color: $burlyWood;
+        color: white;
+        border: none;
+        outline: none;
+        &:focus {
+            box-shadow: 0 0 0 0.2rem $burlyWood !important;
+            background-color: $burlyWood !important;
+        }
+        &:active {
+            background-color: $burlyWood !important;
+        }
+        &:hover {
+            background-color: $burlyWood !important;
         }
     }
     

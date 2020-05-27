@@ -139,7 +139,7 @@ export class PlaysComponent implements OnInit {
             else console.log("Booking cancelled!");
           });
         }
-      });
+      }).catch((error) => { });
   }
   bookTicket(playId: number) {
     return this.userService.bookTicket(playId);
@@ -149,7 +149,7 @@ export class PlaysComponent implements OnInit {
     this.value = qrContent;
     this.modalPlayLink = play.link;
     this.display = true;
-    this.modalService.open(content, { size: 'sm' });
+    this.modalService.open(content, { size: 'sm', windowClass: "modal-position" });
   }
 
   splitDate(playDate: string) {
@@ -161,7 +161,7 @@ export class PlaysComponent implements OnInit {
     const dayNumber = splitDate[2];
     const month = splitDate[1];
 
-    return { 
+    return {
       day,
       year,
       dayNumber,

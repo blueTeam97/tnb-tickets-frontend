@@ -28,6 +28,9 @@ $warning: $burlyWood;
 .toast-success{
     background-color: $indigoDye!important;
 }
+.toast-warning{
+    background-color: $frenchBistre!important;
+}
 button[aria-label="Close"]:focus {
     outline: none;
 }

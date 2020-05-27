@@ -128,22 +128,22 @@ export class AddPlayComponent implements OnInit {
     }
 
     if (this.addOrEdit) {
-      this.confirmationDialogService.confirm('Please confirm..', 'Are you sure to add this play?').then((confirmed) => {
+      this.confirmationDialogService.confirm('', 'Are you sure you want to add this play?').then((confirmed) => {
         if (confirmed) {
           this.createPlayObject();
           this.passPlayObject();
         }
       })
-        .catch(() => console.log('User dismissed the dialog'));
+        .catch((err) => { })
     }
     else {
-      this.confirmationDialogService.confirm('Please confirm..', 'Are you sure to edit this play?').then((confirmed) => {
+      this.confirmationDialogService.confirm('', 'Are you sure you want to edit this play?').then((confirmed) => {
         if (confirmed) {
           this.createPlayObject();
           this.passPlayObject();
         }
       })
-        .catch(() => console.log('User dismissed the dialog'));
+        .catch((err) => { })
     }
   }
 

@@ -13,7 +13,8 @@
       <hr>
       <div class="row play-horizontal-card" *ngFor="let play of userPopulator.bookedAvailablePlays; index as i">
         <div class="col-xs-12 col-md-4 col-lg-4 p-0">
-          <img class="img-fluid" src={{play.imageUrl}} alt="">
+          <!-- <img class="img-fluid" src={{play.imageUrl}} alt=""> -->
+          <div class="img" [ngStyle]="{'background-image': 'url(' + play.imageUrl + '), url(../../../../../../assets/img/theatre.jpg)'}"></div>
         </div>
         <div class="col-xs-12 col-md-4 col-lg-4 d-flex">
           <div class="col-6 align-self-center d-flex">
